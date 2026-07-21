@@ -50,4 +50,7 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=4s --start-period=10s --retries=3 \
   CMD node -e "fetch('http://localhost:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
-CMD ["npx", "tsx", "server/index.ts"]
+# `npm start` plutôt que `npx tsx` : npx irait chercher tsx sur le réseau à
+# chaque démarrage s'il ne le trouvait pas localement — lenteur au boot et
+# dépendance à une ressource externe. Ici tsx vient de node_modules.
+CMD ["npm", "start"]
