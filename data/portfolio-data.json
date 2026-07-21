@@ -1,21 +1,21 @@
 {
   "personal": {
-    "name": "Alex Moreau",
+    "name": "Landry Kongbo",
     "title": "Développeur Full-Stack",
-    "bio": "Je conçois des applications web durables, accessibles et rapides. Douze ans à transformer des problèmes flous en produits nets.",
+    "bio": "Je construis des applications web qui tiennent debout là où le réseau ne tient pas. Neuf ans à Bangui, à faire tourner du logiciel utile dans des conditions difficiles.",
     "photo": "",
-    "email": "alex.moreau@exemple.com",
-    "phone": "+33 6 12 34 56 78",
-    "location": "Lyon, France",
+    "email": "landry.kongbo@exemple.cf",
+    "phone": "+236 72 45 18 90",
+    "location": "Bangui, République centrafricaine",
     "resumeUrl": ""
   },
   "hero": {
-    "subtitle": "Je transforme des idées complexes en interfaces limpides. Vue, TypeScript, Node — et une obsession pour les détails qu'on ne remarque que quand ils manquent.",
+    "subtitle": "Je conçois des outils pensés pour le terrain : légers, utilisables hors ligne, et compréhensibles dès la première fois. La contrainte n'est pas un handicap, c'est ce qui force à faire simple.",
     "typedWords": [
       "Développeur Full-Stack",
-      "Architecte Front-end",
-      "Passionné de Vue.js",
-      "Amoureux du détail"
+      "Spécialiste hors-ligne",
+      "Vue.js & TypeScript",
+      "Bangui, Centrafrique"
     ],
     "ctaText": "Voir mes projets",
     "ctaLink": "#projects",
@@ -28,12 +28,12 @@
     "enabled": true,
     "title": "À propos",
     "subtitle": "Qui je suis, et comment je travaille",
-    "content": "<p>Développeur depuis douze ans, j'ai commencé par bricoler des sites en PHP dans ma chambre. Aujourd'hui je conçois des architectures front-end qui tiennent la charge et le temps.</p>\n<p>Ce qui m'intéresse n'est pas la technologie pour elle-même, mais ce qu'elle permet : une interface qui répond au doigt et à l'œil, un formulaire qu'on remplit sans réfléchir, une page qui s'affiche avant qu'on ait eu le temps de s'impatienter.</p>\n<p>Je travaille surtout avec <strong>Vue 3</strong>, <strong>TypeScript</strong> et <strong>Node.js</strong>, mais je choisis toujours l'outil en fonction du problème — jamais l'inverse.</p>",
+    "content": "<p>J'ai appris à programmer au cyber de l'avenue Boganda, en partageant une connexion avec quinze personnes. Cette contrainte a façonné toute ma façon de travailler : si une page met dix secondes à s'afficher, elle ne sert à personne.</p>\n<p>Aujourd'hui je conçois des applications pour des ONG, des coopératives et des administrations en Centrafrique. Le point commun de ces projets : ils doivent fonctionner sur un téléphone d'entrée de gamme, avec une connexion qui disparaît sans prévenir, et être pris en main par quelqu'un qui n'a jamais utilisé de logiciel métier.</p>\n<p>Je travaille surtout avec <strong>Vue 3</strong>, <strong>TypeScript</strong> et <strong>Node.js</strong>, avec une attention particulière au <strong>fonctionnement hors ligne</strong> et au poids réel des pages. Je choisis l'outil selon le problème — jamais l'inverse.</p>",
     "image": "",
     "values": [
-      "L'accessibilité n'est pas une option",
-      "Un code lisible vaut mieux qu'un code malin",
-      "La performance est une fonctionnalité",
+      "Ce qui ne marche pas hors ligne ne marche pas",
+      "Chaque kilo-octet se paie en crédit téléphonique",
+      "Un outil qu'on doit expliquer est un outil raté",
       "Livrer vaut mieux que perfectionner"
     ]
   },
@@ -43,42 +43,42 @@
     "subtitle": "",
     "items": [
       {
-        "id": "1717d43d-86c7-40b8-9542-c319fd0838e5",
+        "id": "4d79df97-8666-4a26-bdf9-f0ca557d2001",
         "order": 0,
         "enabled": true,
         "archived": false,
         "label": "Années d'expérience",
-        "value": 12,
+        "value": 9,
         "suffix": "",
         "icon": "hourglass"
       },
       {
-        "id": "7d51bf28-7b41-44af-a2bb-1810f3b44094",
+        "id": "483e8b05-8e7a-4d7d-8aea-e05b4bda43e7",
         "order": 1,
         "enabled": true,
         "archived": false,
         "label": "Projets livrés",
-        "value": 87,
+        "value": 41,
         "suffix": "",
         "icon": "rocket"
       },
       {
-        "id": "a5823b20-7459-4c3f-9bd8-f82980823ba2",
+        "id": "0f7f794f-2392-4136-8451-6a62f1ce78ca",
         "order": 2,
         "enabled": true,
         "archived": false,
-        "label": "Clients satisfaits",
-        "value": 34,
+        "label": "Organisations accompagnées",
+        "value": 18,
         "suffix": "",
         "icon": "handshake"
       },
       {
-        "id": "8e83a15c-42df-417d-b924-5451e7dbfae0",
+        "id": "54ebcc6b-215f-4499-865f-6bafa058c940",
         "order": 3,
         "enabled": true,
         "archived": false,
-        "label": "Contributions open-source",
-        "value": 210,
+        "label": "Développeurs formés",
+        "value": 60,
         "suffix": "+",
         "icon": "heart"
       }
@@ -90,7 +90,7 @@
     "subtitle": "Les outils que je maîtrise vraiment",
     "categories": [
       {
-        "id": "f2fb0d16-1b7f-4b16-8e91-6845c462be1c",
+        "id": "ea044d35-0492-4b96-9afb-80e4b051ccaa",
         "order": 0,
         "enabled": true,
         "archived": false,
@@ -98,49 +98,49 @@
         "icon": "palette",
         "skills": [
           {
-            "id": "cbd04f2f-968d-4f79-8bda-85fc8307c2a5",
+            "id": "5b659f64-4284-41af-8dd2-557dbde1de49",
             "name": "Vue.js 3",
             "level": "Expert",
-            "score": 96,
+            "score": 94,
             "icon": "",
             "order": 0
           },
           {
-            "id": "1b0327e8-73ed-4523-a4f4-dae96f4507e0",
+            "id": "20f9c730-3aec-4b0a-8e71-d8bb08a7c440",
             "name": "TypeScript",
-            "level": "Expert",
-            "score": 92,
+            "level": "Senior",
+            "score": 88,
             "icon": "",
             "order": 1
           },
           {
-            "id": "50bfbe06-e81f-4fcc-b807-900f13a5d72b",
-            "name": "React",
-            "level": "Senior",
-            "score": 82,
+            "id": "3b79df60-8313-45c2-a2bc-978b789b1983",
+            "name": "PWA & hors-ligne",
+            "level": "Expert",
+            "score": 92,
             "icon": "",
             "order": 2
           },
           {
-            "id": "9065f0ae-2999-458e-9c37-33448dc0f935",
+            "id": "a5e69bda-5d97-4720-8df6-17ea5a240efe",
             "name": "CSS / Tailwind",
-            "level": "Expert",
-            "score": 94,
+            "level": "Senior",
+            "score": 86,
             "icon": "",
             "order": 3
           },
           {
-            "id": "a62fb566-3902-405b-9bc7-1dbe8209c602",
+            "id": "1dfc2414-c65a-4f68-9f6f-321fd3820119",
             "name": "Accessibilité (WCAG)",
-            "level": "Senior",
-            "score": 85,
+            "level": "Mid",
+            "score": 70,
             "icon": "",
             "order": 4
           }
         ]
       },
       {
-        "id": "d5744bd1-725e-4684-8796-68563d780cb5",
+        "id": "6640f39a-51f7-4b5e-9713-8c2bf955cfaa",
         "order": 1,
         "enabled": true,
         "archived": false,
@@ -148,76 +148,76 @@
         "icon": "settings",
         "skills": [
           {
-            "id": "d4c01b4b-71ad-48c3-b48c-dc3364ba88b0",
+            "id": "e30365d8-7fa9-4e7b-89e4-e59307f3a3b8",
             "name": "Node.js",
-            "level": "Expert",
-            "score": 90,
+            "level": "Senior",
+            "score": 87,
             "icon": "",
             "order": 0
           },
           {
-            "id": "2d1fcfd4-1bce-4836-bf89-4c664e15db2e",
-            "name": "PostgreSQL",
+            "id": "8f3e7ba3-5571-469a-a2ec-d40d41414a79",
+            "name": "PHP / Laravel",
             "level": "Senior",
             "score": 84,
             "icon": "",
             "order": 1
           },
           {
-            "id": "bdda984d-9297-4eca-aa43-26d8723f5354",
-            "name": "SQLite",
+            "id": "161700da-37a3-47ef-8a42-2d0fa99e0a30",
+            "name": "SQLite & PostgreSQL",
             "level": "Senior",
-            "score": 88,
+            "score": 85,
             "icon": "",
             "order": 2
           },
           {
-            "id": "ba343446-6809-4dbc-9b7c-a075b561fc59",
-            "name": "API REST / GraphQL",
+            "id": "116d3fa0-3c6f-43fd-bcdd-3b5b2be7001d",
+            "name": "API REST",
             "level": "Expert",
-            "score": 91,
+            "score": 90,
             "icon": "",
             "order": 3
           }
         ]
       },
       {
-        "id": "cbdf6cbf-59ca-4777-ba39-ff70c77d7ce2",
+        "id": "94761afc-f248-4bc2-ba71-e807410739a0",
         "order": 2,
         "enabled": true,
         "archived": false,
-        "name": "Outils & DevOps",
+        "name": "Contraintes de terrain",
         "icon": "wrench",
         "skills": [
           {
-            "id": "bb836088-3411-4cf8-903e-f4c2da2d78e7",
-            "name": "Git",
+            "id": "6b3fbe27-eff7-4d32-b953-3c7ac467b42a",
+            "name": "Synchronisation différée",
             "level": "Expert",
-            "score": 95,
+            "score": 93,
             "icon": "",
             "order": 0
           },
           {
-            "id": "7fb7f707-a442-4ded-a752-8e7d6dc0a5b2",
-            "name": "Docker",
-            "level": "Senior",
-            "score": 80,
+            "id": "24f8c138-798f-40cc-9c94-243d27916cad",
+            "name": "Optimisation basse bande passante",
+            "level": "Expert",
+            "score": 91,
             "icon": "",
             "order": 1
           },
           {
-            "id": "d5022e5c-8e0a-4458-bba2-7179064c9ff3",
-            "name": "CI/CD",
+            "id": "92ed6626-6377-4f2b-ac10-120b79dac1d7",
+            "name": "Passerelles SMS / USSD",
             "level": "Senior",
             "score": 78,
             "icon": "",
             "order": 2
           },
           {
-            "id": "604ef9dc-fccd-4ce0-aa84-482593a355ed",
-            "name": "Vite / Webpack",
-            "level": "Expert",
-            "score": 89,
+            "id": "1397acf9-8fe8-48b6-9905-6b2e9e25b9cd",
+            "name": "Déploiement sur serveur local",
+            "level": "Senior",
+            "score": 80,
             "icon": "",
             "order": 3
           }
@@ -231,108 +231,109 @@
     "subtitle": "Une sélection de ce dont je suis le plus fier",
     "items": [
       {
-        "id": "fcffcbb4-0ac3-44a7-8aff-e21fc0aae508",
+        "id": "e6d8d190-d97d-435e-a409-04646a497208",
         "order": 0,
         "enabled": true,
         "archived": false,
-        "title": "Plateforme de gestion associative",
-        "description": "Application complète de gestion pour un réseau d'associations : membres, événements, comptabilité et communication.",
+        "title": "Coordination humanitaire hors ligne",
+        "description": "Outil de suivi des distributions pour un collectif d'ONG. Les équipes saisissent sur le terrain sans réseau ; les données se synchronisent au retour à Bangui.",
         "longDescription": "",
         "image": "",
         "video": "",
         "technologies": [
           "Vue 3",
           "TypeScript",
+          "IndexedDB",
           "Node.js",
           "PostgreSQL"
         ],
-        "demoUrl": "https://exemple.com",
+        "demoUrl": "",
         "repoUrl": "",
-        "startDate": "2023-01-01",
-        "endDate": "2024-06-01",
+        "startDate": "2023-02-01",
+        "endDate": "2024-08-01",
         "kind": "client",
         "tags": [
-          "web",
-          "saas"
+          "hors-ligne",
+          "humanitaire"
         ],
         "featured": true
       },
       {
-        "id": "29c583cd-ba45-49a2-a760-7208f78e897b",
+        "id": "598b80aa-9284-4971-8f68-7c59aceb26c5",
         "order": 1,
         "enabled": true,
         "archived": false,
-        "title": "Bibliothèque de composants accessibles",
-        "description": "Composants Vue conformes WCAG 2.2 AA, testés au lecteur d'écran. 4 000 téléchargements mensuels.",
+        "title": "Gestion pour coopérative agricole",
+        "description": "Suivi des livraisons et des paiements pour une coopérative caféière de la Lobaye. Interface en français et en sango, utilisable sur téléphone à petit écran.",
         "longDescription": "",
         "image": "",
         "video": "",
         "technologies": [
           "Vue 3",
-          "TypeScript",
-          "Vitest"
+          "Laravel",
+          "MySQL"
         ],
         "demoUrl": "",
-        "repoUrl": "https://github.com",
-        "startDate": "2022-05-01",
-        "endDate": "",
-        "kind": "open-source",
+        "repoUrl": "",
+        "startDate": "2022-04-01",
+        "endDate": "2023-01-01",
+        "kind": "client",
         "tags": [
-          "open-source",
-          "librairie"
+          "agriculture",
+          "mobile"
         ],
         "featured": true
       },
       {
-        "id": "bf511320-8beb-4265-89fc-1608d9f2af7a",
+        "id": "16b46bca-52f8-4437-8cf1-a436fdd4dcd2",
         "order": 2,
         "enabled": true,
         "archived": false,
-        "title": "Tableau de bord temps réel",
-        "description": "Visualisation de métriques industrielles à la seconde, sur 200 capteurs simultanés.",
+        "title": "Portail de préinscription universitaire",
+        "description": "Préinscription en ligne pour une faculté de Bangui : 4 000 dossiers traités sur la première rentrée, contre des files d'attente de plusieurs jours auparavant.",
         "longDescription": "",
         "image": "",
         "video": "",
         "technologies": [
           "Vue 3",
-          "WebSocket",
-          "D3.js",
-          "Redis"
+          "Node.js",
+          "PostgreSQL",
+          "Docker"
         ],
         "demoUrl": "",
         "repoUrl": "",
-        "startDate": "2021-09-01",
-        "endDate": "2022-04-01",
+        "startDate": "2021-05-01",
+        "endDate": "2021-11-01",
         "kind": "client",
         "tags": [
-          "web",
-          "data"
+          "éducation",
+          "web"
         ],
         "featured": false
       },
       {
-        "id": "425581b0-3bf1-40d8-9a0c-95a7148cf35c",
+        "id": "3f086620-4f4e-48f2-be09-68422454a58c",
         "order": 3,
         "enabled": true,
         "archived": false,
-        "title": "Générateur de sites statiques",
-        "description": "Outil personnel de génération de sites depuis Markdown, avec rechargement à chaud instantané.",
+        "title": "Composants légers pour connexion lente",
+        "description": "Bibliothèque Vue de composants pesant moins de 15 Ko au total, conçus pour des pages qui s'affichent en 2G. Utilisée par plusieurs équipes en Afrique centrale.",
         "longDescription": "",
         "image": "",
         "video": "",
         "technologies": [
-          "Node.js",
+          "Vue 3",
           "TypeScript",
           "Vite"
         ],
         "demoUrl": "",
         "repoUrl": "https://github.com",
-        "startDate": "2020-02-01",
-        "endDate": "2020-11-01",
-        "kind": "personnel",
+        "startDate": "2020-06-01",
+        "endDate": "",
+        "kind": "open-source",
         "tags": [
           "open-source",
-          "outil"
+          "performance"
         ],
         "featured": false
       }
@@ -344,69 +345,68 @@
     "subtitle": "Mon parcours professionnel",
     "items": [
       {
-        "id": "0b19acbf-0b90-40d9-92b6-956e4e726524",
+        "id": "cd3f1a1c-8fc1-4069-848d-cbb02d3c1220",
         "order": 0,
         "enabled": true,
         "archived": false,
-        "company": "Studio Numérique",
-        "role": "Lead Développeur Front-end",
-        "location": "Lyon",
-        "startDate": "2021-03",
+        "company": "Bêafrîka Digital",
+        "role": "Lead développeur",
+        "location": "Bangui",
+        "startDate": "2021-04",
         "endDate": "",
         "current": true,
-        "description": "Je pilote l'architecture front-end de l'agence et j'encadre une équipe de cinq développeurs.",
+        "description": "Je pilote l'architecture technique de l'agence et j'encadre une équipe de quatre développeurs.",
         "achievements": [
-          "Migration de 12 projets vers Vue 3 sans interruption de service",
-          "Temps de chargement moyen divisé par trois",
-          "Mise en place d'une bibliothèque de composants partagée"
+          "Mise en place du fonctionnement hors ligne sur six applications clientes",
+          "Poids moyen des pages réduit de 1,8 Mo à 240 Ko",
+          "Programme interne de formation : douze développeurs juniors accompagnés"
         ],
         "technologies": [
           "Vue 3",
           "TypeScript",
-          "Vite",
-          "Node.js"
-        ],
-        "logo": ""
-      },
-      {
-        "id": "a8f7d8e0-e767-4e9b-8f38-8bc5b1959c5f",
-        "order": 1,
-        "enabled": true,
-        "archived": false,
-        "company": "TechCorp",
-        "role": "Développeur Full-Stack",
-        "location": "Paris",
-        "startDate": "2017-06",
-        "endDate": "2021-02",
-        "current": false,
-        "description": "Développement d'une plateforme SaaS B2B utilisée par 40 000 utilisateurs.",
-        "achievements": [
-          "Refonte complète du parcours d'inscription (+28 % de conversion)",
-          "Réduction de 60 % du temps de build"
-        ],
-        "technologies": [
-          "Vue 2",
           "Node.js",
-          "PostgreSQL",
           "Docker"
         ],
         "logo": ""
       },
       {
-        "id": "4e70901c-e7f7-4d1b-81f7-e3cc4b040e52",
+        "id": "a422d786-1360-4852-92af-1c43fc5b0f15",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "company": "Oubangui Solutions",
+        "role": "Développeur full-stack",
+        "location": "Bangui",
+        "startDate": "2018-09",
+        "endDate": "2021-03",
+        "current": false,
+        "description": "Développement d'applications de gestion pour des ONG et des administrations centrafricaines.",
+        "achievements": [
+          "Portail de préinscription universitaire, 4 000 dossiers la première année",
+          "Migration de trois applications vers une architecture synchronisable"
+        ],
+        "technologies": [
+          "Vue 2",
+          "Laravel",
+          "MySQL"
+        ],
+        "logo": ""
+      },
+      {
+        "id": "aff39f52-fd00-472c-81df-fb88129e3df1",
         "order": 2,
         "enabled": true,
         "archived": false,
-        "company": "Freelance",
-        "role": "Développeur Web",
-        "location": "À distance",
-        "startDate": "2013-01",
-        "endDate": "2017-05",
+        "company": "Indépendant",
+        "role": "Développeur web",
+        "location": "Bangui",
+        "startDate": "2016-01",
+        "endDate": "2018-08",
         "current": false,
-        "description": "Sites vitrines, e-commerce et applications métier pour des PME et des associations.",
+        "description": "Sites vitrines et petits outils de gestion pour des commerces et associations de Bangui.",
         "achievements": [
-          "Plus de 40 projets livrés",
-          "Taux de reconduction de 80 %"
+          "Une vingtaine de projets livrés",
+          "Formation des clients à leur propre outil"
         ],
         "technologies": [
           "PHP",
@@ -423,28 +423,28 @@
     "subtitle": "",
     "items": [
       {
-        "id": "e2e73f24-be2b-404f-8763-fec978158e41",
+        "id": "72afac76-0c11-4748-8434-97e82259963b",
         "order": 0,
         "enabled": true,
         "archived": false,
-        "school": "INSA Lyon",
-        "degree": "Diplôme d'ingénieur",
+        "school": "Université de Bangui",
+        "degree": "Licence",
         "field": "Informatique",
-        "startYear": "2009",
-        "endYear": "2014",
-        "description": "Spécialisation en génie logiciel et systèmes distribués.",
+        "startYear": "2013",
+        "endYear": "2016",
+        "description": "Spécialisation en génie logiciel et bases de données.",
         "logo": ""
       },
       {
-        "id": "8a1f1b65-b3d2-4251-b706-0f77075595f1",
+        "id": "8bdfa831-6de3-4263-ad43-9abf748b0d6d",
         "order": 1,
         "enabled": true,
         "archived": false,
-        "school": "Université Lyon 1",
-        "degree": "Licence",
-        "field": "Mathématiques et Informatique",
-        "startYear": "2006",
-        "endYear": "2009",
+        "school": "Lycée Barthélemy Boganda",
+        "degree": "Baccalauréat",
+        "field": "Série C — Mathématiques et sciences physiques",
+        "startYear": "2010",
+        "endYear": "2013",
         "description": "",
         "logo": ""
       }
@@ -456,45 +456,45 @@
     "subtitle": "Ce qu'en disent celles et ceux avec qui j'ai travaillé",
     "items": [
       {
-        "id": "5c1270b1-d44b-4777-92ca-d364d735eedb",
+        "id": "2cd3d2bf-0a24-405b-ab24-04167260b25b",
         "order": 0,
         "enabled": true,
         "archived": false,
-        "name": "Camille Bernard",
-        "role": "Directrice produit",
-        "company": "TechCorp",
+        "name": "Nadège Sepou",
+        "role": "Coordinatrice programmes",
+        "company": "Collectif humanitaire Ouham",
         "photo": "",
-        "quote": "Alex a cette qualité rare : il comprend le problème métier avant d'écrire une ligne de code. Le résultat est toujours plus simple que ce qu'on avait imaginé.",
+        "quote": "Nos équipes travaillent dans des zones sans réseau. Landry est le premier à nous avoir proposé un outil qui en tient compte au lieu de nous demander de nous adapter.",
         "rating": 5
       },
       {
-        "id": "16f30725-99ff-4330-b833-063de8a4b8a7",
+        "id": "af0a258b-204b-4b0b-a12b-aebd128c9ab7",
         "order": 1,
         "enabled": true,
         "archived": false,
-        "name": "Julien Petit",
-        "role": "CTO",
-        "company": "Studio Numérique",
+        "name": "Clotaire Zoumara",
+        "role": "Directeur technique",
+        "company": "Bêafrîka Digital",
         "photo": "",
-        "quote": "La migration Vue 3 s'annonçait comme un cauchemar. Elle s'est faite en trois mois, sans une seule interruption. Du travail d'orfèvre.",
+        "quote": "Il ne livre jamais une fonctionnalité sans l'avoir testée sur un téléphone bas de gamme en 2G. Ça paraît évident, presque personne ne le fait.",
         "rating": 5
       },
       {
-        "id": "96c16790-51c1-4fc9-a427-c0d983acf330",
+        "id": "57053c2c-b98b-4709-a475-676dec245614",
         "order": 2,
         "enabled": true,
         "archived": false,
-        "name": "Sarah Lambert",
+        "name": "Prisca Ndoto",
         "role": "Présidente",
-        "company": "Association Horizon",
+        "company": "Coopérative caféière de la Lobaye",
         "photo": "",
-        "quote": "Nous n'avons aucune compétence technique. Alex a construit un outil que nos bénévoles utilisent sans jamais nous appeler à l'aide. C'est la meilleure preuve.",
+        "quote": "Nos membres ne sont pas informaticiens. Ils utilisent l'application depuis deux ans sans jamais nous appeler à l'aide. C'est la meilleure preuve.",
         "rating": 5
       }
     ]
   },
   "articles": {
-    "enabled": true,
+    "enabled": false,
     "title": "Articles",
     "subtitle": "",
     "items": []
@@ -505,49 +505,49 @@
     "subtitle": "Les étapes qui comptent",
     "items": [
       {
-        "id": "ee1088a8-2ad0-4731-9f2c-c957bb70851c",
+        "id": "8f0c7925-6004-4fc7-bebe-3467b8281ca3",
         "order": 0,
         "enabled": true,
         "archived": false,
-        "date": "2013",
-        "title": "Premiers pas en freelance",
-        "description": "Premier client, premier vrai cahier des charges.",
+        "date": "2016",
+        "title": "Premiers clients à Bangui",
+        "description": "Licence en poche, premiers sites pour des commerces du centre-ville.",
         "icon": ""
       },
       {
-        "id": "5c491542-befd-42e0-a883-fbd694886b13",
+        "id": "3f808fa9-027a-4839-98bd-130b3b0ea43b",
         "order": 1,
         "enabled": true,
         "archived": false,
-        "date": "2017",
-        "title": "Entrée chez TechCorp",
-        "description": "Passage à l'échelle : 40 000 utilisateurs.",
+        "date": "2018",
+        "title": "Entrée chez Oubangui Solutions",
+        "description": "Passage aux projets institutionnels et humanitaires.",
         "icon": ""
       },
       {
-        "id": "2eef0246-cfe1-4674-a34b-d825f59019a5",
+        "id": "40e1e770-8bd7-4188-8e9a-de016296982f",
         "order": 2,
         "enabled": true,
         "archived": false,
         "date": "2021",
         "title": "Lead développeur",
-        "description": "Encadrement d'équipe et responsabilité d'architecture.",
+        "description": "Responsabilité d'architecture et encadrement d'équipe.",
         "icon": ""
       },
       {
-        "id": "7fd73b5c-7e35-4b4a-93bb-e492d0859747",
+        "id": "95167101-3971-4715-9987-5e8df6b8dbec",
         "order": 3,
         "enabled": true,
         "archived": false,
         "date": "2024",
-        "title": "Bibliothèque open-source",
-        "description": "4 000 téléchargements mensuels.",
+        "title": "Formation de la relève",
+        "description": "Plus de soixante développeurs formés en Afrique centrale.",
         "icon": ""
       }
     ]
   },
   "gallery": {
-    "enabled": true,
+    "enabled": false,
     "title": "Galerie",
     "subtitle": "",
     "items": []
@@ -556,14 +556,14 @@
     "enabled": true,
     "title": "Contact",
     "subtitle": "Un projet, une question, ou juste envie d'échanger ?",
-    "email": "alex.moreau@exemple.com",
-    "phone": "+33 6 12 34 56 78",
-    "address": "Lyon, France",
+    "email": "landry.kongbo@exemple.cf",
+    "phone": "+236 72 45 18 90",
+    "address": "Bangui, République centrafricaine",
     "mapEmbed": "",
     "formEnabled": true,
     "socialLinks": [
       {
-        "id": "5f6b440b-c6d8-4b12-982c-39132167b2e5",
+        "id": "4a7702bf-c044-4fa4-b176-f7b973dbfffd",
         "order": 0,
         "enabled": true,
         "archived": false,
@@ -572,7 +572,7 @@
         "icon": "github"
       },
       {
-        "id": "7e00765e-42e6-4088-bb5b-e3bdd9ac36c1",
+        "id": "3df68891-df1f-4031-8560-f02dbea9c559",
         "order": 1,
         "enabled": true,
         "archived": false,
@@ -581,19 +581,19 @@
         "icon": "briefcase"
       },
       {
-        "id": "3f660c10-3d92-4531-9329-5c7b00263e42",
+        "id": "867c13fd-66c4-455a-a692-55c4d48bac8a",
         "order": 2,
         "enabled": true,
         "archived": false,
-        "platform": "Mastodon",
-        "url": "https://mastodon.social",
+        "platform": "WhatsApp",
+        "url": "https://wa.me/23672451890",
         "icon": "message-circle"
       }
     ]
   },
   "customSections": [
     {
-      "id": "5f94a52d-5e36-4c32-83db-76de0021eacd",
+      "id": "0a5d5a48-7b8f-4fe5-aee7-2fcdce5bef39",
       "name": "Certifications",
       "slug": "certifications",
       "icon": "award",
@@ -631,32 +631,32 @@
       ],
       "items": [
         {
-          "id": "d4e7147c-f1a1-4c0b-8093-9cc406c81be2",
+          "id": "fa78d8ef-13c9-45d0-a808-e94164050cdb",
           "order": 0,
           "enabled": true,
           "archived": false,
           "data": {
-            "nom": "Certified Kubernetes Application Developer",
-            "organisme": "Cloud Native Computing Foundation",
-            "date": "2023-09-14",
-            "lien": "https://exemple.com"
+            "nom": "Développement web progressif (PWA)",
+            "organisme": "Google Africa Developer Scholarship",
+            "date": "2022-11-18",
+            "lien": ""
           },
-          "createdAt": "2026-07-21T20:28:54.472Z",
-          "updatedAt": "2026-07-21T20:28:54.473Z"
+          "createdAt": "2026-07-21T20:42:33.982Z",
+          "updatedAt": "2026-07-21T20:42:33.982Z"
         },
         {
-          "id": "617d9f3a-e81b-4738-aa1f-9a290401657f",
+          "id": "24db177c-1ad8-41dd-97b1-cdf114d58837",
           "order": 1,
           "enabled": true,
           "archived": false,
           "data": {
-            "nom": "Accessibilité numérique — RGAA",
-            "organisme": "Access42",
-            "date": "2022-04-02",
+            "nom": "Gestion de données humanitaires",
+            "organisme": "OCHA — Bureau régional Afrique centrale",
+            "date": "2023-06-05",
             "lien": ""
           },
-          "createdAt": "2026-07-21T20:28:54.473Z",
-          "updatedAt": "2026-07-21T20:28:54.473Z"
+          "createdAt": "2026-07-21T20:42:33.983Z",
+          "updatedAt": "2026-07-21T20:42:33.983Z"
         }
       ]
     }
@@ -685,11 +685,11 @@
     "animationsEnabled": true
   },
   "seo": {
-    "title": "Alex Moreau — Développeur Full-Stack",
-    "description": "Portfolio d'Alex Moreau, développeur full-stack spécialisé Vue.js et TypeScript. Douze ans d'expérience, 87 projets livrés.",
-    "keywords": "développeur, full-stack, vue.js, typescript, node.js, lyon, freelance",
+    "title": "Landry Kongbo — Développeur Full-Stack à Bangui",
+    "description": "Portfolio de Landry Kongbo, développeur full-stack basé à Bangui. Applications web hors ligne et optimisées pour les connexions lentes. Vue.js, TypeScript, Node.js.",
+    "keywords": "développeur, full-stack, bangui, centrafrique, vue.js, typescript, node.js, hors-ligne, pwa",
     "ogImage": "",
-    "author": "Alex Moreau",
+    "author": "Landry Kongbo",
     "siteUrl": ""
   },
   "analytics": {
@@ -706,6 +706,6 @@
   "branding": {
     "logo": "",
     "favicon": "",
-    "footerText": "Construit avec soin, pour durer."
+    "footerText": "Construit à Bangui, avec soin et pour durer."
   }
 }
