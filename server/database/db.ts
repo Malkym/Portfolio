@@ -18,8 +18,41 @@ import { dirname, resolve } from 'node:path'
  */
 
 const DB_PATH = resolve(process.env.DATABASE_PATH || './data/portfolio.db')
+const DB_DIR = dirname(DB_PATH)
 
-if (!existsSync(dirname(DB_PATH))) mkdirSync(dirname(DB_PATH), { recursive: true })
+/**
+ * Création du dossier de données.
+ *
+ * En cas d'échec, on remplace la trace Node brute (« EACCES: permission denied,
+ * mkdir … ») par un diagnostic exploitable : c'est presque toujours un
+ * `DATABASE_PATH` qui ne pointe pas dans le volume monté, ou un volume dont
+ * les droits n'appartiennent pas à l'utilisateur du conteneur. Sans ce
+ * message, l'erreur coûte un cycle de déploiement à comprendre.
+ */
+if (!existsSync(DB_DIR)) {
+  try {
+    mkdirSync(DB_DIR, { recursive: true })
+  } catch (error) {
+    const reason = (error as NodeJS.ErrnoException).code ?? 'inconnu'
+    console.error(
+      [
+        '',
+        `[db] Impossible de créer le dossier de données : ${DB_DIR}`,
+        `      Cause : ${reason}`,
+        '',
+        '      À vérifier :',
+        `        • DATABASE_PATH (${process.env.DATABASE_PATH ?? 'non défini'}) doit pointer`,
+        '          À L INTÉRIEUR du volume persistant monté.',
+        '        • Sous Docker, l application vit dans /app :',
+        '          montez le disque sur /app/data et utilisez',
+        '          DATABASE_PATH=/app/data/portfolio.db',
+        '        • Le volume doit appartenir à l utilisateur du conteneur.',
+        '',
+      ].join('\n'),
+    )
+    process.exit(1)
+  }
+}
 
 export const db = new Database(DB_PATH)
 

@@ -40,15 +40,23 @@ COPY tsconfig.json ./
 # dans un volume, pas dans la couche d'image.
 VOLUME ["/app/data"]
 
-# On n'exécute pas en root : une faille dans l'app ne donne alors pas
-# les pleins pouvoirs sur le conteneur.
+# L'application tourne en utilisateur `node` : une faille ne donne alors pas
+# les pleins pouvoirs sur le conteneur. Le passage en non-root se fait dans
+# l'entrypoint et non ici, car il faut rester root le temps de corriger les
+# droits du disque persistant, monté seulement au démarrage.
 RUN chown -R node:node /app
-USER node
+
+# `COPY` puis `chmod` séparément : l'option `--chmod` exige BuildKit et
+# échouerait sur un builder classique.
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=4s --start-period=10s --retries=3 \
-  CMD node -e "fetch('http://localhost:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+HEALTHCHECK --interval=30s --timeout=4s --start-period=20s --retries=3 \
+  CMD node -e "fetch('http://localhost:'+(process.env.PORT||3000)+'/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
 # `npm start` plutôt que `npx tsx` : npx irait chercher tsx sur le réseau à
 # chaque démarrage s'il ne le trouvait pas localement — lenteur au boot et

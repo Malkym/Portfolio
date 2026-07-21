@@ -63,7 +63,8 @@ fournir un **stockage persistant**.
 1. Poussez le dépôt sur GitHub
 2. Sur Render : **New → Web Service**, sélectionnez le dépôt.
    Le fichier `render.yaml` configure le reste automatiquement
-3. Choisissez un plan **payant** : le plan gratuit ne permet pas les disques persistants
+3. Choisissez un plan **payant** : le plan gratuit ne permet pas les disques persistants.
+   Ajoutez un disque : **Mount Path `/app/data`**, 1 Go
 4. Générez vos secrets en local :
    ```bash
    npm run hash -- "votreMotDePasseSolide"
@@ -75,6 +76,13 @@ fournir un **stockage persistant**.
    | `ADMIN_PASSWORD_HASH` | le hash produit à l'étape 4 |
    | `ADMIN_PATH` | un chemin à vous, ex. `/atelier-prive` |
    | `VITE_ADMIN_PATH` | la même valeur |
+   | `DATABASE_PATH` | `/app/data/portfolio.db` |
+
+   > **Le chemin de la base doit se trouver dans le disque monté.** Le service se
+   > construit à partir du `Dockerfile`, où l'application vit dans `/app` — d'où
+   > `/app/data`, et non un chemin `/opt/render/...` propre au runtime Node.
+   > Se tromper donne un site qui fonctionne… et perd ses données au déploiement
+   > suivant.
 
    `JWT_SECRET` et `VISITOR_SALT` sont générés par Render.
 

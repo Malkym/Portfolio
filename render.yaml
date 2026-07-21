@@ -5,31 +5,36 @@
 # dans des fichiers (base SQLite + images envoyées). Sur un hébergeur
 # serverless au système de fichiers éphémère (Vercel, Netlify Functions),
 # ces données seraient effacées à chaque déploiement.
+#
+# ATTENTION AUX CHEMINS : ce service se construit à partir du Dockerfile,
+# où l'application vit dans /app. Le disque doit donc être monté sur
+# /app/data, et DATABASE_PATH pointer dedans. Un chemin hors du volume
+# donnerait un site fonctionnel… dont les données disparaîtraient au
+# déploiement suivant.
 
 services:
   - type: web
     name: portfolio
-    runtime: node
+    runtime: docker
+    dockerfilePath: ./Dockerfile
     plan: starter # le plan gratuit ne permet pas les disques persistants
     region: frankfurt
     branch: main
 
-    buildCommand: npm ci && npm run themes && npm run build
-    startCommand: npm start
     healthCheckPath: /api/health
 
-    # Le disque doit être monté sur le dossier que le serveur écrit.
     disk:
       name: portfolio-data
-      mountPath: /opt/render/project/src/data
+      mountPath: /app/data
       sizeGB: 1
 
     envVars:
       - key: NODE_ENV
         value: production
 
+      # Doit rester à l'intérieur de `mountPath` ci-dessus.
       - key: DATABASE_PATH
-        value: /opt/render/project/src/data/portfolio.db
+        value: /app/data/portfolio.db
 
       # Générés automatiquement par Render, jamais visibles dans le dépôt.
       - key: JWT_SECRET
