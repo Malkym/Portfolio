@@ -1,7 +1,51 @@
+import { readFileSync, existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 import type { PortfolioData, CustomSection } from '../../src/shared/types/portfolio.types.js'
 import { getConfig, setConfig, createSnapshot } from '../database/db.js'
 
 const CONFIG_KEY = 'portfolio'
+
+/**
+ * Fichier de contenu versionné, chargé quand la base est vierge.
+ *
+ * C'est ce qui rend le portfolio utilisable sur un hébergeur sans stockage
+ * persistant : à chaque redémarrage la base repart de zéro, mais le contenu
+ * est aussitôt rechargé depuis ce fichier présent dans le dépôt.
+ *
+ * Sur un hébergeur avec disque, il ne sert qu'une fois — au tout premier
+ * démarrage — puis la base fait autorité.
+ */
+const CONTENT_FILE = resolve(process.env.CONTENT_FILE || './data/portfolio-data.json')
+
+/**
+ * Lit le fichier de contenu s'il existe.
+ *
+ * Accepte les deux formes rencontrées : l'objet portfolio brut (tel qu'écrit
+ * par `npm run seed`) ou l'enveloppe `{ version, portfolio }` produite par
+ * l'export de l'administration. Sans cette tolérance, un fichier exporté
+ * depuis l'admin et déposé ici serait silencieusement ignoré.
+ */
+function readContentFile(): Partial<PortfolioData> | null {
+  if (!existsSync(CONTENT_FILE)) return null
+
+  try {
+    const parsed = JSON.parse(readFileSync(CONTENT_FILE, 'utf8')) as Record<string, unknown>
+    const content = (parsed.portfolio ?? parsed) as Partial<PortfolioData>
+
+    if (!content || typeof content !== 'object' || !content.personal) {
+      console.warn(`[contenu] ${CONTENT_FILE} ignoré : structure inattendue.`)
+      return null
+    }
+
+    console.log(`[contenu] Chargé depuis ${CONTENT_FILE}`)
+    return content
+  } catch (error) {
+    // Un fichier corrompu ne doit pas empêcher le site de démarrer :
+    // on retombe sur la configuration par défaut.
+    console.error(`[contenu] ${CONTENT_FILE} illisible :`, (error as Error).message)
+    return null
+  }
+}
 
 /**
  * Structure par défaut. Elle sert à trois choses :
@@ -106,12 +150,13 @@ function deepMerge<T>(base: T, override: unknown): T {
 
 export function loadPortfolio(): PortfolioData {
   const stored = getConfig<Partial<PortfolioData> | null>(CONFIG_KEY, null)
-  if (!stored) {
-    const fresh = defaultPortfolio()
-    setConfig(CONFIG_KEY, fresh)
-    return fresh
-  }
-  return deepMerge(defaultPortfolio(), stored)
+  if (stored) return deepMerge(defaultPortfolio(), stored)
+
+  // Base vierge : on amorce depuis le fichier de contenu s'il existe,
+  // sinon depuis la configuration par défaut.
+  const fresh = deepMerge(defaultPortfolio(), readContentFile() ?? {})
+  setConfig(CONFIG_KEY, fresh)
+  return fresh
 }
 
 export function savePortfolio(data: Partial<PortfolioData>, snapshotLabel?: string): PortfolioData {

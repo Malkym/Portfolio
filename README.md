@@ -58,6 +58,32 @@ fournir un **stockage persistant**.
 > [Turso](https://turso.tech) est le chemin le plus court : c'est du SQLite accessible
 > en HTTP, le SQL reste identique, seule la couche `server/database/db.ts` change.
 
+### Mode éphémère (Render gratuit, sans disque)
+
+Le plan gratuit de Render **ne propose pas de disque persistant** et met le service en veille
+après 15 minutes d'inactivité. La base est donc recréée à chaque réveil.
+
+Le portfolio reste utilisable grâce à `data/portfolio-data.json`, **versionné dans le dépôt** :
+quand la base est vierge, le serveur la remplit à partir de ce fichier. Le site redémarre
+donc toujours avec votre contenu.
+
+**Le cycle de travail devient :**
+
+1. Modifiez vos contenus dans l'administration
+2. *Contenu → Sauvegarde → Télécharger une sauvegarde*
+3. Remplacez `data/portfolio-data.json` par le fichier téléchargé
+4. `git commit` puis `git push` — Render redéploie avec le nouveau contenu
+
+Le fichier exporté par l'administration est accepté tel quel, sans retouche.
+Un bandeau permanent rappelle ce fonctionnement dans le panneau.
+
+Activez-le avec la variable `EPHEMERAL_MODE=true`.
+
+**Ce qui n'est pas conservé dans ce mode :** les vues, les notes en étoiles, les
+commentaires et les messages de contact, ainsi que les images envoyées depuis
+l'administration — utilisez des URLs d'images externes. Si ces fonctionnalités comptent,
+il faut un disque persistant, donc un plan payant.
+
 ### Render, pas à pas
 
 1. Poussez le dépôt sur GitHub

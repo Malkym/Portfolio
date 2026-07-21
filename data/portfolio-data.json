@@ -1,0 +1,711 @@
+{
+  "personal": {
+    "name": "Alex Moreau",
+    "title": "Développeur Full-Stack",
+    "bio": "Je conçois des applications web durables, accessibles et rapides. Douze ans à transformer des problèmes flous en produits nets.",
+    "photo": "",
+    "email": "alex.moreau@exemple.com",
+    "phone": "+33 6 12 34 56 78",
+    "location": "Lyon, France",
+    "resumeUrl": ""
+  },
+  "hero": {
+    "subtitle": "Je transforme des idées complexes en interfaces limpides. Vue, TypeScript, Node — et une obsession pour les détails qu'on ne remarque que quand ils manquent.",
+    "typedWords": [
+      "Développeur Full-Stack",
+      "Architecte Front-end",
+      "Passionné de Vue.js",
+      "Amoureux du détail"
+    ],
+    "ctaText": "Voir mes projets",
+    "ctaLink": "#projects",
+    "ctaSecondaryText": "Me contacter",
+    "ctaSecondaryLink": "#contact",
+    "background": "gradient",
+    "backgroundMedia": ""
+  },
+  "about": {
+    "enabled": true,
+    "title": "À propos",
+    "subtitle": "Qui je suis, et comment je travaille",
+    "content": "<p>Développeur depuis douze ans, j'ai commencé par bricoler des sites en PHP dans ma chambre. Aujourd'hui je conçois des architectures front-end qui tiennent la charge et le temps.</p>\n<p>Ce qui m'intéresse n'est pas la technologie pour elle-même, mais ce qu'elle permet : une interface qui répond au doigt et à l'œil, un formulaire qu'on remplit sans réfléchir, une page qui s'affiche avant qu'on ait eu le temps de s'impatienter.</p>\n<p>Je travaille surtout avec <strong>Vue 3</strong>, <strong>TypeScript</strong> et <strong>Node.js</strong>, mais je choisis toujours l'outil en fonction du problème — jamais l'inverse.</p>",
+    "image": "",
+    "values": [
+      "L'accessibilité n'est pas une option",
+      "Un code lisible vaut mieux qu'un code malin",
+      "La performance est une fonctionnalité",
+      "Livrer vaut mieux que perfectionner"
+    ]
+  },
+  "stats": {
+    "enabled": true,
+    "title": "En chiffres",
+    "subtitle": "",
+    "items": [
+      {
+        "id": "1717d43d-86c7-40b8-9542-c319fd0838e5",
+        "order": 0,
+        "enabled": true,
+        "archived": false,
+        "label": "Années d'expérience",
+        "value": 12,
+        "suffix": "",
+        "icon": "hourglass"
+      },
+      {
+        "id": "7d51bf28-7b41-44af-a2bb-1810f3b44094",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "label": "Projets livrés",
+        "value": 87,
+        "suffix": "",
+        "icon": "rocket"
+      },
+      {
+        "id": "a5823b20-7459-4c3f-9bd8-f82980823ba2",
+        "order": 2,
+        "enabled": true,
+        "archived": false,
+        "label": "Clients satisfaits",
+        "value": 34,
+        "suffix": "",
+        "icon": "handshake"
+      },
+      {
+        "id": "8e83a15c-42df-417d-b924-5451e7dbfae0",
+        "order": 3,
+        "enabled": true,
+        "archived": false,
+        "label": "Contributions open-source",
+        "value": 210,
+        "suffix": "+",
+        "icon": "heart"
+      }
+    ]
+  },
+  "skills": {
+    "enabled": true,
+    "title": "Compétences",
+    "subtitle": "Les outils que je maîtrise vraiment",
+    "categories": [
+      {
+        "id": "f2fb0d16-1b7f-4b16-8e91-6845c462be1c",
+        "order": 0,
+        "enabled": true,
+        "archived": false,
+        "name": "Front-end",
+        "icon": "palette",
+        "skills": [
+          {
+            "id": "cbd04f2f-968d-4f79-8bda-85fc8307c2a5",
+            "name": "Vue.js 3",
+            "level": "Expert",
+            "score": 96,
+            "icon": "",
+            "order": 0
+          },
+          {
+            "id": "1b0327e8-73ed-4523-a4f4-dae96f4507e0",
+            "name": "TypeScript",
+            "level": "Expert",
+            "score": 92,
+            "icon": "",
+            "order": 1
+          },
+          {
+            "id": "50bfbe06-e81f-4fcc-b807-900f13a5d72b",
+            "name": "React",
+            "level": "Senior",
+            "score": 82,
+            "icon": "",
+            "order": 2
+          },
+          {
+            "id": "9065f0ae-2999-458e-9c37-33448dc0f935",
+            "name": "CSS / Tailwind",
+            "level": "Expert",
+            "score": 94,
+            "icon": "",
+            "order": 3
+          },
+          {
+            "id": "a62fb566-3902-405b-9bc7-1dbe8209c602",
+            "name": "Accessibilité (WCAG)",
+            "level": "Senior",
+            "score": 85,
+            "icon": "",
+            "order": 4
+          }
+        ]
+      },
+      {
+        "id": "d5744bd1-725e-4684-8796-68563d780cb5",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "name": "Back-end",
+        "icon": "settings",
+        "skills": [
+          {
+            "id": "d4c01b4b-71ad-48c3-b48c-dc3364ba88b0",
+            "name": "Node.js",
+            "level": "Expert",
+            "score": 90,
+            "icon": "",
+            "order": 0
+          },
+          {
+            "id": "2d1fcfd4-1bce-4836-bf89-4c664e15db2e",
+            "name": "PostgreSQL",
+            "level": "Senior",
+            "score": 84,
+            "icon": "",
+            "order": 1
+          },
+          {
+            "id": "bdda984d-9297-4eca-aa43-26d8723f5354",
+            "name": "SQLite",
+            "level": "Senior",
+            "score": 88,
+            "icon": "",
+            "order": 2
+          },
+          {
+            "id": "ba343446-6809-4dbc-9b7c-a075b561fc59",
+            "name": "API REST / GraphQL",
+            "level": "Expert",
+            "score": 91,
+            "icon": "",
+            "order": 3
+          }
+        ]
+      },
+      {
+        "id": "cbdf6cbf-59ca-4777-ba39-ff70c77d7ce2",
+        "order": 2,
+        "enabled": true,
+        "archived": false,
+        "name": "Outils & DevOps",
+        "icon": "wrench",
+        "skills": [
+          {
+            "id": "bb836088-3411-4cf8-903e-f4c2da2d78e7",
+            "name": "Git",
+            "level": "Expert",
+            "score": 95,
+            "icon": "",
+            "order": 0
+          },
+          {
+            "id": "7fb7f707-a442-4ded-a752-8e7d6dc0a5b2",
+            "name": "Docker",
+            "level": "Senior",
+            "score": 80,
+            "icon": "",
+            "order": 1
+          },
+          {
+            "id": "d5022e5c-8e0a-4458-bba2-7179064c9ff3",
+            "name": "CI/CD",
+            "level": "Senior",
+            "score": 78,
+            "icon": "",
+            "order": 2
+          },
+          {
+            "id": "604ef9dc-fccd-4ce0-aa84-482593a355ed",
+            "name": "Vite / Webpack",
+            "level": "Expert",
+            "score": 89,
+            "icon": "",
+            "order": 3
+          }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "enabled": true,
+    "title": "Projets",
+    "subtitle": "Une sélection de ce dont je suis le plus fier",
+    "items": [
+      {
+        "id": "fcffcbb4-0ac3-44a7-8aff-e21fc0aae508",
+        "order": 0,
+        "enabled": true,
+        "archived": false,
+        "title": "Plateforme de gestion associative",
+        "description": "Application complète de gestion pour un réseau d'associations : membres, événements, comptabilité et communication.",
+        "longDescription": "",
+        "image": "",
+        "video": "",
+        "technologies": [
+          "Vue 3",
+          "TypeScript",
+          "Node.js",
+          "PostgreSQL"
+        ],
+        "demoUrl": "https://exemple.com",
+        "repoUrl": "",
+        "startDate": "2023-01-01",
+        "endDate": "2024-06-01",
+        "kind": "client",
+        "tags": [
+          "web",
+          "saas"
+        ],
+        "featured": true
+      },
+      {
+        "id": "29c583cd-ba45-49a2-a760-7208f78e897b",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "title": "Bibliothèque de composants accessibles",
+        "description": "Composants Vue conformes WCAG 2.2 AA, testés au lecteur d'écran. 4 000 téléchargements mensuels.",
+        "longDescription": "",
+        "image": "",
+        "video": "",
+        "technologies": [
+          "Vue 3",
+          "TypeScript",
+          "Vitest"
+        ],
+        "demoUrl": "",
+        "repoUrl": "https://github.com",
+        "startDate": "2022-05-01",
+        "endDate": "",
+        "kind": "open-source",
+        "tags": [
+          "open-source",
+          "librairie"
+        ],
+        "featured": true
+      },
+      {
+        "id": "bf511320-8beb-4265-89fc-1608d9f2af7a",
+        "order": 2,
+        "enabled": true,
+        "archived": false,
+        "title": "Tableau de bord temps réel",
+        "description": "Visualisation de métriques industrielles à la seconde, sur 200 capteurs simultanés.",
+        "longDescription": "",
+        "image": "",
+        "video": "",
+        "technologies": [
+          "Vue 3",
+          "WebSocket",
+          "D3.js",
+          "Redis"
+        ],
+        "demoUrl": "",
+        "repoUrl": "",
+        "startDate": "2021-09-01",
+        "endDate": "2022-04-01",
+        "kind": "client",
+        "tags": [
+          "web",
+          "data"
+        ],
+        "featured": false
+      },
+      {
+        "id": "425581b0-3bf1-40d8-9a0c-95a7148cf35c",
+        "order": 3,
+        "enabled": true,
+        "archived": false,
+        "title": "Générateur de sites statiques",
+        "description": "Outil personnel de génération de sites depuis Markdown, avec rechargement à chaud instantané.",
+        "longDescription": "",
+        "image": "",
+        "video": "",
+        "technologies": [
+          "Node.js",
+          "TypeScript",
+          "Vite"
+        ],
+        "demoUrl": "",
+        "repoUrl": "https://github.com",
+        "startDate": "2020-02-01",
+        "endDate": "2020-11-01",
+        "kind": "personnel",
+        "tags": [
+          "open-source",
+          "outil"
+        ],
+        "featured": false
+      }
+    ]
+  },
+  "experience": {
+    "enabled": true,
+    "title": "Expérience",
+    "subtitle": "Mon parcours professionnel",
+    "items": [
+      {
+        "id": "0b19acbf-0b90-40d9-92b6-956e4e726524",
+        "order": 0,
+        "enabled": true,
+        "archived": false,
+        "company": "Studio Numérique",
+        "role": "Lead Développeur Front-end",
+        "location": "Lyon",
+        "startDate": "2021-03",
+        "endDate": "",
+        "current": true,
+        "description": "Je pilote l'architecture front-end de l'agence et j'encadre une équipe de cinq développeurs.",
+        "achievements": [
+          "Migration de 12 projets vers Vue 3 sans interruption de service",
+          "Temps de chargement moyen divisé par trois",
+          "Mise en place d'une bibliothèque de composants partagée"
+        ],
+        "technologies": [
+          "Vue 3",
+          "TypeScript",
+          "Vite",
+          "Node.js"
+        ],
+        "logo": ""
+      },
+      {
+        "id": "a8f7d8e0-e767-4e9b-8f38-8bc5b1959c5f",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "company": "TechCorp",
+        "role": "Développeur Full-Stack",
+        "location": "Paris",
+        "startDate": "2017-06",
+        "endDate": "2021-02",
+        "current": false,
+        "description": "Développement d'une plateforme SaaS B2B utilisée par 40 000 utilisateurs.",
+        "achievements": [
+          "Refonte complète du parcours d'inscription (+28 % de conversion)",
+          "Réduction de 60 % du temps de build"
+        ],
+        "technologies": [
+          "Vue 2",
+          "Node.js",
+          "PostgreSQL",
+          "Docker"
+        ],
+        "logo": ""
+      },
+      {
+        "id": "4e70901c-e7f7-4d1b-81f7-e3cc4b040e52",
+        "order": 2,
+        "enabled": true,
+        "archived": false,
+        "company": "Freelance",
+        "role": "Développeur Web",
+        "location": "À distance",
+        "startDate": "2013-01",
+        "endDate": "2017-05",
+        "current": false,
+        "description": "Sites vitrines, e-commerce et applications métier pour des PME et des associations.",
+        "achievements": [
+          "Plus de 40 projets livrés",
+          "Taux de reconduction de 80 %"
+        ],
+        "technologies": [
+          "PHP",
+          "JavaScript",
+          "MySQL"
+        ],
+        "logo": ""
+      }
+    ]
+  },
+  "education": {
+    "enabled": true,
+    "title": "Formation",
+    "subtitle": "",
+    "items": [
+      {
+        "id": "e2e73f24-be2b-404f-8763-fec978158e41",
+        "order": 0,
+        "enabled": true,
+        "archived": false,
+        "school": "INSA Lyon",
+        "degree": "Diplôme d'ingénieur",
+        "field": "Informatique",
+        "startYear": "2009",
+        "endYear": "2014",
+        "description": "Spécialisation en génie logiciel et systèmes distribués.",
+        "logo": ""
+      },
+      {
+        "id": "8a1f1b65-b3d2-4251-b706-0f77075595f1",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "school": "Université Lyon 1",
+        "degree": "Licence",
+        "field": "Mathématiques et Informatique",
+        "startYear": "2006",
+        "endYear": "2009",
+        "description": "",
+        "logo": ""
+      }
+    ]
+  },
+  "testimonials": {
+    "enabled": true,
+    "title": "Témoignages",
+    "subtitle": "Ce qu'en disent celles et ceux avec qui j'ai travaillé",
+    "items": [
+      {
+        "id": "5c1270b1-d44b-4777-92ca-d364d735eedb",
+        "order": 0,
+        "enabled": true,
+        "archived": false,
+        "name": "Camille Bernard",
+        "role": "Directrice produit",
+        "company": "TechCorp",
+        "photo": "",
+        "quote": "Alex a cette qualité rare : il comprend le problème métier avant d'écrire une ligne de code. Le résultat est toujours plus simple que ce qu'on avait imaginé.",
+        "rating": 5
+      },
+      {
+        "id": "16f30725-99ff-4330-b833-063de8a4b8a7",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "name": "Julien Petit",
+        "role": "CTO",
+        "company": "Studio Numérique",
+        "photo": "",
+        "quote": "La migration Vue 3 s'annonçait comme un cauchemar. Elle s'est faite en trois mois, sans une seule interruption. Du travail d'orfèvre.",
+        "rating": 5
+      },
+      {
+        "id": "96c16790-51c1-4fc9-a427-c0d983acf330",
+        "order": 2,
+        "enabled": true,
+        "archived": false,
+        "name": "Sarah Lambert",
+        "role": "Présidente",
+        "company": "Association Horizon",
+        "photo": "",
+        "quote": "Nous n'avons aucune compétence technique. Alex a construit un outil que nos bénévoles utilisent sans jamais nous appeler à l'aide. C'est la meilleure preuve.",
+        "rating": 5
+      }
+    ]
+  },
+  "articles": {
+    "enabled": true,
+    "title": "Articles",
+    "subtitle": "",
+    "items": []
+  },
+  "timeline": {
+    "enabled": true,
+    "title": "Parcours",
+    "subtitle": "Les étapes qui comptent",
+    "items": [
+      {
+        "id": "ee1088a8-2ad0-4731-9f2c-c957bb70851c",
+        "order": 0,
+        "enabled": true,
+        "archived": false,
+        "date": "2013",
+        "title": "Premiers pas en freelance",
+        "description": "Premier client, premier vrai cahier des charges.",
+        "icon": ""
+      },
+      {
+        "id": "5c491542-befd-42e0-a883-fbd694886b13",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "date": "2017",
+        "title": "Entrée chez TechCorp",
+        "description": "Passage à l'échelle : 40 000 utilisateurs.",
+        "icon": ""
+      },
+      {
+        "id": "2eef0246-cfe1-4674-a34b-d825f59019a5",
+        "order": 2,
+        "enabled": true,
+        "archived": false,
+        "date": "2021",
+        "title": "Lead développeur",
+        "description": "Encadrement d'équipe et responsabilité d'architecture.",
+        "icon": ""
+      },
+      {
+        "id": "7fd73b5c-7e35-4b4a-93bb-e492d0859747",
+        "order": 3,
+        "enabled": true,
+        "archived": false,
+        "date": "2024",
+        "title": "Bibliothèque open-source",
+        "description": "4 000 téléchargements mensuels.",
+        "icon": ""
+      }
+    ]
+  },
+  "gallery": {
+    "enabled": true,
+    "title": "Galerie",
+    "subtitle": "",
+    "items": []
+  },
+  "contact": {
+    "enabled": true,
+    "title": "Contact",
+    "subtitle": "Un projet, une question, ou juste envie d'échanger ?",
+    "email": "alex.moreau@exemple.com",
+    "phone": "+33 6 12 34 56 78",
+    "address": "Lyon, France",
+    "mapEmbed": "",
+    "formEnabled": true,
+    "socialLinks": [
+      {
+        "id": "5f6b440b-c6d8-4b12-982c-39132167b2e5",
+        "order": 0,
+        "enabled": true,
+        "archived": false,
+        "platform": "GitHub",
+        "url": "https://github.com",
+        "icon": "github"
+      },
+      {
+        "id": "7e00765e-42e6-4088-bb5b-e3bdd9ac36c1",
+        "order": 1,
+        "enabled": true,
+        "archived": false,
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com",
+        "icon": "briefcase"
+      },
+      {
+        "id": "3f660c10-3d92-4531-9329-5c7b00263e42",
+        "order": 2,
+        "enabled": true,
+        "archived": false,
+        "platform": "Mastodon",
+        "url": "https://mastodon.social",
+        "icon": "message-circle"
+      }
+    ]
+  },
+  "customSections": [
+    {
+      "id": "5f94a52d-5e36-4c32-83db-76de0021eacd",
+      "name": "Certifications",
+      "slug": "certifications",
+      "icon": "award",
+      "enabled": true,
+      "order": 0,
+      "layout": "cards",
+      "fields": [
+        {
+          "name": "nom",
+          "label": "Certification",
+          "type": "text",
+          "required": true,
+          "role": "title"
+        },
+        {
+          "name": "organisme",
+          "label": "Organisme",
+          "type": "text",
+          "required": true,
+          "role": "subtitle"
+        },
+        {
+          "name": "date",
+          "label": "Date d'obtention",
+          "type": "date",
+          "required": false
+        },
+        {
+          "name": "lien",
+          "label": "Vérifier",
+          "type": "url",
+          "required": false,
+          "role": "link"
+        }
+      ],
+      "items": [
+        {
+          "id": "d4e7147c-f1a1-4c0b-8093-9cc406c81be2",
+          "order": 0,
+          "enabled": true,
+          "archived": false,
+          "data": {
+            "nom": "Certified Kubernetes Application Developer",
+            "organisme": "Cloud Native Computing Foundation",
+            "date": "2023-09-14",
+            "lien": "https://exemple.com"
+          },
+          "createdAt": "2026-07-21T20:28:54.472Z",
+          "updatedAt": "2026-07-21T20:28:54.473Z"
+        },
+        {
+          "id": "617d9f3a-e81b-4738-aa1f-9a290401657f",
+          "order": 1,
+          "enabled": true,
+          "archived": false,
+          "data": {
+            "nom": "Accessibilité numérique — RGAA",
+            "organisme": "Access42",
+            "date": "2022-04-02",
+            "lien": ""
+          },
+          "createdAt": "2026-07-21T20:28:54.473Z",
+          "updatedAt": "2026-07-21T20:28:54.473Z"
+        }
+      ]
+    }
+  ],
+  "design": {
+    "active": "dark-matter",
+    "autoRotate": true,
+    "schedule": {
+      "1": "neon-pulse",
+      "2": "minimalist-white",
+      "3": "dark-matter",
+      "4": "glassmorphism",
+      "5": "gradient-flow",
+      "6": "retro-wave",
+      "7": "nature-organic",
+      "8": "tech-blue",
+      "9": "art-deco",
+      "10": "sakura",
+      "11": "corporate-pro",
+      "12": "futuristic"
+    },
+    "customColors": {},
+    "customTypography": {},
+    "customCss": "",
+    "animationSpeed": 1,
+    "animationsEnabled": true
+  },
+  "seo": {
+    "title": "Alex Moreau — Développeur Full-Stack",
+    "description": "Portfolio d'Alex Moreau, développeur full-stack spécialisé Vue.js et TypeScript. Douze ans d'expérience, 87 projets livrés.",
+    "keywords": "développeur, full-stack, vue.js, typescript, node.js, lyon, freelance",
+    "ogImage": "",
+    "author": "Alex Moreau",
+    "siteUrl": ""
+  },
+  "analytics": {
+    "googleAnalyticsId": "",
+    "enableTracking": false
+  },
+  "engagement": {
+    "likesEnabled": true,
+    "commentsEnabled": true,
+    "ratingsEnabled": true,
+    "commentsModerated": true,
+    "likeCountPublic": false
+  },
+  "branding": {
+    "logo": "",
+    "favicon": "",
+    "footerText": "Construit avec soin, pour durer."
+  }
+}

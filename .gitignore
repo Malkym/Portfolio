@@ -13,9 +13,10 @@ data/*.db-shm
 data/*.db-wal
 data/uploads/
 data/backups/
-# Régénérable à tout moment avec `npm run seed` — mais contiendrait vos
-# vraies coordonnées (email, téléphone) une fois personnalisé.
-data/portfolio-data.json
+# data/portfolio-data.json est VOLONTAIREMENT versionné : c'est le contenu
+# du portfolio, rechargé au démarrage quand la base est vierge. Sans lui, un
+# hébergeur sans disque persistant afficherait un site vide à chaque
+# redémarrage. Il ne contient que ce qui est déjà public sur le site.
 
 *.log
 .DS_Store

@@ -32,13 +32,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 make g+
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/data/designs ./data/designs
+
+# Contenu du portfolio, embarqué dans l'image pour que le site s'affiche
+# rempli dès le premier démarrage, même sans stockage persistant.
+#
+# Placé HORS de /app/data volontairement : si un disque est monté à cet
+# endroit, il masquerait tout fichier que l'image y aurait déposé.
+# La syntaxe `.jso[n]` rend la copie facultative — le build ne casse pas
+# quand le fichier n'existe pas.
+COPY --from=build /app/data/portfolio-data.jso[n] /app/content/
+ENV CONTENT_FILE=/app/content/portfolio-data.json
 COPY server ./server
 COPY src/shared ./src/shared
 COPY tsconfig.json ./
 
-# La base et les fichiers envoyés doivent survivre au conteneur : ils vivent
-# dans un volume, pas dans la couche d'image.
-VOLUME ["/app/data"]
+# Pas de directive VOLUME : elle créerait un volume anonyme à chaque
+# démarrage sur les hébergeurs qui n'en montent pas. Le montage est déclaré
+# explicitement par l'orchestrateur (docker-compose.yml, disque Render).
 
 # L'application tourne en utilisateur `node` : une faille ne donne alors pas
 # les pleins pouvoirs sur le conteneur. Le passage en non-root se fait dans

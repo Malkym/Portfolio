@@ -10,6 +10,7 @@ import ContentEditor from '../components/ContentEditor.vue'
 import DynamicFieldCreator from '../components/DynamicFieldCreator.vue'
 import CommentsManager from '../components/CommentsManager.vue'
 import SecurityPanel from '../components/SecurityPanel.vue'
+import EphemeralBanner from '../components/EphemeralBanner.vue'
 import { ADMIN_PATH } from '@/router'
 import type { CustomField } from '@shared/types/portfolio.types'
 
@@ -278,6 +279,8 @@ async function logout() {
 
       <!-- ---------------- Contenu ---------------- -->
       <main class="min-w-0 flex-1 p-5 lg:p-9">
+        <EphemeralBanner />
+
         <p v-if="store.loading" class="py-24 text-center text-sm text-[#5c6577]">Chargement…</p>
 
         <template v-else-if="store.data">

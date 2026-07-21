@@ -87,7 +87,12 @@ async function start() {
 
   /** Le front a besoin de connaître le chemin admin, qui est configurable. */
   app.get('/api/config', (_req, res) => {
-    res.json({ adminPath: process.env.ADMIN_PATH || '/admin-secret' })
+    res.json({
+      adminPath: process.env.ADMIN_PATH || '/admin-secret',
+      // Signalé au panneau pour qu'il avertisse : sans stockage persistant,
+      // les modifications non exportées disparaissent au redémarrage.
+      ephemeral: process.env.EPHEMERAL_MODE === 'true',
+    })
   })
 
   // Fichiers envoyés depuis l'admin.
