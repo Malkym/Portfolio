@@ -1,0 +1,53 @@
+{
+  "id": "candy-pop",
+  "name": "Candy Pop",
+  "description": "Bonbons acidulés, énergie maximale, contrastes joyeux.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#ff3d8b",
+    "secondary": "#00d2d3",
+    "tertiary": "#feca57",
+    "bg": "#fff8fc",
+    "surface": "#ffffff",
+    "surfaceAlt": "#ffeef6",
+    "text": "#2b1b2b",
+    "textMuted": "#8a6f81",
+    "border": "#ffdcea",
+    "accentGradient": "linear-gradient(135deg, #ff3d8b 0%, #feca57 50%, #00d2d3 100%)"
+  },
+  "typography": {
+    "heading": "'Fredoka', sans-serif",
+    "body": "'Quicksand', sans-serif",
+    "mono": "'Fira Code', monospace",
+    "googleFonts": [
+      "Fredoka:wght@500;700",
+      "Quicksand:wght@400;700",
+      "Fira+Code:wght@400"
+    ],
+    "headingWeight": "700",
+    "letterSpacing": "0em"
+  },
+  "radius": {
+    "sm": "999px",
+    "md": "999px",
+    "lg": "999px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(255,61,139,.2)",
+    "md": "0 8px 24px rgba(255,61,139,.2)",
+    "lg": "0 24px 60px rgba(255,61,139,.2)",
+    "glow": "0 0 30px rgba(255,61,139,.3)"
+  },
+  "motion": {
+    "duration": "520ms",
+    "ease": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    "reveal": "scale-in"
+  },
+  "effects": {
+    "backdrop": "dots",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "2px solid #ffd0e4"
+  }
+}

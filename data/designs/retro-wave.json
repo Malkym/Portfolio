@@ -1,0 +1,53 @@
+{
+  "id": "retro-wave",
+  "name": "Retro Wave",
+  "description": "Années 80 : magenta, cyan, grille à l’horizon.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#ff2e97",
+    "secondary": "#00e5ff",
+    "tertiary": "#ffb800",
+    "bg": "#180d2e",
+    "surface": "#241344",
+    "surfaceAlt": "#2e1a55",
+    "text": "#ffeaf7",
+    "textMuted": "#b394d6",
+    "border": "#4a2a80",
+    "accentGradient": "linear-gradient(180deg, #ff2e97 0%, #b026ff 50%, #00e5ff 100%)"
+  },
+  "typography": {
+    "heading": "'Press Start 2P', monospace",
+    "body": "'Rajdhani', sans-serif",
+    "mono": "'VT323', monospace",
+    "googleFonts": [
+      "Press+Start+2P",
+      "Rajdhani:wght@400;600",
+      "VT323"
+    ],
+    "headingWeight": "400",
+    "letterSpacing": "0.02em"
+  },
+  "radius": {
+    "sm": "0px",
+    "md": "0px",
+    "lg": "0px",
+    "full": "0px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(255,46,151,.28)",
+    "md": "0 8px 24px rgba(255,46,151,.28)",
+    "lg": "0 24px 60px rgba(255,46,151,.28)",
+    "glow": "0 0 26px rgba(255,46,151,.7)"
+  },
+  "motion": {
+    "duration": "180ms",
+    "ease": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "scanlines",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "2px solid #ff2e97"
+  }
+}

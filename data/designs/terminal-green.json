@@ -1,0 +1,51 @@
+{
+  "id": "terminal-green",
+  "name": "Terminal Green",
+  "description": "Phosphore vert sur noir, esthétique console.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#33ff66",
+    "secondary": "#1fa845",
+    "tertiary": "#b9ffcb",
+    "bg": "#000600",
+    "surface": "#04140a",
+    "surfaceAlt": "#082014",
+    "text": "#c8ffd8",
+    "textMuted": "#5f9c72",
+    "border": "#0f3a1e",
+    "accentGradient": "linear-gradient(135deg, #33ff66 0%, #1fa845 100%)"
+  },
+  "typography": {
+    "heading": "'JetBrains Mono', monospace",
+    "body": "'JetBrains Mono', monospace",
+    "mono": "'JetBrains Mono', monospace",
+    "googleFonts": [
+      "JetBrains+Mono:wght@400;700"
+    ],
+    "headingWeight": "700",
+    "letterSpacing": "0em"
+  },
+  "radius": {
+    "sm": "0px",
+    "md": "0px",
+    "lg": "0px",
+    "full": "0px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(51,255,102,.12)",
+    "md": "0 8px 24px rgba(51,255,102,.12)",
+    "lg": "0 24px 60px rgba(51,255,102,.12)",
+    "glow": "0 0 22px rgba(51,255,102,.45)"
+  },
+  "motion": {
+    "duration": "180ms",
+    "ease": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "scanlines",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #1a5c30"
+  }
+}

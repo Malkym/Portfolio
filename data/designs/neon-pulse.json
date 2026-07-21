@@ -1,0 +1,53 @@
+{
+  "id": "neon-pulse",
+  "name": "Neon Pulse",
+  "description": "Cyberpunk : néons saturés, dégradés fluo, fond quadrillé.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#00f0ff",
+    "secondary": "#ff00a0",
+    "tertiary": "#b026ff",
+    "bg": "#05010f",
+    "surface": "#0d0722",
+    "surfaceAlt": "#150c33",
+    "text": "#eaf6ff",
+    "textMuted": "#8b9ac4",
+    "border": "#2a1f5c",
+    "accentGradient": "linear-gradient(135deg, #00f0ff 0%, #b026ff 50%, #ff00a0 100%)"
+  },
+  "typography": {
+    "heading": "'Orbitron', sans-serif",
+    "body": "'Rajdhani', sans-serif",
+    "mono": "'JetBrains Mono', monospace",
+    "googleFonts": [
+      "Orbitron:wght@600;800",
+      "Rajdhani:wght@400;600",
+      "JetBrains+Mono:wght@400"
+    ],
+    "headingWeight": "800",
+    "letterSpacing": "0.04em"
+  },
+  "radius": {
+    "sm": "0px",
+    "md": "0px",
+    "lg": "0px",
+    "full": "0px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,240,255,.18)",
+    "md": "0 8px 24px rgba(0,240,255,.18)",
+    "lg": "0 24px 60px rgba(0,240,255,.18)",
+    "glow": "0 0 32px rgba(0,240,255,.55)"
+  },
+  "motion": {
+    "duration": "180ms",
+    "ease": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "grid",
+    "glass": true,
+    "blur": 14,
+    "cardBorder": "1px solid rgba(0,240,255,.28)"
+  }
+}

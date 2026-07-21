@@ -1,0 +1,53 @@
+{
+  "id": "futuristic",
+  "name": "Futuristic",
+  "description": "Métal brossé, holographie, profondeur 3D.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#7df9ff",
+    "secondary": "#c0c0d8",
+    "tertiary": "#ff7ce5",
+    "bg": "#06080d",
+    "surface": "#0f131c",
+    "surfaceAlt": "#171d2a",
+    "text": "#e6f1ff",
+    "textMuted": "#7d8aa3",
+    "border": "#243044",
+    "accentGradient": "linear-gradient(135deg, #7df9ff 0%, #c0c0d8 40%, #ff7ce5 100%)"
+  },
+  "typography": {
+    "heading": "'Chakra Petch', sans-serif",
+    "body": "'Inter', sans-serif",
+    "mono": "'Share Tech Mono', monospace",
+    "googleFonts": [
+      "Chakra+Petch:wght@500;700",
+      "Inter:wght@300;500",
+      "Share+Tech+Mono"
+    ],
+    "headingWeight": "700",
+    "letterSpacing": "0.05em"
+  },
+  "radius": {
+    "sm": "6px",
+    "md": "12px",
+    "lg": "20px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(125,249,255,.14)",
+    "md": "0 8px 24px rgba(125,249,255,.14)",
+    "lg": "0 24px 60px rgba(125,249,255,.14)",
+    "glow": "0 0 36px rgba(125,249,255,.4)"
+  },
+  "motion": {
+    "duration": "520ms",
+    "ease": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    "reveal": "scale-in"
+  },
+  "effects": {
+    "backdrop": "waves",
+    "glass": true,
+    "blur": 18,
+    "cardBorder": "1px solid rgba(125,249,255,.22)"
+  }
+}

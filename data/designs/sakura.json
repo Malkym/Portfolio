@@ -1,0 +1,53 @@
+{
+  "id": "sakura",
+  "name": "Sakura",
+  "description": "Rose cerisier, blancs cassés, minimalisme japonais.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#e8909c",
+    "secondary": "#8c6b7d",
+    "tertiary": "#f7d6dd",
+    "bg": "#fffafb",
+    "surface": "#ffffff",
+    "surfaceAlt": "#fdf1f3",
+    "text": "#3b2f33",
+    "textMuted": "#8a777d",
+    "border": "#f5e1e5",
+    "accentGradient": "linear-gradient(135deg, #f7d6dd 0%, #e8909c 100%)"
+  },
+  "typography": {
+    "heading": "'Zen Maru Gothic', sans-serif",
+    "body": "'Zen Kaku Gothic New', sans-serif",
+    "mono": "'IBM Plex Mono', monospace",
+    "googleFonts": [
+      "Zen+Maru+Gothic:wght@400;700",
+      "Zen+Kaku+Gothic+New:wght@300;500",
+      "IBM+Plex+Mono:wght@400"
+    ],
+    "headingWeight": "700",
+    "letterSpacing": "0.02em"
+  },
+  "radius": {
+    "sm": "10px",
+    "md": "18px",
+    "lg": "32px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(232,144,156,.15)",
+    "md": "0 8px 24px rgba(232,144,156,.15)",
+    "lg": "0 24px 60px rgba(232,144,156,.15)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "700ms",
+    "ease": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "reveal": "fade"
+  },
+  "effects": {
+    "backdrop": "dots",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #f7e3e7"
+  }
+}

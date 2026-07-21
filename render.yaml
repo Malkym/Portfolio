@@ -1,0 +1,51 @@
+# Déploiement Render — https://render.com
+#
+# Render est adapté à ce projet parce qu'il propose un DISQUE PERSISTANT.
+# C'est la condition indispensable : toutes les données du portfolio vivent
+# dans des fichiers (base SQLite + images envoyées). Sur un hébergeur
+# serverless au système de fichiers éphémère (Vercel, Netlify Functions),
+# ces données seraient effacées à chaque déploiement.
+
+services:
+  - type: web
+    name: portfolio
+    runtime: node
+    plan: starter # le plan gratuit ne permet pas les disques persistants
+    region: frankfurt
+    branch: main
+
+    buildCommand: npm ci && npm run themes && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+
+    # Le disque doit être monté sur le dossier que le serveur écrit.
+    disk:
+      name: portfolio-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: DATABASE_PATH
+        value: /opt/render/project/src/data/portfolio.db
+
+      # Générés automatiquement par Render, jamais visibles dans le dépôt.
+      - key: JWT_SECRET
+        generateValue: true
+      - key: VISITOR_SALT
+        generateValue: true
+
+      # À saisir à la main dans le tableau de bord Render (Environment).
+      # `sync: false` empêche toute valeur d'atterrir dans ce fichier versionné.
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
+      - key: ADMIN_PATH
+        sync: false
+      - key: VITE_ADMIN_PATH
+        sync: false
+      - key: ADMIN_SECRET_QUESTION
+        sync: false
+      - key: ADMIN_SECRET_ANSWER
+        sync: false

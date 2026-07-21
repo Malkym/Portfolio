@@ -1,0 +1,53 @@
+{
+  "id": "clay-soft",
+  "name": "Claymorphism",
+  "description": "Volumes en pâte à modeler, ombres doubles, tout en rondeur.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#6c5ce7",
+    "secondary": "#fd79a8",
+    "tertiary": "#fdcb6e",
+    "bg": "#eceafc",
+    "surface": "#f6f5ff",
+    "surfaceAlt": "#e4e1fa",
+    "text": "#2d2a4a",
+    "textMuted": "#7a769c",
+    "border": "#dcd8f7",
+    "accentGradient": "linear-gradient(135deg, #6c5ce7 0%, #fd79a8 100%)"
+  },
+  "typography": {
+    "heading": "'Baloo 2', cursive",
+    "body": "'Nunito', sans-serif",
+    "mono": "'Fira Code', monospace",
+    "googleFonts": [
+      "Baloo+2:wght@600;800",
+      "Nunito:wght@400;700",
+      "Fira+Code:wght@400"
+    ],
+    "headingWeight": "800",
+    "letterSpacing": "0em"
+  },
+  "radius": {
+    "sm": "10px",
+    "md": "18px",
+    "lg": "32px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "inset 2px 2px 5px rgba(255,255,255,.7), 3px 3px 8px rgba(108,92,231,.18)",
+    "md": "inset 3px 3px 8px rgba(255,255,255,.75), 8px 8px 20px rgba(108,92,231,.22)",
+    "lg": "inset 4px 4px 12px rgba(255,255,255,.8), 16px 16px 40px rgba(108,92,231,.26)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "520ms",
+    "ease": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    "reveal": "scale-in"
+  },
+  "effects": {
+    "backdrop": "none",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "none"
+  }
+}

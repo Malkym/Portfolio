@@ -1,0 +1,244 @@
+[
+  {
+    "id": "neon-pulse",
+    "name": "Neon Pulse",
+    "description": "Cyberpunk : néons saturés, dégradés fluo, fond quadrillé.",
+    "scheme": "dark",
+    "swatch": [
+      "#00f0ff",
+      "#ff00a0",
+      "#05010f"
+    ]
+  },
+  {
+    "id": "minimalist-white",
+    "name": "Minimalist White",
+    "description": "Blanc absolu, typographie fine, respiration maximale.",
+    "scheme": "light",
+    "swatch": [
+      "#111111",
+      "#6b6b6b",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "dark-matter",
+    "name": "Dark Matter",
+    "description": "Noir profond, accents dorés, animations retenues.",
+    "scheme": "dark",
+    "swatch": [
+      "#d4af37",
+      "#8c7853",
+      "#08080a"
+    ]
+  },
+  {
+    "id": "glassmorphism",
+    "name": "Glassmorphism",
+    "description": "Verre dépoli, transparence, pastels doux.",
+    "scheme": "light",
+    "swatch": [
+      "#7c6cf5",
+      "#f56ca8",
+      "#eef0fb"
+    ]
+  },
+  {
+    "id": "gradient-flow",
+    "name": "Gradient Flow",
+    "description": "Dégradés mouvants, transitions liquides.",
+    "scheme": "dark",
+    "swatch": [
+      "#ff6b6b",
+      "#4ecdc4",
+      "#12111a"
+    ]
+  },
+  {
+    "id": "retro-wave",
+    "name": "Retro Wave",
+    "description": "Années 80 : magenta, cyan, grille à l’horizon.",
+    "scheme": "dark",
+    "swatch": [
+      "#ff2e97",
+      "#00e5ff",
+      "#180d2e"
+    ]
+  },
+  {
+    "id": "nature-organic",
+    "name": "Nature Organic",
+    "description": "Terres, mousses, formes arrondies et douces.",
+    "scheme": "light",
+    "swatch": [
+      "#4a6741",
+      "#a67c52",
+      "#faf7f0"
+    ]
+  },
+  {
+    "id": "tech-blue",
+    "name": "Tech Blue",
+    "description": "Bleus techniques, grilles de données, lisibilité maximale.",
+    "scheme": "dark",
+    "swatch": [
+      "#3b82f6",
+      "#06b6d4",
+      "#0a0f1c"
+    ]
+  },
+  {
+    "id": "art-deco",
+    "name": "Art Déco",
+    "description": "Géométrie dorée, noir laqué, élégance 1925.",
+    "scheme": "dark",
+    "swatch": [
+      "#c9a227",
+      "#0f3d3e",
+      "#0c0c0c"
+    ]
+  },
+  {
+    "id": "sakura",
+    "name": "Sakura",
+    "description": "Rose cerisier, blancs cassés, minimalisme japonais.",
+    "scheme": "light",
+    "swatch": [
+      "#e8909c",
+      "#8c6b7d",
+      "#fffafb"
+    ]
+  },
+  {
+    "id": "corporate-pro",
+    "name": "Corporate Professional",
+    "description": "Bleu marine, blanc, sobriété d’entreprise.",
+    "scheme": "light",
+    "swatch": [
+      "#1e3a8a",
+      "#0f766e",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "futuristic",
+    "name": "Futuristic",
+    "description": "Métal brossé, holographie, profondeur 3D.",
+    "scheme": "dark",
+    "swatch": [
+      "#7df9ff",
+      "#c0c0d8",
+      "#06080d"
+    ]
+  },
+  {
+    "id": "terminal-green",
+    "name": "Terminal Green",
+    "description": "Phosphore vert sur noir, esthétique console.",
+    "scheme": "dark",
+    "swatch": [
+      "#33ff66",
+      "#1fa845",
+      "#000600"
+    ]
+  },
+  {
+    "id": "brutalist",
+    "name": "Brutalist",
+    "description": "Bordures épaisses, contrastes bruts, aucune fioriture.",
+    "scheme": "light",
+    "swatch": [
+      "#ff4d00",
+      "#0000ff",
+      "#f5f5f0"
+    ]
+  },
+  {
+    "id": "nordic-frost",
+    "name": "Nordic Frost",
+    "description": "Palette Nord, bleus glaciers, calme scandinave.",
+    "scheme": "dark",
+    "swatch": [
+      "#88c0d0",
+      "#81a1c1",
+      "#2e3440"
+    ]
+  },
+  {
+    "id": "sunset-desert",
+    "name": "Sunset Desert",
+    "description": "Ocres, terracotta, lumière rasante de fin de journée.",
+    "scheme": "light",
+    "swatch": [
+      "#c1440e",
+      "#e08e45",
+      "#fdf6ee"
+    ]
+  },
+  {
+    "id": "monochrome-ink",
+    "name": "Monochrome Ink",
+    "description": "Encre sur papier, gris nuancés, zéro couleur.",
+    "scheme": "light",
+    "swatch": [
+      "#1a1a1a",
+      "#555555",
+      "#f4f4f2"
+    ]
+  },
+  {
+    "id": "aurora-borealis",
+    "name": "Aurora Borealis",
+    "description": "Voiles verts et violets sur ciel de nuit polaire.",
+    "scheme": "dark",
+    "swatch": [
+      "#4ade80",
+      "#a78bfa",
+      "#040d14"
+    ]
+  },
+  {
+    "id": "clay-soft",
+    "name": "Claymorphism",
+    "description": "Volumes en pâte à modeler, ombres doubles, tout en rondeur.",
+    "scheme": "light",
+    "swatch": [
+      "#6c5ce7",
+      "#fd79a8",
+      "#eceafc"
+    ]
+  },
+  {
+    "id": "blueprint",
+    "name": "Blueprint",
+    "description": "Plan d’architecte : bleu de Prusse, tracés fins, cotes.",
+    "scheme": "dark",
+    "swatch": [
+      "#7fb3ff",
+      "#ffffff",
+      "#0a2540"
+    ]
+  },
+  {
+    "id": "candy-pop",
+    "name": "Candy Pop",
+    "description": "Bonbons acidulés, énergie maximale, contrastes joyeux.",
+    "scheme": "light",
+    "swatch": [
+      "#ff3d8b",
+      "#00d2d3",
+      "#fff8fc"
+    ]
+  },
+  {
+    "id": "midnight-editorial",
+    "name": "Midnight Editorial",
+    "description": "Magazine nocturne : serif large, colonnes, sobriété chic.",
+    "scheme": "dark",
+    "swatch": [
+      "#f4f1ea",
+      "#c86b5c",
+      "#141414"
+    ]
+  }
+]

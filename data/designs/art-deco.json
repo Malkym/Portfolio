@@ -1,0 +1,53 @@
+{
+  "id": "art-deco",
+  "name": "Art Déco",
+  "description": "Géométrie dorée, noir laqué, élégance 1925.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#c9a227",
+    "secondary": "#0f3d3e",
+    "tertiary": "#e8dcb5",
+    "bg": "#0c0c0c",
+    "surface": "#151515",
+    "surfaceAlt": "#1e1e1e",
+    "text": "#f2ead6",
+    "textMuted": "#9c9486",
+    "border": "#3a3320",
+    "accentGradient": "linear-gradient(135deg, #c9a227 0%, #e8dcb5 50%, #c9a227 100%)"
+  },
+  "typography": {
+    "heading": "'Playfair Display', serif",
+    "body": "'Lato', sans-serif",
+    "mono": "'IBM Plex Mono', monospace",
+    "googleFonts": [
+      "Playfair+Display:wght@500;800",
+      "Lato:wght@300;700",
+      "IBM+Plex+Mono:wght@400"
+    ],
+    "headingWeight": "800",
+    "letterSpacing": "0.06em"
+  },
+  "radius": {
+    "sm": "0px",
+    "md": "0px",
+    "lg": "0px",
+    "full": "0px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.6)",
+    "md": "0 8px 24px rgba(0,0,0,.6)",
+    "lg": "0 24px 60px rgba(0,0,0,.6)",
+    "glow": "0 0 20px rgba(201,162,39,.3)"
+  },
+  "motion": {
+    "duration": "700ms",
+    "ease": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "reveal": "fade"
+  },
+  "effects": {
+    "backdrop": "none",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "2px solid #c9a227"
+  }
+}

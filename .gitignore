@@ -1,0 +1,24 @@
+node_modules/
+dist/
+
+# Secrets : ne doivent JAMAIS être publiés.
+.env
+.env.local
+.env.*.local
+
+# Données du site. Elles vous appartiennent et n'ont rien à faire sur GitHub :
+# la base contient vos contenus, vos commentaires reçus et vos statistiques.
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/uploads/
+data/backups/
+# Régénérable à tout moment avec `npm run seed` — mais contiendrait vos
+# vraies coordonnées (email, téléphone) une fois personnalisé.
+data/portfolio-data.json
+
+*.log
+.DS_Store
+.vscode/
+.idea/
+coverage/

@@ -1,0 +1,52 @@
+{
+  "id": "aurora-borealis",
+  "name": "Aurora Borealis",
+  "description": "Voiles verts et violets sur ciel de nuit polaire.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#4ade80",
+    "secondary": "#a78bfa",
+    "tertiary": "#38bdf8",
+    "bg": "#040d14",
+    "surface": "#0a1a24",
+    "surfaceAlt": "#0f2632",
+    "text": "#e4f7ee",
+    "textMuted": "#7fa39b",
+    "border": "#173845",
+    "accentGradient": "linear-gradient(135deg, #4ade80 0%, #38bdf8 50%, #a78bfa 100%)"
+  },
+  "typography": {
+    "heading": "'Urbanist', sans-serif",
+    "body": "'Urbanist', sans-serif",
+    "mono": "'Fira Code', monospace",
+    "googleFonts": [
+      "Urbanist:wght@300;700;900",
+      "Fira+Code:wght@400"
+    ],
+    "headingWeight": "900",
+    "letterSpacing": "-0.03em"
+  },
+  "radius": {
+    "sm": "10px",
+    "md": "18px",
+    "lg": "32px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.5)",
+    "md": "0 8px 24px rgba(0,0,0,.5)",
+    "lg": "0 24px 60px rgba(0,0,0,.5)",
+    "glow": "0 0 44px rgba(74,222,128,.3)"
+  },
+  "motion": {
+    "duration": "420ms",
+    "ease": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "aurora",
+    "glass": true,
+    "blur": 22,
+    "cardBorder": "1px solid rgba(74,222,128,.16)"
+  }
+}

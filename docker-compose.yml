@@ -1,0 +1,22 @@
+services:
+  portfolio:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '${PORT:-3000}:3000'
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      ADMIN_PATH: ${ADMIN_PATH:-/admin-secret}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH:?définissez ADMIN_PASSWORD_HASH dans .env}
+      JWT_SECRET: ${JWT_SECRET:?définissez JWT_SECRET dans .env}
+      VISITOR_SALT: ${VISITOR_SALT:-}
+      ADMIN_SECRET_QUESTION: ${ADMIN_SECRET_QUESTION:-}
+      ADMIN_SECRET_ANSWER: ${ADMIN_SECRET_ANSWER:-}
+      DATABASE_PATH: /app/data/portfolio.db
+    volumes:
+      # Base SQLite + fichiers envoyés. C'est le seul état à sauvegarder.
+      - portfolio-data:/app/data
+
+volumes:
+  portfolio-data:

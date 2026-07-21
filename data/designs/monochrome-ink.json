@@ -1,0 +1,53 @@
+{
+  "id": "monochrome-ink",
+  "name": "Monochrome Ink",
+  "description": "Encre sur papier, gris nuancés, zéro couleur.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#1a1a1a",
+    "secondary": "#555555",
+    "tertiary": "#999999",
+    "bg": "#f4f4f2",
+    "surface": "#ffffff",
+    "surfaceAlt": "#eaeae6",
+    "text": "#141414",
+    "textMuted": "#6e6e6e",
+    "border": "#d8d8d4",
+    "accentGradient": "linear-gradient(135deg, #1a1a1a 0%, #999999 100%)"
+  },
+  "typography": {
+    "heading": "'Libre Baskerville', serif",
+    "body": "'Libre Franklin', sans-serif",
+    "mono": "'Courier Prime', monospace",
+    "googleFonts": [
+      "Libre+Baskerville:wght@400;700",
+      "Libre+Franklin:wght@300;600",
+      "Courier+Prime:wght@400"
+    ],
+    "headingWeight": "700",
+    "letterSpacing": "-0.02em"
+  },
+  "radius": {
+    "sm": "0px",
+    "md": "0px",
+    "lg": "0px",
+    "full": "0px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.08)",
+    "md": "0 8px 24px rgba(0,0,0,.08)",
+    "lg": "0 24px 60px rgba(0,0,0,.08)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "700ms",
+    "ease": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "reveal": "fade"
+  },
+  "effects": {
+    "backdrop": "noise",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #dcdcd8"
+  }
+}

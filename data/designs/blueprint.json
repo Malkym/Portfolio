@@ -1,0 +1,53 @@
+{
+  "id": "blueprint",
+  "name": "Blueprint",
+  "description": "Plan d’architecte : bleu de Prusse, tracés fins, cotes.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#7fb3ff",
+    "secondary": "#ffffff",
+    "tertiary": "#ffd166",
+    "bg": "#0a2540",
+    "surface": "#0e3054",
+    "surfaceAlt": "#123a63",
+    "text": "#e6f0ff",
+    "textMuted": "#8fadd1",
+    "border": "#2a5486",
+    "accentGradient": "linear-gradient(135deg, #7fb3ff 0%, #ffffff 100%)"
+  },
+  "typography": {
+    "heading": "'Oswald', sans-serif",
+    "body": "'Roboto Condensed', sans-serif",
+    "mono": "'Share Tech Mono', monospace",
+    "googleFonts": [
+      "Oswald:wght@400;600",
+      "Roboto+Condensed:wght@300;700",
+      "Share+Tech+Mono"
+    ],
+    "headingWeight": "600",
+    "letterSpacing": "0.08em"
+  },
+  "radius": {
+    "sm": "0px",
+    "md": "0px",
+    "lg": "0px",
+    "full": "0px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.35)",
+    "md": "0 8px 24px rgba(0,0,0,.35)",
+    "lg": "0 24px 60px rgba(0,0,0,.35)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "180ms",
+    "ease": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "grid",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px dashed rgba(127,179,255,.5)"
+  }
+}

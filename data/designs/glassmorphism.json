@@ -1,0 +1,52 @@
+{
+  "id": "glassmorphism",
+  "name": "Glassmorphism",
+  "description": "Verre dépoli, transparence, pastels doux.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#7c6cf5",
+    "secondary": "#f56ca8",
+    "tertiary": "#6cd8f5",
+    "bg": "#eef0fb",
+    "surface": "rgba(255,255,255,.62)",
+    "surfaceAlt": "rgba(255,255,255,.42)",
+    "text": "#1d1b33",
+    "textMuted": "#6a6789",
+    "border": "rgba(255,255,255,.75)",
+    "accentGradient": "linear-gradient(135deg, #7c6cf5 0%, #f56ca8 50%, #6cd8f5 100%)"
+  },
+  "typography": {
+    "heading": "'Poppins', sans-serif",
+    "body": "'Poppins', sans-serif",
+    "mono": "'Fira Code', monospace",
+    "googleFonts": [
+      "Poppins:wght@300;600;700",
+      "Fira+Code:wght@400"
+    ],
+    "headingWeight": "600",
+    "letterSpacing": "-0.01em"
+  },
+  "radius": {
+    "sm": "10px",
+    "md": "18px",
+    "lg": "32px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(124,108,245,.18)",
+    "md": "0 8px 24px rgba(124,108,245,.18)",
+    "lg": "0 24px 60px rgba(124,108,245,.18)",
+    "glow": "0 8px 32px rgba(124,108,245,.25)"
+  },
+  "motion": {
+    "duration": "420ms",
+    "ease": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "aurora",
+    "glass": true,
+    "blur": 20,
+    "cardBorder": "1px solid rgba(255,255,255,.7)"
+  }
+}

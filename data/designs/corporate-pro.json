@@ -1,0 +1,53 @@
+{
+  "id": "corporate-pro",
+  "name": "Corporate Professional",
+  "description": "Bleu marine, blanc, sobriété d’entreprise.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#1e3a8a",
+    "secondary": "#0f766e",
+    "tertiary": "#c2410c",
+    "bg": "#ffffff",
+    "surface": "#f8fafc",
+    "surfaceAlt": "#eef2f7",
+    "text": "#0f172a",
+    "textMuted": "#5b6b82",
+    "border": "#dde5ee",
+    "accentGradient": "linear-gradient(135deg, #1e3a8a 0%, #0f766e 100%)"
+  },
+  "typography": {
+    "heading": "'Manrope', sans-serif",
+    "body": "'Source Sans 3', sans-serif",
+    "mono": "'IBM Plex Mono', monospace",
+    "googleFonts": [
+      "Manrope:wght@600;800",
+      "Source+Sans+3:wght@400;600",
+      "IBM+Plex+Mono:wght@400"
+    ],
+    "headingWeight": "800",
+    "letterSpacing": "-0.02em"
+  },
+  "radius": {
+    "sm": "6px",
+    "md": "12px",
+    "lg": "20px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(15,23,42,.07)",
+    "md": "0 8px 24px rgba(15,23,42,.07)",
+    "lg": "0 24px 60px rgba(15,23,42,.07)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "180ms",
+    "ease": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "none",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #e2e8f0"
+  }
+}

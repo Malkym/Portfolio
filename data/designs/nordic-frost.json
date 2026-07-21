@@ -1,0 +1,53 @@
+{
+  "id": "nordic-frost",
+  "name": "Nordic Frost",
+  "description": "Palette Nord, bleus glaciers, calme scandinave.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#88c0d0",
+    "secondary": "#81a1c1",
+    "tertiary": "#a3be8c",
+    "bg": "#2e3440",
+    "surface": "#3b4252",
+    "surfaceAlt": "#434c5e",
+    "text": "#eceff4",
+    "textMuted": "#a3adbf",
+    "border": "#4c566a",
+    "accentGradient": "linear-gradient(135deg, #88c0d0 0%, #81a1c1 100%)"
+  },
+  "typography": {
+    "heading": "'Outfit', sans-serif",
+    "body": "'Inter', sans-serif",
+    "mono": "'Fira Code', monospace",
+    "googleFonts": [
+      "Outfit:wght@300;600",
+      "Inter:wght@400;500",
+      "Fira+Code:wght@400"
+    ],
+    "headingWeight": "600",
+    "letterSpacing": "-0.01em"
+  },
+  "radius": {
+    "sm": "6px",
+    "md": "12px",
+    "lg": "20px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.28)",
+    "md": "0 8px 24px rgba(0,0,0,.28)",
+    "lg": "0 24px 60px rgba(0,0,0,.28)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "420ms",
+    "ease": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "none",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #4c566a"
+  }
+}

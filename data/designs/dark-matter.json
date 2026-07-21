@@ -1,0 +1,53 @@
+{
+  "id": "dark-matter",
+  "name": "Dark Matter",
+  "description": "Noir profond, accents dorés, animations retenues.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#d4af37",
+    "secondary": "#8c7853",
+    "tertiary": "#f5e6a8",
+    "bg": "#08080a",
+    "surface": "#111114",
+    "surfaceAlt": "#1a1a1f",
+    "text": "#f0efe9",
+    "textMuted": "#8f8d86",
+    "border": "#26262c",
+    "accentGradient": "linear-gradient(135deg, #d4af37 0%, #f5e6a8 50%, #8c7853 100%)"
+  },
+  "typography": {
+    "heading": "'Cormorant Garamond', serif",
+    "body": "'Inter', sans-serif",
+    "mono": "'JetBrains Mono', monospace",
+    "googleFonts": [
+      "Cormorant+Garamond:wght@300;600",
+      "Inter:wght@300;500",
+      "JetBrains+Mono:wght@400"
+    ],
+    "headingWeight": "600",
+    "letterSpacing": "0.01em"
+  },
+  "radius": {
+    "sm": "6px",
+    "md": "12px",
+    "lg": "20px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.6)",
+    "md": "0 8px 24px rgba(0,0,0,.6)",
+    "lg": "0 24px 60px rgba(0,0,0,.6)",
+    "glow": "0 0 28px rgba(212,175,55,.28)"
+  },
+  "motion": {
+    "duration": "700ms",
+    "ease": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "reveal": "fade"
+  },
+  "effects": {
+    "backdrop": "stars",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid rgba(212,175,55,.16)"
+  }
+}

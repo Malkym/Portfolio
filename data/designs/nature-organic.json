@@ -1,0 +1,53 @@
+{
+  "id": "nature-organic",
+  "name": "Nature Organic",
+  "description": "Terres, mousses, formes arrondies et douces.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#4a6741",
+    "secondary": "#a67c52",
+    "tertiary": "#d9c9a3",
+    "bg": "#faf7f0",
+    "surface": "#ffffff",
+    "surfaceAlt": "#f2ede1",
+    "text": "#2d3226",
+    "textMuted": "#6f7561",
+    "border": "#e0d8c5",
+    "accentGradient": "linear-gradient(135deg, #4a6741 0%, #a67c52 100%)"
+  },
+  "typography": {
+    "heading": "'Fraunces', serif",
+    "body": "'Nunito Sans', sans-serif",
+    "mono": "'IBM Plex Mono', monospace",
+    "googleFonts": [
+      "Fraunces:wght@400;700",
+      "Nunito+Sans:wght@300;600",
+      "IBM+Plex+Mono:wght@400"
+    ],
+    "headingWeight": "700",
+    "letterSpacing": "-0.01em"
+  },
+  "radius": {
+    "sm": "10px",
+    "md": "18px",
+    "lg": "32px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(74,103,65,.12)",
+    "md": "0 8px 24px rgba(74,103,65,.12)",
+    "lg": "0 24px 60px rgba(74,103,65,.12)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "700ms",
+    "ease": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "reveal": "fade"
+  },
+  "effects": {
+    "backdrop": "none",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #e4dcc9"
+  }
+}

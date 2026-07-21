@@ -1,0 +1,52 @@
+{
+  "id": "minimalist-white",
+  "name": "Minimalist White",
+  "description": "Blanc absolu, typographie fine, respiration maximale.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#111111",
+    "secondary": "#6b6b6b",
+    "tertiary": "#c9a227",
+    "bg": "#ffffff",
+    "surface": "#fafafa",
+    "surfaceAlt": "#f2f2f2",
+    "text": "#111111",
+    "textMuted": "#767676",
+    "border": "#e6e6e6",
+    "accentGradient": "linear-gradient(135deg, #111111 0%, #4a4a4a 100%)"
+  },
+  "typography": {
+    "heading": "'Inter', sans-serif",
+    "body": "'Inter', sans-serif",
+    "mono": "'IBM Plex Mono', monospace",
+    "googleFonts": [
+      "Inter:wght@200;400;600",
+      "IBM+Plex+Mono:wght@400"
+    ],
+    "headingWeight": "200",
+    "letterSpacing": "-0.03em"
+  },
+  "radius": {
+    "sm": "6px",
+    "md": "12px",
+    "lg": "20px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.05)",
+    "md": "0 8px 24px rgba(0,0,0,.05)",
+    "lg": "0 24px 60px rgba(0,0,0,.05)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "420ms",
+    "ease": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "none",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #ececec"
+  }
+}

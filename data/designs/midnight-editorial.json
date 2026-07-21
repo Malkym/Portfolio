@@ -1,0 +1,53 @@
+{
+  "id": "midnight-editorial",
+  "name": "Midnight Editorial",
+  "description": "Magazine nocturne : serif large, colonnes, sobriété chic.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#f4f1ea",
+    "secondary": "#c86b5c",
+    "tertiary": "#8fa39b",
+    "bg": "#141414",
+    "surface": "#1c1c1c",
+    "surfaceAlt": "#242424",
+    "text": "#f4f1ea",
+    "textMuted": "#9c968c",
+    "border": "#2f2f2f",
+    "accentGradient": "linear-gradient(135deg, #c86b5c 0%, #f4f1ea 100%)"
+  },
+  "typography": {
+    "heading": "'Instrument Serif', serif",
+    "body": "'Newsreader', serif",
+    "mono": "'IBM Plex Mono', monospace",
+    "googleFonts": [
+      "Instrument+Serif:ital@0;1",
+      "Newsreader:wght@300;500",
+      "IBM+Plex+Mono:wght@400"
+    ],
+    "headingWeight": "400",
+    "letterSpacing": "-0.02em"
+  },
+  "radius": {
+    "sm": "0px",
+    "md": "0px",
+    "lg": "0px",
+    "full": "0px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.5)",
+    "md": "0 8px 24px rgba(0,0,0,.5)",
+    "lg": "0 24px 60px rgba(0,0,0,.5)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "700ms",
+    "ease": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "reveal": "fade"
+  },
+  "effects": {
+    "backdrop": "noise",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #303030"
+  }
+}

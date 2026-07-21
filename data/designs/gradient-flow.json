@@ -1,0 +1,52 @@
+{
+  "id": "gradient-flow",
+  "name": "Gradient Flow",
+  "description": "Dégradés mouvants, transitions liquides.",
+  "scheme": "dark",
+  "colors": {
+    "primary": "#ff6b6b",
+    "secondary": "#4ecdc4",
+    "tertiary": "#ffe66d",
+    "bg": "#12111a",
+    "surface": "#1c1a29",
+    "surfaceAlt": "#252238",
+    "text": "#f7f7ff",
+    "textMuted": "#9a97b5",
+    "border": "#332f4d",
+    "accentGradient": "linear-gradient(135deg, #ff6b6b 0%, #ffe66d 45%, #4ecdc4 100%)"
+  },
+  "typography": {
+    "heading": "'Sora', sans-serif",
+    "body": "'Sora', sans-serif",
+    "mono": "'Fira Code', monospace",
+    "googleFonts": [
+      "Sora:wght@300;600;800",
+      "Fira+Code:wght@400"
+    ],
+    "headingWeight": "800",
+    "letterSpacing": "-0.02em"
+  },
+  "radius": {
+    "sm": "10px",
+    "md": "18px",
+    "lg": "32px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(0,0,0,.42)",
+    "md": "0 8px 24px rgba(0,0,0,.42)",
+    "lg": "0 24px 60px rgba(0,0,0,.42)",
+    "glow": "0 0 40px rgba(255,107,107,.32)"
+  },
+  "motion": {
+    "duration": "520ms",
+    "ease": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    "reveal": "scale-in"
+  },
+  "effects": {
+    "backdrop": "aurora",
+    "glass": true,
+    "blur": 16,
+    "cardBorder": "1px solid rgba(255,255,255,.09)"
+  }
+}

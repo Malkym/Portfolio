@@ -1,0 +1,53 @@
+{
+  "id": "sunset-desert",
+  "name": "Sunset Desert",
+  "description": "Ocres, terracotta, lumière rasante de fin de journée.",
+  "scheme": "light",
+  "colors": {
+    "primary": "#c1440e",
+    "secondary": "#e08e45",
+    "tertiary": "#f2d0a4",
+    "bg": "#fdf6ee",
+    "surface": "#ffffff",
+    "surfaceAlt": "#f8ebdc",
+    "text": "#40241a",
+    "textMuted": "#8a6a58",
+    "border": "#eeddc8",
+    "accentGradient": "linear-gradient(135deg, #c1440e 0%, #e08e45 55%, #f2d0a4 100%)"
+  },
+  "typography": {
+    "heading": "'Bitter', serif",
+    "body": "'Karla', sans-serif",
+    "mono": "'IBM Plex Mono', monospace",
+    "googleFonts": [
+      "Bitter:wght@500;800",
+      "Karla:wght@400;600",
+      "IBM+Plex+Mono:wght@400"
+    ],
+    "headingWeight": "800",
+    "letterSpacing": "-0.01em"
+  },
+  "radius": {
+    "sm": "10px",
+    "md": "18px",
+    "lg": "32px",
+    "full": "999px"
+  },
+  "shadows": {
+    "sm": "0 1px 2px rgba(193,68,14,.13)",
+    "md": "0 8px 24px rgba(193,68,14,.13)",
+    "lg": "0 24px 60px rgba(193,68,14,.13)",
+    "glow": "none"
+  },
+  "motion": {
+    "duration": "420ms",
+    "ease": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "reveal": "fade-up"
+  },
+  "effects": {
+    "backdrop": "waves",
+    "glass": false,
+    "blur": 0,
+    "cardBorder": "1px solid #f0e0cc"
+  }
+}
