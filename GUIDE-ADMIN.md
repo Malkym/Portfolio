@@ -147,7 +147,29 @@ soient ces réglages. Seule la note moyenne en étoiles est publique.
 
 ---
 
-## 8. Sauvegarder
+## 8. Changer votre mot de passe
+
+Menu **Sécurité**.
+
+Saisissez votre mot de passe actuel, puis le nouveau (deux fois). Une jauge indique sa
+robustesse — **privilégiez la longueur** : « le chat dort sur le vieux clavier » vaut mieux
+que « P@ssw0rd! ».
+
+Au moment de la validation, **toutes les autres sessions sont déconnectées** : si quelqu'un
+d'autre était connecté, il perd l'accès immédiatement. La vôtre reste active.
+
+L'encadré de droite indique la source de votre mot de passe :
+
+- **Variable d'environnement** — vous utilisez encore celui de l'installation
+- **Base de données** — vous l'avez changé depuis cette interface
+
+> **Mot de passe oublié ?** Il n'existe nulle part en clair, personne ne peut vous le
+> rappeler. Sur le serveur, lancez `npm run reset-password` : l'authentification repartira
+> du mot de passe défini à l'installation.
+
+---
+
+## 9. Sauvegarder
 
 Menu **Contenu & réglages** → onglet **Sauvegarde**.
 
@@ -165,7 +187,7 @@ Menu **Contenu & réglages** → onglet **Sauvegarde**.
 
 ---
 
-## 9. Questions fréquentes
+## 10. Questions fréquentes
 
 **J'ai modifié un texte mais le site n'a pas changé.**
 Vérifiez l'indicateur en haut à droite : s'il affiche « Modifications en attente »,
@@ -180,9 +202,10 @@ S'il a été *archivé*, il est encore là : réaffichez-le. S'il a été suppri
 allez dans **Sauvegarde → Historique des versions** et restaurez l'instantané pris juste avant.
 
 **J'ai oublié mon mot de passe.**
-Il n'existe nulle part en clair, personne ne peut vous le rappeler. Il faut en générer un
-nouveau en ligne de commande (`npm run hash -- "nouveauMotDePasse"`) et remplacer la ligne
-`ADMIN_PASSWORD_HASH` du fichier `.env`, puis redémarrer le serveur.
+Sur le serveur, lancez `npm run reset-password` : vous revenez au mot de passe défini à
+l'installation. Si vous l'avez aussi oublié, générez-en un nouveau avec
+`npm run hash -- "nouveauMotDePasse"`, remplacez `ADMIN_PASSWORD_HASH` dans `.env`
+(ou dans les variables d'environnement de votre hébergeur), puis redémarrez.
 
 **Le site affiche « Portfolio momentanément indisponible ».**
 Le serveur ne répond pas. Vérifiez qu'il tourne toujours. Vos données ne sont pas perdues :

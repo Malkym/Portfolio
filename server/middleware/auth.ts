@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { createHash, randomBytes } from 'node:crypto'
 import type { Request, Response, NextFunction } from 'express'
+import { getAuthEpoch } from '../models/Credentials.js'
 
 const JWT_SECRET =
   process.env.JWT_SECRET ||
@@ -44,6 +45,14 @@ export function requireAuth(req: Request, res: Response, next: NextFunction): vo
   if (!payload) {
     // Message volontairement neutre : aucune information sur ce qui a échoué.
     res.status(401).json({ error: 'Non autorisé' })
+    return
+  }
+
+  // Un jeton signé mais émis avant le dernier changement de mot de passe est
+  // rejeté. C'est ce qui coupe réellement l'accès à une session déjà ouverte —
+  // la signature seule resterait valable pendant sept jours.
+  if (Number(payload.epoch ?? 0) !== getAuthEpoch()) {
+    res.status(401).json({ error: 'Session expirée' })
     return
   }
 

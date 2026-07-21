@@ -71,6 +71,26 @@ export const useAdminStore = defineStore('admin', () => {
     }
   }
 
+  /**
+   * Change le mot de passe. Le serveur invalide toutes les sessions et renvoie
+   * un jeton neuf : on le stocke aussitôt, sinon on serait déconnecté par
+   * l'opération qu'on vient soi-même de déclencher.
+   */
+  async function changePassword(current: string, next: string): Promise<boolean> {
+    try {
+      const res = await api.post<{ token: string; message: string }>('/auth/password', {
+        currentPassword: current,
+        newPassword: next,
+      })
+      setAuthToken(res.token)
+      notify('ok', res.message)
+      return true
+    } catch (e) {
+      notify('error', (e as Error).message)
+      return false
+    }
+  }
+
   async function logout(): Promise<void> {
     try {
       await api.post('/auth/logout')
@@ -285,7 +305,7 @@ export const useAdminStore = defineStore('admin', () => {
     authenticated, data, stats, comments, messages, activity, designs,
     saving, loading, toast, dirty,
     pendingComments, unreadMessages,
-    notify, login, logout, checkSession, loadAll, save,
+    notify, login, logout, changePassword, checkSession, loadAll, save,
     createItem, updateItem, removeItem, reorder,
     createSection, updateSection, deleteSection,
     createSectionItem, updateSectionItem, deleteSectionItem,

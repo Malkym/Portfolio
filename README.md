@@ -194,6 +194,7 @@ pour l'engagement.
 | `npm run seed` | Insère les données de démonstration |
 | `npm run themes` | Régénère les 22 thèmes |
 | `npm run hash -- "mdp"` | Génère hash bcrypt et secrets |
+| `npm run reset-password` | Repart du mot de passe défini dans `.env` (mot de passe oublié) |
 | `npm run backup` | Archive JSON horodatée (avec rotation) |
 | `npm test` | Tests unitaires |
 
@@ -229,6 +230,24 @@ Copiez `.env.example` vers `.env`.
 - Uploads : extension **et** type MIME vérifiés, nom de fichier régénéré
 - Helmet, CSP stricte en production, rate limiting global et par route
 - Piège à robots (honeypot) sur le formulaire de contact
+
+### Changer le mot de passe
+
+Depuis l'administration : onglet **Sécurité**. Le nouveau mot de passe est stocké en base et
+**remplace** `ADMIN_PASSWORD_HASH` — ni console ni redémarrage nécessaires, ce qui compte
+quand le site tourne chez un hébergeur distant.
+
+L'opération **invalide toutes les sessions ouvertes**, la vôtre exceptée. C'est le point
+essentiel : sans cette révocation, un intrus déjà connecté garderait son accès sept jours
+malgré le changement de mot de passe. Le mécanisme repose sur une « époque » incluse dans
+chaque jeton et comparée à celle stockée en base.
+
+Une fois le mot de passe changé depuis l'interface, modifier `ADMIN_PASSWORD_HASH` n'a plus
+d'effet. En cas d'oubli, sur le serveur :
+
+```bash
+npm run reset-password    # l'authentification repart de ADMIN_PASSWORD_HASH
+```
 
 **Le chemin admin caché n'est pas une mesure de sécurité**, c'est du confort. La seule barrière
 réelle est le mot de passe vérifié côté serveur : deviner l'URL ne donne accès qu'à un écran

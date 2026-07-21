@@ -15,7 +15,8 @@
     "hash": "tsx scripts/hash-password.ts",
     "lint": "eslint . --ext .ts,.vue --fix",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "reset-password": "tsx scripts/reset-password.ts"
   },
   "dependencies": {
     "@lucide/vue": "^1.25.0",

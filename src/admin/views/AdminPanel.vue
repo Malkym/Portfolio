@@ -9,6 +9,7 @@ import DesignSelector from '../components/DesignSelector.vue'
 import ContentEditor from '../components/ContentEditor.vue'
 import DynamicFieldCreator from '../components/DynamicFieldCreator.vue'
 import CommentsManager from '../components/CommentsManager.vue'
+import SecurityPanel from '../components/SecurityPanel.vue'
 import { ADMIN_PATH } from '@/router'
 import type { CustomField } from '@shared/types/portfolio.types'
 
@@ -158,6 +159,7 @@ const NAV = [
   { id: 'sections', label: 'Sections perso.', icon: 'sparkles' },
   { id: 'designs', label: 'Thèmes', icon: 'palette' },
   { id: 'feedback', label: 'Retours visiteurs', icon: 'mail' },
+  { id: 'security', label: 'Sécurité', icon: 'lock' },
 ]
 
 /** Éléments de la collection affichée, quel que soit son nom de tableau. */
@@ -284,6 +286,7 @@ async function logout() {
           <DynamicFieldCreator v-else-if="tab === 'sections'" />
           <DesignSelector v-else-if="tab === 'designs'" />
           <CommentsManager v-else-if="tab === 'feedback'" />
+          <SecurityPanel v-else-if="tab === 'security'" />
 
           <DataManager
             v-else-if="SCHEMAS[tab]"
