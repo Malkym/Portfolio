@@ -25,7 +25,7 @@
     "@vueuse/motion": "^2.2.6",
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^11.7.0",
-    "compression": "^1.7.5",
+    "compression": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "cross-env": "^7.0.3",
     "dompurify": "^3.2.3",
