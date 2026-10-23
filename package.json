@@ -11,6 +11,7 @@
     "preview": "npm run build && npm run start",
     "seed": "tsx scripts/seed.ts",
     "themes": "tsx scripts/generate-themes.ts",
+    "cv:themes": "tsx scripts/generate-cv-themes.ts",
     "backup": "tsx scripts/backup.ts",
     "hash": "tsx scripts/hash-password.ts",
     "lint": "eslint . --ext .ts,.vue --fix",
@@ -19,12 +20,13 @@
     "reset-password": "tsx scripts/reset-password.ts"
   },
   "dependencies": {
+    "@libsql/client": "^0.18.0",
     "@lucide/vue": "^1.25.0",
     "@vueuse/core": "^11.3.0",
     "@vueuse/head": "^2.0.0",
     "@vueuse/motion": "^2.2.6",
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^11.7.0",
+    "better-sqlite3": "^13.0.3",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
     "cross-env": "^7.0.3",

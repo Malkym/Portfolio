@@ -1,0 +1,332 @@
+[
+  {
+    "id": "executive-dark",
+    "name": "Executive Dark",
+    "category": "Corporate",
+    "scheme": "dark",
+    "swatch": [
+      "#d4af37",
+      "#8c7853",
+      "#08080a"
+    ]
+  },
+  {
+    "id": "clean-white",
+    "name": "Clean White",
+    "category": "Corporate",
+    "scheme": "light",
+    "swatch": [
+      "#111111",
+      "#6b6b6b",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "corporate-blue",
+    "name": "Corporate Blue",
+    "category": "Corporate",
+    "scheme": "light",
+    "swatch": [
+      "#1e3a8a",
+      "#0f766e",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "monochrome-ink",
+    "name": "Monochrome Ink CV",
+    "category": "Corporate",
+    "scheme": "light",
+    "swatch": [
+      "#1a1a1a",
+      "#555555",
+      "#f4f4f2"
+    ]
+  },
+  {
+    "id": "swiss-grid",
+    "name": "Swiss Grid",
+    "category": "Corporate",
+    "scheme": "dark",
+    "swatch": [
+      "#88c0d0",
+      "#81a1c1",
+      "#2e3440"
+    ]
+  },
+  {
+    "id": "paper-white",
+    "name": "Paper White",
+    "category": "Corporate",
+    "scheme": "light",
+    "swatch": [
+      "#111111",
+      "#6b6b6b",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "charcoal-pro",
+    "name": "Charcoal Pro",
+    "category": "Corporate",
+    "scheme": "dark",
+    "swatch": [
+      "#d4af37",
+      "#8c7853",
+      "#08080a"
+    ]
+  },
+  {
+    "id": "ivory-minimal",
+    "name": "Ivory Minimal",
+    "category": "Corporate",
+    "scheme": "light",
+    "swatch": [
+      "#111111",
+      "#6b6b6b",
+      "#ffffff"
+    ]
+  },
+  {
+    "id": "dev-terminal",
+    "name": "Dev Terminal",
+    "category": "Tech",
+    "scheme": "dark",
+    "swatch": [
+      "#33ff66",
+      "#1fa845",
+      "#000600"
+    ]
+  },
+  {
+    "id": "neon-code",
+    "name": "Neon Code",
+    "category": "Tech",
+    "scheme": "dark",
+    "swatch": [
+      "#00f0ff",
+      "#ff00a0",
+      "#05010f"
+    ]
+  },
+  {
+    "id": "gradient-flow-cv",
+    "name": "Gradient Flow CV",
+    "category": "Tech",
+    "scheme": "dark",
+    "swatch": [
+      "#ff6b6b",
+      "#4ecdc4",
+      "#12111a"
+    ]
+  },
+  {
+    "id": "glassmorphism-cv",
+    "name": "Glassmorphism CV",
+    "category": "Tech",
+    "scheme": "light",
+    "swatch": [
+      "#7c6cf5",
+      "#f56ca8",
+      "#eef0fb"
+    ]
+  },
+  {
+    "id": "dark-matter-cv",
+    "name": "Dark Matter CV",
+    "category": "Tech",
+    "scheme": "dark",
+    "swatch": [
+      "#d4af37",
+      "#8c7853",
+      "#08080a"
+    ]
+  },
+  {
+    "id": "tech-blue-cv",
+    "name": "Tech Blue CV",
+    "category": "Tech",
+    "scheme": "dark",
+    "swatch": [
+      "#3b82f6",
+      "#06b6d4",
+      "#0a0f1c"
+    ]
+  },
+  {
+    "id": "futuristic-cv",
+    "name": "Futuristic CV",
+    "category": "Tech",
+    "scheme": "dark",
+    "swatch": [
+      "#7df9ff",
+      "#c0c0d8",
+      "#06080d"
+    ]
+  },
+  {
+    "id": "blueprint-cv",
+    "name": "Blueprint CV",
+    "category": "Tech",
+    "scheme": "dark",
+    "swatch": [
+      "#7fb3ff",
+      "#ffffff",
+      "#0a2540"
+    ]
+  },
+  {
+    "id": "art-deco-cv",
+    "name": "Art Déco CV",
+    "category": "Creative",
+    "scheme": "dark",
+    "swatch": [
+      "#c9a227",
+      "#0f3d3e",
+      "#0c0c0c"
+    ]
+  },
+  {
+    "id": "brutalist-cv",
+    "name": "Brutalist CV",
+    "category": "Creative",
+    "scheme": "light",
+    "swatch": [
+      "#ff4d00",
+      "#0000ff",
+      "#f5f5f0"
+    ]
+  },
+  {
+    "id": "retro-wave-cv",
+    "name": "Retro Wave CV",
+    "category": "Creative",
+    "scheme": "dark",
+    "swatch": [
+      "#ff2e97",
+      "#00e5ff",
+      "#180d2e"
+    ]
+  },
+  {
+    "id": "candy-pop-cv",
+    "name": "Candy Pop CV",
+    "category": "Creative",
+    "scheme": "light",
+    "swatch": [
+      "#ff3d8b",
+      "#00d2d3",
+      "#fff8fc"
+    ]
+  },
+  {
+    "id": "aurora-borealis-cv",
+    "name": "Aurora Borealis CV",
+    "category": "Creative",
+    "scheme": "dark",
+    "swatch": [
+      "#4ade80",
+      "#a78bfa",
+      "#040d14"
+    ]
+  },
+  {
+    "id": "clay-soft-cv",
+    "name": "Clay Soft CV",
+    "category": "Creative",
+    "scheme": "light",
+    "swatch": [
+      "#6c5ce7",
+      "#fd79a8",
+      "#eceafc"
+    ]
+  },
+  {
+    "id": "gradient-mesh",
+    "name": "Gradient Mesh",
+    "category": "Creative",
+    "scheme": "dark",
+    "swatch": [
+      "#ff6b6b",
+      "#4ecdc4",
+      "#12111a"
+    ]
+  },
+  {
+    "id": "classic-serif",
+    "name": "Classic Serif",
+    "category": "Classic",
+    "scheme": "dark",
+    "swatch": [
+      "#f4f1ea",
+      "#c86b5c",
+      "#141414"
+    ]
+  },
+  {
+    "id": "times-new-roman",
+    "name": "Times New Roman",
+    "category": "Classic",
+    "scheme": "light",
+    "swatch": [
+      "#1a1a1a",
+      "#555555",
+      "#f4f4f2"
+    ]
+  },
+  {
+    "id": "garamond-elegant",
+    "name": "Garamond Elegant",
+    "category": "Classic",
+    "scheme": "dark",
+    "swatch": [
+      "#d4af37",
+      "#8c7853",
+      "#08080a"
+    ]
+  },
+  {
+    "id": "baskerville",
+    "name": "Baskerville",
+    "category": "Classic",
+    "scheme": "dark",
+    "swatch": [
+      "#f4f1ea",
+      "#c86b5c",
+      "#141414"
+    ]
+  },
+  {
+    "id": "didot-luxe",
+    "name": "Didot Luxe",
+    "category": "Classic",
+    "scheme": "light",
+    "swatch": [
+      "#c1440e",
+      "#e08e45",
+      "#fdf6ee"
+    ]
+  },
+  {
+    "id": "caslon-pro",
+    "name": "Caslon Pro",
+    "category": "Classic",
+    "scheme": "light",
+    "swatch": [
+      "#4a6741",
+      "#a67c52",
+      "#faf7f0"
+    ]
+  },
+  {
+    "id": "georgia-classic",
+    "name": "Georgia Classic",
+    "category": "Classic",
+    "scheme": "light",
+    "swatch": [
+      "#e8909c",
+      "#8c6b7d",
+      "#fffafb"
+    ]
+  }
+]
