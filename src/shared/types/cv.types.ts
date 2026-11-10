@@ -27,9 +27,14 @@ export interface CVMeta {
   title: string
   isPublic: boolean
   themeId: string
-  themeOverrides?: Partial<ThemeDefinition>
+  themeOverrides?: CVThemeOverrides
   createdAt: string
   updatedAt: string
+}
+
+export type CVThemeOverrides = Omit<Partial<ThemeDefinition>, 'colors' | 'typography'> & {
+  colors?: Partial<ThemeDefinition['colors']>
+  typography?: Partial<ThemeDefinition['typography']>
 }
 
 export interface CVData {
@@ -57,4 +62,16 @@ export interface CVTemplate {
 export interface PublicCVView {
   meta: Pick<CVMeta, 'title' | 'themeId' | 'themeOverrides'>
   sections: CVSection[]
+}
+
+/** Aperçu bref et sans données privées, listé sur le site public. */
+export interface CVPublicBrief {
+  id: string
+  slug: string
+  title: string
+  themeId: string
+  name: string
+  role: string
+  excerpt: string
+  updatedAt: string
 }

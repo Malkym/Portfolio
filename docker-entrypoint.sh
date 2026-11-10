@@ -13,6 +13,18 @@ set -e
 
 DATA_DIR="${DATA_DIR:-/app/data}"
 
+# A mounted /app/data hides the themes packaged in the image. Seed missing
+# built-ins without ever replacing a theme already present on the volume.
+if [ -d /app/builtin-designs ]; then
+  mkdir -p "$DATA_DIR/designs"
+  for source in /app/builtin-designs/*.json; do
+    target="$DATA_DIR/designs/${source##*/}"
+    if [ ! -e "$target" ]; then
+      cp "$source" "$target"
+    fi
+  done
+fi
+
 if [ "$(id -u)" = "0" ]; then
   mkdir -p "$DATA_DIR"
   chown -R node:node "$DATA_DIR"

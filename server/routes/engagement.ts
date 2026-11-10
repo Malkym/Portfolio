@@ -1,7 +1,12 @@
 import { Router } from 'express'
 import { randomUUID } from 'node:crypto'
 import { z } from 'zod'
-import { db, logAction } from '../database/db.js'
+import {
+  run,
+  get,
+  all,
+  logAction,
+} from '../database/db.js'
 import { requireAuth, visitorId, clientIp } from '../middleware/auth.js'
 import { loadPortfolio } from '../models/PortfolioData.js'
 
@@ -24,38 +29,33 @@ const today = () => new Date().toISOString().slice(0, 10)
 /* Agrégats                                                             */
 /* ------------------------------------------------------------------ */
 
-function ratingSummary() {
-  const row = db
-    .prepare('SELECT AVG(score) AS avg, COUNT(*) AS n FROM ratings')
-    .get() as { avg: number | null; n: number }
+async function ratingSummary() {
+  const row = await get<{ avg: number | null; n: number }>(
+    'SELECT AVG(score) AS avg, COUNT(*) AS n FROM ratings',
+  )
   return {
-    average: row.avg ? Math.round(row.avg * 10) / 10 : 0,
-    count: row.n,
+    average: row?.avg ? Math.round(row.avg * 10) / 10 : 0,
+    count: row?.n ?? 0,
   }
 }
 
-function likeCount(target = 'portfolio'): number {
-  const row = db.prepare('SELECT COUNT(*) AS n FROM likes WHERE target = ?').get(target) as {
-    n: number
-  }
-  return row.n
+async function likeCount(target = 'portfolio'): Promise<number> {
+  const row = await get<{ n: number }>(
+    'SELECT COUNT(*) AS n FROM likes WHERE target = ?',
+    target,
+  )
+  return row?.n ?? 0
 }
 
-function viewStats() {
-  const total = (db.prepare('SELECT COUNT(*) AS n FROM views').get() as { n: number }).n
-  const unique = (
-    db.prepare('SELECT COUNT(DISTINCT visitor) AS n FROM views').get() as { n: number }
-  ).n
-  const todayCount = (
-    db.prepare('SELECT COUNT(*) AS n FROM views WHERE day = ?').get(today()) as { n: number }
-  ).n
+async function viewStats() {
+  const total = (await get<{ n: number }>('SELECT COUNT(*) AS n FROM views'))?.n ?? 0
+  const unique = (await get<{ n: number }>('SELECT COUNT(DISTINCT visitor) AS n FROM views'))?.n ?? 0
+  const todayCount = (await get<{ n: number }>('SELECT COUNT(*) AS n FROM views WHERE day = ?', today()))?.n ?? 0
 
-  const last30 = db
-    .prepare(
-      `SELECT day AS date, COUNT(*) AS count FROM views
-       WHERE day > date('now', '-30 days') GROUP BY day ORDER BY day`,
-    )
-    .all() as { date: string; count: number }[]
+  const last30 = await all<{ date: string; count: number }>(
+    `SELECT day AS date, COUNT(*) AS count FROM views
+     WHERE day > date('now', '-30 days') GROUP BY day ORDER BY day`,
+  )
 
   return { total, unique, today: todayCount, last30 }
 }
@@ -65,18 +65,19 @@ function viewStats() {
 /* ================================================================== */
 
 /** Enregistre une vue. Déduplique par visiteur et par jour. */
-router.post('/view', (req, res) => {
+router.post('/view', async (req, res) => {
   const visitor = visitorId(req)
   const day = today()
 
-  const already = db
-    .prepare('SELECT 1 FROM views WHERE visitor = ? AND day = ? LIMIT 1')
-    .get(visitor, day)
+  const already = await get<{ 1: number }>(
+    'SELECT 1 FROM views WHERE visitor = ? AND day = ? LIMIT 1',
+    visitor,
+    day,
+  )
 
   if (!already) {
-    db.prepare(
+    await run(
       'INSERT INTO views (visitor, day, path, referrer, user_agent) VALUES (?, ?, ?, ?, ?)',
-    ).run(
       visitor,
       day,
       String(req.body?.path ?? '/').slice(0, 200),
@@ -90,22 +91,24 @@ router.post('/view', (req, res) => {
 })
 
 /** État public de l'engagement, plus ce que ce visiteur a déjà fait. */
-router.get('/engagement', (req, res) => {
+router.get('/engagement', async (req, res) => {
   const visitor = visitorId(req)
-  const config = loadPortfolio().engagement
+  const config = (await loadPortfolio()).engagement
 
-  const liked = !!db
-    .prepare("SELECT 1 FROM likes WHERE visitor = ? AND target = 'portfolio'")
-    .get(visitor)
+  const liked = !!await get<{ id: number }>(
+    "SELECT 1 FROM likes WHERE visitor = ? AND target = 'portfolio'",
+    visitor,
+  )
 
-  const myRating = db.prepare('SELECT score FROM ratings WHERE visitor = ?').get(visitor) as
-    | { score: number }
-    | undefined
+  const myRating = await get<{ score: number }>(
+    'SELECT score FROM ratings WHERE visitor = ?',
+    visitor,
+  )
 
   res.json({
-    rating: config.ratingsEnabled ? ratingSummary() : { average: 0, count: 0 },
+    rating: config.ratingsEnabled ? await ratingSummary() : { average: 0, count: 0 },
     // `null` = compteur volontairement masqué au public.
-    likes: config.likeCountPublic ? likeCount() : null,
+    likes: config.likeCountPublic ? await likeCount() : null,
     me: { liked, rated: myRating?.score ?? null },
     config: {
       likesEnabled: config.likesEnabled,
@@ -116,8 +119,8 @@ router.get('/engagement', (req, res) => {
 })
 
 /** Like / unlike. Un visiteur, un like. */
-router.post('/like', (req, res) => {
-  if (!loadPortfolio().engagement.likesEnabled) {
+router.post('/like', async (req, res) => {
+  if (!(await loadPortfolio()).engagement.likesEnabled) {
     res.status(403).json({ error: 'Les likes sont désactivés' })
     return
   }
@@ -125,17 +128,19 @@ router.post('/like', (req, res) => {
   const visitor = visitorId(req)
   const target = String(req.body?.target ?? 'portfolio').slice(0, 64)
 
-  const existing = db
-    .prepare('SELECT id FROM likes WHERE visitor = ? AND target = ?')
-    .get(visitor, target) as { id: number } | undefined
+  const existing = await get<{ id: number }>(
+    'SELECT id FROM likes WHERE visitor = ? AND target = ?',
+    visitor,
+    target,
+  )
 
   if (existing) {
-    db.prepare('DELETE FROM likes WHERE id = ?').run(existing.id)
+    await run('DELETE FROM likes WHERE id = ?', existing.id)
     res.json({ liked: false })
     return
   }
 
-  db.prepare('INSERT INTO likes (visitor, target) VALUES (?, ?)').run(visitor, target)
+  await run('INSERT INTO likes (visitor, target) VALUES (?, ?)', visitor, target)
   res.json({ liked: true })
 })
 
@@ -146,8 +151,8 @@ router.post('/like', (req, res) => {
  * qu'une personne ne peut noter qu'une seule fois. On refuse explicitement
  * la seconde tentative plutôt que de l'écraser silencieusement.
  */
-router.post('/rate', (req, res) => {
-  if (!loadPortfolio().engagement.ratingsEnabled) {
+router.post('/rate', async (req, res) => {
+  if (!(await loadPortfolio()).engagement.ratingsEnabled) {
     res.status(403).json({ error: 'La notation est désactivée' })
     return
   }
@@ -159,26 +164,27 @@ router.post('/rate', (req, res) => {
   }
 
   const visitor = visitorId(req)
-  const already = db.prepare('SELECT score FROM ratings WHERE visitor = ?').get(visitor) as
-    | { score: number }
-    | undefined
+  const already = await get<{ score: number }>(
+    'SELECT score FROM ratings WHERE visitor = ?',
+    visitor,
+  )
 
   if (already) {
     res.status(409).json({
       error: 'Vous avez déjà noté ce portfolio',
-      rating: ratingSummary(),
+      rating: await ratingSummary(),
       me: { rated: already.score },
     })
     return
   }
 
-  db.prepare('INSERT INTO ratings (visitor, score) VALUES (?, ?)').run(visitor, parsed.data.score)
-  res.json({ rating: ratingSummary(), me: { rated: parsed.data.score } })
+  await run('INSERT INTO ratings (visitor, score) VALUES (?, ?)', visitor, parsed.data.score)
+  res.json({ rating: await ratingSummary(), me: { rated: parsed.data.score } })
 })
 
 /** Dépôt d'un commentaire. Aucune route publique ne permet de les relire. */
-router.post('/comments', (req, res) => {
-  const config = loadPortfolio().engagement
+router.post('/comments', async (req, res) => {
+  const config = (await loadPortfolio()).engagement
   if (!config.commentsEnabled) {
     res.status(403).json({ error: 'Les commentaires sont désactivés' })
     return
@@ -200,21 +206,19 @@ router.post('/comments', (req, res) => {
   const visitor = visitorId(req)
 
   // Anti-flood : 3 commentaires par heure et par visiteur.
-  const recent = db
-    .prepare(
-      "SELECT COUNT(*) AS n FROM comments WHERE visitor = ? AND created_at > datetime('now','-1 hour')",
-    )
-    .get(visitor) as { n: number }
+  const recent = await get<{ n: number }>(
+    "SELECT COUNT(*) AS n FROM comments WHERE visitor = ? AND created_at > datetime('now','-1 hour')",
+    visitor,
+  )
 
-  if (recent.n >= 3) {
+  if ((recent?.n ?? 0) >= 3) {
     res.status(429).json({ error: 'Trop de commentaires envoyés. Réessayez plus tard.' })
     return
   }
 
-  db.prepare(
+  await run(
     `INSERT INTO comments (id, author, email, body, status, visitor, ip, user_agent)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-  ).run(
     randomUUID(),
     parsed.data.author,
     parsed.data.email || null,
@@ -240,23 +244,23 @@ router.post('/comments', (req, res) => {
 router.use('/admin', requireAuth)
 
 /** Tableau de bord complet : vues + likes + notes + volumétrie commentaires. */
-router.get('/admin/engagement', (_req, res) => {
-  const counts = db
-    .prepare('SELECT status, COUNT(*) AS n FROM comments GROUP BY status')
-    .all() as { status: string; n: number }[]
+router.get('/admin/engagement', async (_req, res) => {
+  const counts = await all<{ status: string; n: number }>(
+    'SELECT status, COUNT(*) AS n FROM comments GROUP BY status',
+  )
 
   const by = (s: string) => counts.find((c) => c.status === s)?.n ?? 0
 
   res.json({
-    rating: ratingSummary(),
-    ratingBreakdown: db
-      .prepare('SELECT score, COUNT(*) AS n FROM ratings GROUP BY score ORDER BY score DESC')
-      .all(),
-    likes: likeCount(),
-    likesByTarget: db
-      .prepare('SELECT target, COUNT(*) AS n FROM likes GROUP BY target ORDER BY n DESC')
-      .all(),
-    views: viewStats(),
+    rating: await ratingSummary(),
+    ratingBreakdown: await all<{ score: number; n: number }>(
+      'SELECT score, COUNT(*) AS n FROM ratings GROUP BY score ORDER BY score DESC',
+    ),
+    likes: await likeCount(),
+    likesByTarget: await all<{ target: string; n: number }>(
+      'SELECT target, COUNT(*) AS n FROM likes GROUP BY target ORDER BY n DESC',
+    ),
+    views: await viewStats(),
     comments: {
       total: by('pending') + by('approved') + by('rejected'),
       pending: by('pending'),
@@ -267,24 +271,24 @@ router.get('/admin/engagement', (_req, res) => {
 })
 
 /** Liste des commentaires — route strictement privée. */
-router.get('/admin/comments', (req, res) => {
+router.get('/admin/comments', async (req, res) => {
   const status = String(req.query.status ?? 'all')
   const rows =
     status === 'all'
-      ? db.prepare('SELECT * FROM comments ORDER BY created_at DESC').all()
-      : db.prepare('SELECT * FROM comments WHERE status = ? ORDER BY created_at DESC').all(status)
+      ? await all('SELECT * FROM comments ORDER BY created_at DESC')
+      : await all('SELECT * FROM comments WHERE status = ? ORDER BY created_at DESC', status)
 
   res.json(rows)
 })
 
-router.patch('/admin/comments/:id', (req, res) => {
+router.patch('/admin/comments/:id', async (req, res) => {
   const status = String(req.body?.status ?? '')
   if (!['pending', 'approved', 'rejected'].includes(status)) {
     res.status(400).json({ error: 'Statut invalide' })
     return
   }
 
-  const info = db.prepare('UPDATE comments SET status = ? WHERE id = ?').run(status, req.params.id)
+  const info = await run('UPDATE comments SET status = ? WHERE id = ?', status, req.params.id)
   if (info.changes === 0) {
     res.status(404).json({ error: 'Commentaire introuvable' })
     return
@@ -294,21 +298,21 @@ router.patch('/admin/comments/:id', (req, res) => {
   res.json({ ok: true })
 })
 
-router.delete('/admin/comments/:id', (req, res) => {
-  db.prepare('DELETE FROM comments WHERE id = ?').run(req.params.id)
+router.delete('/admin/comments/:id', async (req, res) => {
+  await run('DELETE FROM comments WHERE id = ?', req.params.id)
   logAction('delete_comment', req.params.id, clientIp(req))
   res.json({ ok: true })
 })
 
 /** Remise à zéro d'un compteur, utile après une phase de test. */
-router.post('/admin/reset/:what', (req, res) => {
+router.post('/admin/reset/:what', async (req, res) => {
   const table = { views: 'views', likes: 'likes', ratings: 'ratings' }[req.params.what]
   if (!table) {
     res.status(400).json({ error: 'Cible inconnue' })
     return
   }
 
-  db.prepare(`DELETE FROM ${table}`).run()
+  await run(`DELETE FROM ${table}`)
   logAction('reset', table, clientIp(req))
   res.json({ ok: true })
 })

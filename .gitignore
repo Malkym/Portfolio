@@ -26,3 +26,7 @@ coverage/
 
 # StorageState Playwright (cookie de session admin généré à chaque run)
 tests/e2e/.auth/
+
+# Artefacts d'exécution Playwright (captures et traces d'échec)
+test-results/
+playwright-report/

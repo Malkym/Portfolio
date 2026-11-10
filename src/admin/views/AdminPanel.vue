@@ -159,6 +159,7 @@ const NAV = [
   ...Object.entries(SCHEMAS).map(([id, s]) => ({ id, label: s.label, icon: s.icon })),
   { id: 'sections', label: 'Sections perso.', icon: 'sparkles' },
   { id: 'designs', label: 'Thèmes', icon: 'palette' },
+  { id: 'cv', label: 'CV Generator', icon: 'file-text' },
   { id: 'feedback', label: 'Retours visiteurs', icon: 'mail' },
   { id: 'security', label: 'Sécurité', icon: 'lock' },
 ]

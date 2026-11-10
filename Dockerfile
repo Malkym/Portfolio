@@ -4,6 +4,7 @@
 FROM node:22-bookworm-slim AS build
 
 WORKDIR /app
+ENV PUPPETEER_SKIP_DOWNLOAD=true
 
 # better-sqlite3 se compile nativement : il lui faut une chaîne de build.
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -14,24 +15,36 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run themes && npx vite build
+RUN npm run themes && npm run cv:themes && npm run build
 
 # ---------- Étape 2 : exécution ----------
 FROM node:22-bookworm-slim AS runtime
 
 WORKDIR /app
 ENV NODE_ENV=production
+ENV PUPPETEER_SKIP_DOWNLOAD=true
 
 # Seules les dépendances de production suivent : l'image finale ne contient
 # ni compilateur, ni outillage de build.
 COPY package*.json ./
-RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      python3 make g++ \
+      chromium \
+      fonts-liberation \
+      fonts-dejavu-core \
     && npm ci --omit=dev \
     && apt-get purge -y python3 make g++ && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /root/.npm
 
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+ENV HOME=/home/node
+
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/data/designs ./data/designs
+COPY --from=build /app/data/designs ./builtin-designs
+# CV themes must stay available even when /app/data is a mounted volume.
+COPY --from=build /app/data/cv-designs ./cv-designs
+ENV CV_DESIGNS_PATH=/app/cv-designs
 
 # Contenu du portfolio, embarqué dans l'image pour que le site s'affiche
 # rempli dès le premier démarrage, même sans stockage persistant.

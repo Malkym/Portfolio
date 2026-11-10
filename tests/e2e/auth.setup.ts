@@ -1,7 +1,7 @@
 import { chromium, expect } from '@playwright/test'
 import { resetLoginAttempts } from './helpers/auth'
 
-const BASE_URL = process.env.BASE_URL ?? 'http://localhost:3000'
+const BASE_URL = process.env.BASE_URL ?? process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3100'
 
 /**
  * Ouverture de session admin unique, réutilisée par tous les tests authentifiés.

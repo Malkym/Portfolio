@@ -11,11 +11,14 @@ import { createServer as createHttpServer } from 'node:http'
 import authRoutes from './routes/auth.js'
 import dataRoutes from './routes/data.js'
 import designRoutes from './routes/designs.js'
+import cvRoutes from './routes/cv.js'
 import engagementRoutes from './routes/engagement.js'
 import uploadRoutes from './routes/upload.js'
 import contactRoutes from './routes/contact.js'
 import { loadPortfolio } from './models/PortfolioData.js'
 import { resolveActiveTheme } from './routes/designs.js'
+import { loadAllCVs, toPublicView as publicCVView } from './models/CVData.js'
+import { renderCVRichText } from '../src/shared/utils/cvRichText.js'
 
 const PORT = Number(process.env.PORT || 3000)
 const isProd = process.env.NODE_ENV === 'production'
@@ -29,7 +32,6 @@ async function start() {
 
   app.use(
     helmet({
-      // Vite injecte des scripts inline en dev ; on ne durcit la CSP qu'en prod.
       contentSecurityPolicy: isProd
         ? {
             directives: {
@@ -54,8 +56,6 @@ async function start() {
   app.use(express.urlencoded({ extended: true }))
   app.use(cookieParser())
 
-  // Garde-fou global sur l'API. Le rate limiting fin (login, commentaires,
-  // contact) est géré au plus près de chaque route concernée.
   app.use(
     '/api',
     rateLimit({
@@ -72,11 +72,10 @@ async function start() {
     rateLimit({ windowMs: 15 * 60_000, limit: 10, message: { error: 'Trop de tentatives' } }),
   )
 
-  /* ---------------- API ---------------- */
-
   app.use('/api/auth', authRoutes)
   app.use('/api', dataRoutes)
   app.use('/api', designRoutes)
+  app.use('/api', cvRoutes)
   app.use('/api', engagementRoutes)
   app.use('/api', uploadRoutes)
   app.use('/api', contactRoutes)
@@ -85,37 +84,28 @@ async function start() {
     res.json({ ok: true, uptime: process.uptime(), env: isProd ? 'production' : 'development' })
   })
 
-  /** Le front a besoin de connaître le chemin admin, qui est configurable. */
   app.get('/api/config', (_req, res) => {
     res.json({
       adminPath: process.env.ADMIN_PATH || '/admin-secret',
-      // Signalé au panneau pour qu'il avertisse : sans stockage persistant,
-      // les modifications non exportées disparaissent au redémarrage.
       ephemeral: process.env.EPHEMERAL_MODE === 'true',
     })
   })
 
-  // Fichiers envoyés depuis l'admin.
   app.use(
     '/uploads',
-    express.static(resolve('./data/uploads'), {
+    express.static(resolve(process.env.UPLOADS_PATH || './data/uploads'), {
       maxAge: isProd ? '30d' : 0,
-      // Un SVG piégé servi en inline pourrait exécuter du script sur le domaine.
       setHeaders: (res) => res.setHeader('Content-Security-Policy', "default-src 'none'"),
     }),
   )
 
-  /* ---------------- SEO ---------------- */
-
-  app.get('/robots.txt', (_req, res) => {
-    const { seo } = loadPortfolio()
+  app.get('/robots.txt', async (_req, res) => {
+    const { seo } = await loadPortfolio()
     const adminPath = process.env.ADMIN_PATH || '/admin-secret'
     res.type('text/plain').send(
       [
         'User-agent: *',
         'Allow: /',
-        // On désindexe l'admin sans révéler son vrai chemin dans un fichier public :
-        // on liste seulement les chemins génériques que les robots testent.
         'Disallow: /api/',
         'Disallow: /admin',
         'Disallow: /dashboard',
@@ -127,16 +117,14 @@ async function start() {
     )
   })
 
-  app.get('/sitemap.xml', (_req, res) => {
-    const data = loadPortfolio()
+  app.get('/sitemap.xml', async (_req, res) => {
+    const data = await loadPortfolio()
     const base = (data.seo.siteUrl || '').replace(/\/$/, '')
     const today = new Date().toISOString().slice(0, 10)
-
     const urls = [
       '/',
       ...data.customSections.filter((s) => s.enabled).map((s) => `/#${s.slug}`),
     ]
-
     res.type('application/xml').send(
       `<?xml version="1.0" encoding="UTF-8"?>\n` +
         `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
@@ -147,9 +135,9 @@ async function start() {
     )
   })
 
-  app.get('/manifest.webmanifest', (_req, res) => {
-    const data = loadPortfolio()
-    const theme = resolveActiveTheme()
+  app.get('/manifest.webmanifest', async (_req, res) => {
+    const data = await loadPortfolio()
+    const theme = await resolveActiveTheme()
     res.type('application/manifest+json').json({
       name: data.seo.title || data.personal.name,
       short_name: data.personal.name,
@@ -164,24 +152,36 @@ async function start() {
     })
   })
 
-  /* ---------------- Front ---------------- */
+  function escape(s: string): string {
+    return String(s).replace(/[&<>"']/g, (c) => {
+      const map: Record<string, string> = {
+        '&': '&#38;',
+        '<': '&#60;',
+        '>': '&#62;',
+        '"': '&#34;',
+        '\u0027': "'",
+      }
+      return map[c] || c
+    })
+  }
 
-  const escape = (s: string) =>
-    String(s).replace(/[&<>"']/g, (c) =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!,
-    )
-
-  /**
-   * Injection des méta-tags dans le HTML au moment de la requête.
-   *
-   * C'est ce qui rend le SEO réellement configurable depuis l'admin :
-   * les crawlers et les aperçus de partage lisent le HTML brut, sans exécuter
-   * le JS. Le faire côté client seul n'aurait aucun effet sur eux.
-   */
-  function injectMeta(html: string): string {
-    const { seo, personal, branding } = loadPortfolio()
-    const theme = resolveActiveTheme()
-
+  async function injectMeta(html: string, path = '/'): Promise<string> {
+    const portfolio = await loadPortfolio()
+    let { seo, personal } = portfolio
+    const { branding } = portfolio
+    if (/^\/cv\/[^/]+\/?$/.test(path)) {
+      const slug = decodeURIComponent(path.split('/')[2] ?? '')
+      const found = (await loadAllCVs()).find(cv => cv.meta.slug === slug && cv.meta.isPublic)
+      if (found) {
+        const cv = publicCVView(found)
+        const header = cv.sections.find(section => section.type === 'header')?.data ?? {}
+        const profile = cv.sections.find(section => section.type === 'summary')
+        const description = renderCVRichText(profile?.content ?? profile?.data.content).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 180)
+        seo = { ...seo, title: cv.meta.title, description, author: String(header.name ?? ''), siteUrl: seo.siteUrl ? `${seo.siteUrl.replace(/\/$/, '')}${path}` : '', ogImage: String(header.photo ?? '') }
+        personal = { ...personal, name: String(header.name ?? ''), title: String(header.title ?? ''), photo: String(header.photo ?? ''), email: '' }
+      }
+    }
+    const theme = await resolveActiveTheme()
     const title = seo.title || `${personal.name} — ${personal.title}`
     const tags = [
       `<meta name="description" content="${escape(seo.description)}" />`,
@@ -196,7 +196,6 @@ async function start() {
       `<meta name="twitter:title" content="${escape(title)}" />`,
       `<meta name="twitter:description" content="${escape(seo.description)}" />`,
       seo.ogImage ? `<meta name="twitter:image" content="${escape(seo.ogImage)}" />` : '',
-      // Le theme-color initial évite le flash blanc au chargement sur mobile.
       `<meta name="theme-color" content="${escape(theme.colors.bg)}" />`,
       branding.favicon ? `<link rel="icon" href="${escape(branding.favicon)}" />` : '',
       `<script type="application/ld+json">${JSON.stringify({
@@ -207,17 +206,14 @@ async function start() {
         email: personal.email || undefined,
         url: seo.siteUrl || undefined,
         image: personal.photo || undefined,
-      })}</script>`,
+      }).replace(/</g, '\\u003c')}</script>`,
     ]
       .filter(Boolean)
       .join('\n    ')
 
     return html
       .replace(/<title>.*?<\/title>/, `<title>${escape(title)}</title>`)
-      .replace(
-        /<meta name="theme-color"[^>]*>/,
-        '',
-      )
+      .replace(/<meta name="theme-color"[^>]*>/, '')
       .replace('</head>', `    ${tags}\n  </head>`)
   }
 
@@ -238,21 +234,18 @@ async function start() {
 
     const template = readFileSync(resolve(CLIENT_DIST, 'index.html'), 'utf8')
 
-    app.use((req, res) => {
-      // Un asset introuvable doit répondre 404, pas retomber sur le SPA.
-      // Sinon le navigateur reçoit du HTML là où il attend un module JS,
-      // refuse de l'exécuter pour cause de MIME, et la page reste blanche
-      // sans le moindre message utile — panne très coûteuse à diagnostiquer.
-      if (req.path.startsWith('/assets/') || /\.[a-z0-9]+$/i.test(req.path)) {
-        res.status(404).type('txt').send('Not found')
-        return
+    app.use(async (req, res, next) => {
+      try {
+        if (req.path.startsWith('/assets/') || /\.[a-z0-9]+$/i.test(req.path)) {
+          res.status(404).type('txt').send('Not found')
+          return
+        }
+        res.status(200).type('html').send(await injectMeta(template, req.path))
+      } catch (error) {
+        next(error)
       }
-
-      res.status(200).type('html').send(injectMeta(template))
     })
   } else {
-    // En dev, Vite tourne en middleware : un seul process, un seul port,
-    // HMR compris. C'est ce qui garde le projet réellement monolithique.
     const { createServer: createViteServer } = await import('vite')
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -265,7 +258,7 @@ async function start() {
       try {
         const raw = readFileSync(resolve('./index.html'), 'utf8')
         const transformed = await vite.transformIndexHtml(req.originalUrl, raw)
-        res.status(200).type('html').send(injectMeta(transformed))
+        res.status(200).type('html').send(await injectMeta(transformed, req.path))
       } catch (e) {
         vite.ssrFixStacktrace(e as Error)
         next(e)
@@ -273,18 +266,9 @@ async function start() {
     })
   }
 
-  /* ---------------- Erreurs ---------------- */
-
   app.use(
-    (
-      err: Error,
-      _req: express.Request,
-      res: express.Response,
-      _next: express.NextFunction,
-    ) => {
+    (err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
       console.error('[erreur]', err)
-      // En production on ne renvoie jamais le détail : un message d'erreur
-      // verbeux est une source d'information gratuite pour un attaquant.
       res.status(500).json({ error: isProd ? 'Erreur serveur' : err.message })
     },
   )

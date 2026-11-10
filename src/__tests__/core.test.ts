@@ -1,29 +1,59 @@
 import { describe, it, expect } from 'vitest'
-import { themeToVars, themeForMonth, FALLBACK_THEME } from '@shared/utils/themeManager'
+import { themeToVars, themeForMonth } from '@shared/utils/themeManager'
 import { sanitizeHtml, stripHtml } from '@shared/utils/sanitize'
 
-/**
- * Tests des fonctions pures critiques.
- *
- * On cible ce qui casserait silencieusement : la sécurité du HTML riche,
- * la résolution du thème, et la mise à l'échelle des animations.
- */
+// Thème de test complet pour les tests synchrones
+const TEST_THEME = {
+  id: 'test',
+  name: 'Test',
+  description: 'Test theme',
+  scheme: 'dark' as const,
+  colors: {
+    primary: '#ff0000',
+    secondary: '#00ff00',
+    tertiary: '#0000ff',
+    bg: '#000000',
+    surface: '#111111',
+    surfaceAlt: '#222222',
+    text: '#ffffff',
+    textMuted: '#888888',
+    border: '#333333',
+    accentGradient: 'linear-gradient(135deg, #ff0000, #00ff00)',
+  },
+  typography: {
+    heading: 'system-ui',
+    body: 'system-ui',
+    mono: 'monospace',
+    googleFonts: [],
+    headingWeight: '700',
+    letterSpacing: '0em',
+  },
+  radius: { sm: '4px', md: '8px', lg: '16px', full: '999px' },
+  shadows: {
+    sm: '0 1px 2px rgba(0,0,0,.1)',
+    md: '0 4px 8px rgba(0,0,0,.2)',
+    lg: '0 8px 16px rgba(0,0,0,.3)',
+    glow: 'none',
+  },
+  motion: { duration: '300ms', ease: 'cubic-bezier(.4,0,.2,1)', reveal: 'fade-up' },
+  effects: { backdrop: 'none' as const, glass: false, blur: 0, cardBorder: '1px solid #333' },
+}
 
 describe('themeManager', () => {
   it('traduit une définition de thème en variables CSS', () => {
-    const vars = themeToVars(FALLBACK_THEME)
-    expect(vars['--c-primary']).toBe(FALLBACK_THEME.colors.primary)
-    expect(vars['--r-md']).toBe(FALLBACK_THEME.radius.md)
+    const vars = themeToVars(TEST_THEME)
+    expect(vars['--c-primary']).toBe(TEST_THEME.colors.primary)
+    expect(vars['--r-md']).toBe(TEST_THEME.radius.md)
   })
 
   it('accélère les animations quand la vitesse augmente', () => {
     // 300 ms à vitesse ×2 doit donner 150 ms, pas 600.
-    const vars = themeToVars({ ...FALLBACK_THEME, animationSpeed: 2 })
+    const vars = themeToVars({ ...TEST_THEME, animationSpeed: 2 })
     expect(vars['--t-duration']).toBe('150ms')
   })
 
   it('annule toute durée quand les animations sont désactivées', () => {
-    const vars = themeToVars({ ...FALLBACK_THEME, animationsEnabled: false })
+    const vars = themeToVars({ ...TEST_THEME, animationsEnabled: false })
     expect(vars['--t-duration']).toBe('0ms')
   })
 

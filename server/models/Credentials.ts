@@ -22,25 +22,23 @@ const BCRYPT_ROUNDS = 12
 
 export const MIN_PASSWORD_LENGTH = 10
 
-export function getAdminHash(): string | null {
-  const stored = getConfig<string | null>(HASH_KEY, null)
+export async function getAdminHash(): Promise<string | null> {
+  const stored = await getConfig<string | null>(HASH_KEY, null)
   return stored || process.env.ADMIN_PASSWORD_HASH || null
 }
 
 /** Le mot de passe vient-il de la base plutôt que de l'environnement ? */
-export function isPasswordOverridden(): boolean {
-  return !!getConfig<string | null>(HASH_KEY, null)
+export async function isPasswordOverridden(): Promise<boolean> {
+  return !!(await getConfig<string | null>(HASH_KEY, null))
 }
 
-export function verifyPassword(candidate: string): boolean {
-  const hash = getAdminHash()
+export async function verifyPassword(candidate: string): Promise<boolean> {
+  const hash = await getAdminHash()
   if (!hash || typeof candidate !== 'string') return false
 
   try {
     return bcrypt.compareSync(candidate, hash)
   } catch {
-    // Un hash malformé ne doit pas faire tomber le serveur — il fait juste échouer
-    // la connexion, ce qui est le comportement sûr.
     console.error('[auth] hash de mot de passe illisible')
     return false
   }
@@ -54,13 +52,13 @@ export function verifyPassword(candidate: string): boolean {
  * passe réellement efficace : sans ce mécanisme, un intrus déjà connecté
  * garderait son accès pendant sept jours malgré le nouveau mot de passe.
  */
-export function getAuthEpoch(): number {
-  return getConfig<number>(EPOCH_KEY, 0)
+export async function getAuthEpoch(): Promise<number> {
+  return await getConfig<number>(EPOCH_KEY, 0)
 }
 
-export function bumpAuthEpoch(): number {
+export async function bumpAuthEpoch(): Promise<number> {
   const next = Date.now()
-  setConfig(EPOCH_KEY, next)
+  await setConfig(EPOCH_KEY, next)
   return next
 }
 
@@ -69,8 +67,8 @@ export interface PasswordChangeResult {
   error?: string
 }
 
-export function changePassword(current: string, next: string): PasswordChangeResult {
-  if (!verifyPassword(current)) {
+export async function changePassword(current: string, next: string): Promise<PasswordChangeResult> {
+  if (!(await verifyPassword(current))) {
     return { ok: false, error: 'Mot de passe actuel incorrect' }
   }
 
@@ -85,14 +83,14 @@ export function changePassword(current: string, next: string): PasswordChangeRes
     return { ok: false, error: "Le nouveau mot de passe doit être différent de l'actuel" }
   }
 
-  setConfig(HASH_KEY, bcrypt.hashSync(next, BCRYPT_ROUNDS))
-  bumpAuthEpoch()
+  await setConfig(HASH_KEY, bcrypt.hashSync(next, BCRYPT_ROUNDS))
+  await bumpAuthEpoch()
 
   return { ok: true }
 }
 
 /** Retire le mot de passe stocké en base : on repart de `ADMIN_PASSWORD_HASH`. */
-export function resetToEnvPassword(): void {
-  setConfig(HASH_KEY, null)
-  bumpAuthEpoch()
+export async function resetToEnvPassword(): Promise<void> {
+  await setConfig(HASH_KEY, null)
+  await bumpAuthEpoch()
 }

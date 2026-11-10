@@ -17,6 +17,8 @@ const globalSetup = fileURLToPath(new URL('./tests/e2e/auth.setup.ts', import.me
 
 export default defineConfig({
   testDir: './tests/e2e',
+  // CV tests use their own temporary database and credentials.
+  testIgnore: '**/cv.spec.ts',
   snapshotDir: './tests/e2e/snapshots',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -26,14 +28,14 @@ export default defineConfig({
   globalSetup,
 
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3100',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
 
   webServer: {
-    command: 'PORT=3000 npm run dev',
-    url: 'http://localhost:3000/api/health',
+    command: 'PORT=3100 npm run dev',
+    url: 'http://localhost:3100/api/health',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

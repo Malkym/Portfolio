@@ -25,8 +25,8 @@ const router = Router()
 /* PUBLIC                                                              */
 /* ================================================================== */
 
-router.get('/data', (_req, res) => {
-  res.json(toPublicView(loadPortfolio()))
+router.get('/data', async (_req, res) => {
+  res.json(toPublicView(await loadPortfolio()))
 })
 
 /* ================================================================== */
@@ -39,13 +39,13 @@ router.get('/data', (_req, res) => {
 router.use('/admin', requireAuth)
 
 /** Config complète, non filtrée. */
-router.get('/admin/data', (_req, res) => {
-  res.json(loadPortfolio())
+router.get('/admin/data', async (_req, res) => {
+  res.json(await loadPortfolio())
 })
 
 /** Mise à jour partielle par fusion profonde. */
-router.patch('/admin/data', (req, res) => {
-  const updated = savePortfolio(req.body ?? {}, 'modification')
+router.patch('/admin/data', async (req, res) => {
+  const updated = await savePortfolio(req.body ?? {}, 'modification')
   logAction('update_data', Object.keys(req.body ?? {}).join(', '), clientIp(req))
   res.json(updated)
 })
@@ -85,19 +85,19 @@ function assertCollection(name: string): CollectionName {
   return name as CollectionName
 }
 
-router.get('/admin/collection/:name', (req, res) => {
+router.get('/admin/collection/:name', async (req, res) => {
   try {
     const name = assertCollection(req.params.name)
-    res.json(collectionOf(loadPortfolio(), name))
+    res.json(collectionOf(await loadPortfolio(), name))
   } catch (e) {
     res.status(404).json({ error: (e as Error).message })
   }
 })
 
-router.post('/admin/collection/:name', (req, res) => {
+router.post('/admin/collection/:name', async (req, res) => {
   try {
     const name = assertCollection(req.params.name)
-    const data = loadPortfolio()
+    const data = await loadPortfolio()
     const list = collectionOf(data, name)
 
     const item = {
@@ -109,7 +109,7 @@ router.post('/admin/collection/:name', (req, res) => {
     }
     list.push(item)
 
-    savePortfolio(data)
+    await savePortfolio(data)
     logAction('create', `${name}/${item.id}`, clientIp(req))
     res.status(201).json(item)
   } catch (e) {
@@ -117,10 +117,10 @@ router.post('/admin/collection/:name', (req, res) => {
   }
 })
 
-router.put('/admin/collection/:name/:id', (req, res) => {
+router.put('/admin/collection/:name/:id', async (req, res) => {
   try {
     const name = assertCollection(req.params.name)
-    const data = loadPortfolio()
+    const data = await loadPortfolio()
     const list = collectionOf(data, name)
     const index = list.findIndex((i) => i.id === req.params.id)
 
@@ -131,7 +131,7 @@ router.put('/admin/collection/:name/:id', (req, res) => {
 
     // `id` reste immuable : le client ne peut pas le réécrire par accident.
     list[index] = { ...list[index], ...(req.body ?? {}), id: req.params.id }
-    savePortfolio(data)
+    await savePortfolio(data)
     logAction('update', `${name}/${req.params.id}`, clientIp(req))
     res.json(list[index])
   } catch (e) {
@@ -143,10 +143,10 @@ router.put('/admin/collection/:name/:id', (req, res) => {
  * Suppression. Par défaut on ARCHIVE au lieu de détruire — le mode "legacy"
  * du cahier des charges. `?hard=true` supprime réellement.
  */
-router.delete('/admin/collection/:name/:id', (req, res) => {
+router.delete('/admin/collection/:name/:id', async (req, res) => {
   try {
     const name = assertCollection(req.params.name)
-    const data = loadPortfolio()
+    const data = await loadPortfolio()
     const list = collectionOf(data, name)
     const index = list.findIndex((i) => i.id === req.params.id)
 
@@ -156,7 +156,7 @@ router.delete('/admin/collection/:name/:id', (req, res) => {
     }
 
     if (req.query.hard === 'true') {
-      createSnapshot(`suppression-${name}`, data)
+      await createSnapshot(`suppression-${name}`, data)
       list.splice(index, 1)
       logAction('delete_hard', `${name}/${req.params.id}`, clientIp(req))
     } else {
@@ -165,7 +165,7 @@ router.delete('/admin/collection/:name/:id', (req, res) => {
       logAction('archive', `${name}/${req.params.id}`, clientIp(req))
     }
 
-    savePortfolio(data)
+    await savePortfolio(data)
     res.json({ ok: true, archived: req.query.hard !== 'true' })
   } catch (e) {
     res.status(400).json({ error: (e as Error).message })
@@ -173,11 +173,11 @@ router.delete('/admin/collection/:name/:id', (req, res) => {
 })
 
 /** Réordonnancement par drag & drop : le client envoie la liste d'ids ordonnée. */
-router.post('/admin/collection/:name/reorder', (req, res) => {
+router.post('/admin/collection/:name/reorder', async (req, res) => {
   try {
     const name = assertCollection(req.params.name)
     const ids = z.array(z.string()).parse(req.body?.ids)
-    const data = loadPortfolio()
+    const data = await loadPortfolio()
     const list = collectionOf(data, name)
 
     ids.forEach((id, position) => {
@@ -186,7 +186,7 @@ router.post('/admin/collection/:name/reorder', (req, res) => {
     })
     list.sort((a, b) => Number(a.order) - Number(b.order))
 
-    savePortfolio(data)
+    await savePortfolio(data)
     logAction('reorder', name, clientIp(req))
     res.json(list)
   } catch (e) {
@@ -221,14 +221,14 @@ const sectionSchema = z.object({
   fields: z.array(fieldSchema).min(1, 'Au moins un champ est requis'),
 })
 
-router.post('/admin/sections', (req, res) => {
+router.post('/admin/sections', async (req, res) => {
   const parsed = sectionSchema.safeParse(req.body)
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.issues[0]?.message ?? 'Section invalide' })
     return
   }
 
-  const data = loadPortfolio()
+  const data = await loadPortfolio()
   if (data.customSections.some((s) => s.slug === parsed.data.slug)) {
     res.status(409).json({ error: 'Ce slug est déjà utilisé' })
     return
@@ -241,13 +241,13 @@ router.post('/admin/sections', (req, res) => {
     ...parsed.data,
   }
 
-  upsertCustomSection(section)
+  await upsertCustomSection(section)
   logAction('create_section', section.slug, clientIp(req))
   res.status(201).json(section)
 })
 
-router.put('/admin/sections/:id', (req, res) => {
-  const data = loadPortfolio()
+router.put('/admin/sections/:id', async (req, res) => {
+  const data = await loadPortfolio()
   const existing = data.customSections.find((s) => s.id === req.params.id)
   if (!existing) {
     res.status(404).json({ error: 'Section introuvable' })
@@ -255,20 +255,20 @@ router.put('/admin/sections/:id', (req, res) => {
   }
 
   const updated: CustomSection = { ...existing, ...(req.body ?? {}), id: existing.id }
-  upsertCustomSection(updated)
+  await upsertCustomSection(updated)
   logAction('update_section', updated.slug, clientIp(req))
   res.json(updated)
 })
 
-router.delete('/admin/sections/:id', (req, res) => {
-  deleteCustomSection(req.params.id)
+router.delete('/admin/sections/:id', async (req, res) => {
+  await deleteCustomSection(req.params.id)
   logAction('delete_section', req.params.id, clientIp(req))
   res.json({ ok: true })
 })
 
 /** CRUD sur les éléments d'une section dynamique. */
-router.post('/admin/sections/:id/items', (req, res) => {
-  const data = loadPortfolio()
+router.post('/admin/sections/:id/items', async (req, res) => {
+  const data = await loadPortfolio()
   const section = data.customSections.find((s) => s.id === req.params.id)
   if (!section) {
     res.status(404).json({ error: 'Section introuvable' })
@@ -296,12 +296,12 @@ router.post('/admin/sections/:id/items', (req, res) => {
   }
 
   section.items.push(item)
-  savePortfolio(data)
+  await savePortfolio(data)
   res.status(201).json(item)
 })
 
-router.put('/admin/sections/:id/items/:itemId', (req, res) => {
-  const data = loadPortfolio()
+router.put('/admin/sections/:id/items/:itemId', async (req, res) => {
+  const data = await loadPortfolio()
   const section = data.customSections.find((s) => s.id === req.params.id)
   const item = section?.items.find((i) => i.id === req.params.itemId)
   if (!section || !item) {
@@ -313,12 +313,12 @@ router.put('/admin/sections/:id/items/:itemId', (req, res) => {
   if (typeof req.body?.enabled === 'boolean') item.enabled = req.body.enabled
   item.updatedAt = new Date().toISOString()
 
-  savePortfolio(data)
+  await savePortfolio(data)
   res.json(item)
 })
 
-router.delete('/admin/sections/:id/items/:itemId', (req, res) => {
-  const data = loadPortfolio()
+router.delete('/admin/sections/:id/items/:itemId', async (req, res) => {
+  const data = await loadPortfolio()
   const section = data.customSections.find((s) => s.id === req.params.id)
   if (!section) {
     res.status(404).json({ error: 'Section introuvable' })
@@ -326,7 +326,7 @@ router.delete('/admin/sections/:id/items/:itemId', (req, res) => {
   }
 
   section.items = section.items.filter((i) => i.id !== req.params.itemId)
-  savePortfolio(data)
+  await savePortfolio(data)
   res.json({ ok: true })
 })
 
@@ -334,47 +334,47 @@ router.delete('/admin/sections/:id/items/:itemId', (req, res) => {
 /* Sauvegarde / restauration                                            */
 /* ------------------------------------------------------------------ */
 
-router.get('/admin/export', (req, res) => {
+router.get('/admin/export', async (req, res) => {
   const payload = {
     version: 1,
     exportedAt: new Date().toISOString(),
-    portfolio: loadPortfolio(),
+    portfolio: await loadPortfolio(),
   }
   logAction('export', '', clientIp(req))
   res.setHeader('Content-Disposition', `attachment; filename="portfolio-${Date.now()}.json"`)
   res.json(payload)
 })
 
-router.post('/admin/import', (req, res) => {
+router.post('/admin/import', async (req, res) => {
   const incoming = req.body?.portfolio ?? req.body
   if (!incoming || typeof incoming !== 'object') {
     res.status(400).json({ error: 'Fichier de sauvegarde illisible' })
     return
   }
 
-  const restored = replacePortfolio(incoming)
+  const restored = await replacePortfolio(incoming)
   logAction('import', '', clientIp(req))
   res.json(restored)
 })
 
-router.get('/admin/snapshots', (_req, res) => {
-  res.json(listSnapshots())
+router.get('/admin/snapshots', async (_req, res) => {
+  res.json(await listSnapshots())
 })
 
-router.post('/admin/snapshots/:id/restore', (req, res) => {
-  const payload = getSnapshot(Number(req.params.id))
+router.post('/admin/snapshots/:id/restore', async (req, res) => {
+  const payload = await getSnapshot(Number(req.params.id))
   if (!payload) {
     res.status(404).json({ error: 'Snapshot introuvable' })
     return
   }
 
-  const restored = replacePortfolio(payload, 'avant-restauration')
+  const restored = await replacePortfolio(payload, 'avant-restauration')
   logAction('restore_snapshot', req.params.id, clientIp(req))
   res.json(restored)
 })
 
-router.get('/admin/activity', (_req, res) => {
-  res.json(recentActions(30))
+router.get('/admin/activity', async (_req, res) => {
+  res.json(await recentActions(30))
 })
 
 export default router

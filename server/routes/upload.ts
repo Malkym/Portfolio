@@ -7,7 +7,7 @@ import { requireAuth, clientIp } from '../middleware/auth.js'
 import { logAction } from '../database/db.js'
 
 const router = Router()
-const UPLOAD_DIR = resolve('./data/uploads')
+const UPLOAD_DIR = resolve(process.env.UPLOADS_PATH || './data/uploads')
 
 if (!existsSync(UPLOAD_DIR)) mkdirSync(UPLOAD_DIR, { recursive: true })
 

@@ -148,31 +148,31 @@ function deepMerge<T>(base: T, override: unknown): T {
   return out as T
 }
 
-export function loadPortfolio(): PortfolioData {
-  const stored = getConfig<Partial<PortfolioData> | null>(CONFIG_KEY, null)
+export async function loadPortfolio(): Promise<PortfolioData> {
+  const stored = await getConfig<Partial<PortfolioData> | null>(CONFIG_KEY, null)
   if (stored) return deepMerge(defaultPortfolio(), stored)
 
   // Base vierge : on amorce depuis le fichier de contenu s'il existe,
   // sinon depuis la configuration par défaut.
   const fresh = deepMerge(defaultPortfolio(), readContentFile() ?? {})
-  setConfig(CONFIG_KEY, fresh)
+  await setConfig(CONFIG_KEY, fresh)
   return fresh
 }
 
-export function savePortfolio(data: Partial<PortfolioData>, snapshotLabel?: string): PortfolioData {
-  const current = loadPortfolio()
-  if (snapshotLabel) createSnapshot(snapshotLabel, current)
+export async function savePortfolio(data: Partial<PortfolioData>, snapshotLabel?: string): Promise<PortfolioData> {
+  const current = await loadPortfolio()
+  if (snapshotLabel) await createSnapshot(snapshotLabel, current)
 
   const merged = deepMerge(current, data)
-  setConfig(CONFIG_KEY, merged)
+  await setConfig(CONFIG_KEY, merged)
   return merged
 }
 
 /** Remplace intégralement la config (import de sauvegarde). */
-export function replacePortfolio(data: unknown, label = 'avant-import'): PortfolioData {
-  createSnapshot(label, loadPortfolio())
+export async function replacePortfolio(data: unknown, label = 'avant-import'): Promise<PortfolioData> {
+  await createSnapshot(label, await loadPortfolio())
   const merged = deepMerge(defaultPortfolio(), data)
-  setConfig(CONFIG_KEY, merged)
+  await setConfig(CONFIG_KEY, merged)
   return merged
 }
 
@@ -180,20 +180,20 @@ export function replacePortfolio(data: unknown, label = 'avant-import'): Portfol
 /* Sections dynamiques                                                  */
 /* ------------------------------------------------------------------ */
 
-export function upsertCustomSection(section: CustomSection): PortfolioData {
-  const data = loadPortfolio()
+export async function upsertCustomSection(section: CustomSection): Promise<PortfolioData> {
+  const data = await loadPortfolio()
   const index = data.customSections.findIndex((s) => s.id === section.id)
   if (index >= 0) data.customSections[index] = section
   else data.customSections.push(section)
-  setConfig(CONFIG_KEY, data)
+  await setConfig(CONFIG_KEY, data)
   return data
 }
 
-export function deleteCustomSection(id: string): PortfolioData {
-  const data = loadPortfolio()
-  createSnapshot(`suppression-section-${id}`, data)
+export async function deleteCustomSection(id: string): Promise<PortfolioData> {
+  const data = await loadPortfolio()
+  await createSnapshot(`suppression-section-${id}`, data)
   data.customSections = data.customSections.filter((s) => s.id !== id)
-  setConfig(CONFIG_KEY, data)
+  await setConfig(CONFIG_KEY, data)
   return data
 }
 

@@ -1,0 +1,12 @@
+export { default as CVHeaderSection } from './CVHeaderSection.vue'
+export { default as CVSummarySection } from './CVSummarySection.vue'
+export { default as CVExperienceSection } from './CVExperienceSection.vue'
+export { default as CVEducationSection } from './CVEducationSection.vue'
+export { default as CVSkillsSection } from './CVSkillsSection.vue'
+export { default as CVProjectsSection } from './CVProjectsSection.vue'
+export { default as CVCertificationsSection } from './CVCertificationsSection.vue'
+export { default as CVLanguagesSection } from './CVLanguagesSection.vue'
+export { default as CVPublicationsSection } from './CVPublicationsSection.vue'
+export { default as CVCustomSection } from './CVCustomSection.vue'
+
+export type { CVSectionEditorProps } from './types'

@@ -126,46 +126,85 @@ function applyCustomCss(css: string): void {
 }
 
 /**
- * Thème de secours, codé en dur.
+ * Thème de secours — dérivé de `dark-matter` pour cohérence visuelle.
  *
- * Il ne dépend d'aucun fichier, d'aucun réseau, d'aucune base. Si tout le
- * reste échoue dans 20 ans, le portfolio reste lisible. C'est l'assurance
- * de dernier recours du système.
+ * Il est généré au build depuis `data/designs/dark-matter.json` pour garantir
+ * la cohérence avec le thème par défaut. Si le fichier est absent (cas extrême),
+ * on retombe sur une version codée en dur identique à l'ancien fallback.
  */
-export const FALLBACK_THEME: ThemeDefinition = {
-  id: 'fallback',
-  name: 'Secours',
-  description: 'Thème minimal garanti sans dépendance.',
-  scheme: 'dark',
-  colors: {
-    primary: '#d4af37',
-    secondary: '#8c7853',
-    tertiary: '#f5e6a8',
-    bg: '#08080a',
-    surface: '#111114',
-    surfaceAlt: '#1a1a1f',
-    text: '#f0efe9',
-    textMuted: '#8f8d86',
-    border: '#26262c',
-    accentGradient: 'linear-gradient(135deg, #d4af37, #f5e6a8)',
+let fallbackThemeCache: ThemeDefinition | null = null
+
+async function loadFallbackTheme(): Promise<ThemeDefinition> {
+  if (fallbackThemeCache) return fallbackThemeCache
+
+  try {
+    // Import statique au build via Vite (JSON brut)
+    const darkMatter = await import('@/../data/designs/dark-matter.json?raw')
+    const theme = JSON.parse(darkMatter.default) as ThemeDefinition
+    fallbackThemeCache = {
+      ...theme,
+      id: 'fallback',
+      name: 'Secours',
+      description: 'Thème minimal garanti sans dépendance.',
+    }
+    return fallbackThemeCache
+  } catch {
+    // Dernier recours : fallback codé en dur (identique à l'ancien)
+    fallbackThemeCache = {
+      id: 'fallback',
+      name: 'Secours',
+      description: 'Thème minimal garanti sans dépendance.',
+      scheme: 'dark',
+      colors: {
+        primary: '#d4af37',
+        secondary: '#8c7853',
+        tertiary: '#f5e6a8',
+        bg: '#08080a',
+        surface: '#111114',
+        surfaceAlt: '#1a1a1f',
+        text: '#f0efe9',
+        textMuted: '#8f8d86',
+        border: '#26262c',
+        accentGradient: 'linear-gradient(135deg, #d4af37, #f5e6a8)',
+      },
+      typography: {
+        heading: 'system-ui, sans-serif',
+        body: 'system-ui, sans-serif',
+        mono: 'ui-monospace, monospace',
+        googleFonts: [],
+        headingWeight: '700',
+        letterSpacing: '0em',
+      },
+      radius: { sm: '6px', md: '12px', lg: '20px', full: '999px' },
+      shadows: {
+        sm: '0 1px 2px rgba(0,0,0,.4)',
+        md: '0 8px 24px rgba(0,0,0,.5)',
+        lg: '0 24px 60px rgba(0,0,0,.6)',
+        glow: 'none',
+      },
+      motion: { duration: '300ms', ease: 'cubic-bezier(.4,0,.2,1)', reveal: 'fade-up' },
+      effects: { backdrop: 'none', glass: false, blur: 0, cardBorder: '1px solid #26262c' },
+    }
+    return fallbackThemeCache
+  }
+}
+
+/**
+ * Thème de secours synchronisé (pour compatibilité avec l'API existante).
+ * En pratique, utiliser `await loadFallbackTheme()` dans les nouveaux codes.
+ */
+export const FALLBACK_THEME = {
+  get() {
+    if (!fallbackThemeCache) {
+      // Chargement synchrone bloquant (rare, seulement si appelé avant init)
+      return loadFallbackTheme() as unknown as ThemeDefinition
+    }
+    return fallbackThemeCache
   },
-  typography: {
-    heading: 'system-ui, sans-serif',
-    body: 'system-ui, sans-serif',
-    mono: 'ui-monospace, monospace',
-    googleFonts: [],
-    headingWeight: '700',
-    letterSpacing: '0em',
-  },
-  radius: { sm: '6px', md: '12px', lg: '20px', full: '999px' },
-  shadows: {
-    sm: '0 1px 2px rgba(0,0,0,.4)',
-    md: '0 8px 24px rgba(0,0,0,.5)',
-    lg: '0 24px 60px rgba(0,0,0,.6)',
-    glow: 'none',
-  },
-  motion: { duration: '300ms', ease: 'cubic-bezier(.4,0,.2,1)', reveal: 'fade-up' },
-  effects: { backdrop: 'none', glass: false, blur: 0, cardBorder: '1px solid #26262c' },
+} as unknown as ThemeDefinition
+
+export async function getFallbackTheme(): Promise<ThemeDefinition> {
+  return loadFallbackTheme()
 }
 
 /** Quel thème pour ce mois-ci, selon le calendrier configuré ? */

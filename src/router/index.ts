@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import HomePage from '@site/views/HomePage.vue'
+import { cvPublicRoutes } from './cv'
 
 /**
  * Chemin d'accès à l'administration.
@@ -10,7 +11,7 @@ import HomePage from '@site/views/HomePage.vue'
  * la vraie barrière est l'authentification serveur — mais ça évite que
  * l'admin soit trouvable par simple curiosité.
  */
-export const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || '/admin-secret'
+export let ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || '/admin-secret'
 
 /**
  * Bases admin actives. Il peut y en avoir deux : celle compilée dans le bundle
@@ -30,6 +31,7 @@ function adminBaseOf(path: string): string | null {
 /** L'admin est en import dynamique : son code ne pèse jamais sur le site public. */
 const AdminPanel = () => import('@admin/views/AdminPanel.vue')
 const AdminLogin = () => import('@admin/views/AdminLogin.vue')
+const CVGenerator = () => import('@admin/views/CVGenerator.vue')
 
 function adminRoutes(base: string): RouteRecordRaw[] {
   return [
@@ -38,6 +40,12 @@ function adminRoutes(base: string): RouteRecordRaw[] {
       name: 'admin-login',
       component: AdminLogin,
       meta: { admin: true },
+    },
+    {
+      path: `${base}/cv/:id?`,
+      name: 'admin-cv',
+      component: CVGenerator,
+      meta: { admin: true, requiresAuth: true },
     },
     {
       path: `${base}/:tab?`,
@@ -53,6 +61,7 @@ export const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomePage },
     ...adminRoutes(ADMIN_PATH),
+    ...cvPublicRoutes,
     // Toute URL inconnue retombe sur le portfolio plutôt que sur une 404 :
     // un lien mort partagé il y a dix ans mène quand même quelque part.
     { path: '/:pathMatch(.*)*', redirect: '/' },
@@ -106,6 +115,7 @@ export async function syncAdminPath(): Promise<void> {
     const { adminPath } = (await res.json()) as { adminPath: string }
 
     if (adminPath && !adminBases.has(adminPath)) {
+      ADMIN_PATH = adminPath
       // `addRoute` remplace toute route portant le même nom : les routes
       // compilées disparaissent donc, et l'ancien chemin cesse de répondre.
       for (const route of adminRoutes(adminPath)) router.addRoute(route)

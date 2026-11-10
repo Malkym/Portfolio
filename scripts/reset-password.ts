@@ -12,13 +12,20 @@
 import 'dotenv/config'
 import { resetToEnvPassword, getAdminHash } from '../server/models/Credentials.js'
 
-resetToEnvPassword()
+async function main() {
+  await resetToEnvPassword()
 
-if (getAdminHash()) {
-  console.log('✓ Mot de passe réinitialisé sur ADMIN_PASSWORD_HASH (fichier .env)')
-  console.log('  Toutes les sessions ouvertes ont été déconnectées.')
-} else {
-  console.warn('⚠ Réinitialisation faite, mais ADMIN_PASSWORD_HASH est vide.')
-  console.warn('  Générez-en un : npm run hash -- "votreMotDePasse"')
-  process.exitCode = 1
+  if (await getAdminHash()) {
+    console.log('✓ Mot de passe réinitialisé sur ADMIN_PASSWORD_HASH (fichier .env)')
+    console.log('  Toutes les sessions ouvertes ont été déconnectées.')
+  } else {
+    console.warn('⚠ Réinitialisation faite, mais ADMIN_PASSWORD_HASH est vide.')
+    console.warn('  Générez-en un : npm run hash -- "votreMotDePasse"')
+    process.exitCode = 1
+  }
 }
+
+main().catch((e) => {
+  console.error('Reset password failed:', e)
+  process.exit(1)
+})

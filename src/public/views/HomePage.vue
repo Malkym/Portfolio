@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, nextTick, watch } from 'vue'
+import { computed, onMounted, nextTick, watch, ref } from 'vue'
 import { AlertTriangle } from '@lucide/vue'
 import { storeToRefs } from 'pinia'
 import { usePortfolioStore } from '../store/portfolioStore'
@@ -18,10 +18,16 @@ import MiscSections from '../components/MiscSections.vue'
 import CustomSectionRenderer from '../components/CustomSectionRenderer.vue'
 import ContactSection from '../components/ContactSection.vue'
 import EngagementSection from '../components/EngagementSection.vue'
+import CvSection from '../components/CvSection.vue'
+import { api } from '@shared/utils/api'
+import type { CVPublicBrief } from '@shared/types/cv.types'
 
 const store = usePortfolioStore()
 const { data, loading, error } = storeToRefs(store)
 const { trackView } = useEngagement()
+
+/** CV publiés : la vitrine du site n'appelle l'API que si elle est consultée. */
+const publishedCVs = ref<CVPublicBrief[]>([])
 
 watch(data, (value) => {
   if (!value?.branding.favicon) return
@@ -58,7 +64,8 @@ const navLinks = computed(() => {
     .filter((s) => s.kind === 'custom')
     .map((s) => ({ id: s.key, label: (s as { section: { name: string } }).section.name }))
 
-  return [...links, ...custom, { id: 'contact', label: 'Contact' }]
+  const cvLink = publishedCVs.value.length ? [{ id: 'cv', label: 'CV en ligne' }] : []
+  return [...links, ...custom, ...cvLink, { id: 'contact', label: 'Contact' }]
 })
 
 /** Numérotation continue des sections, y compris les sections dynamiques. */
@@ -68,6 +75,13 @@ function sectionIndex(id: string): number {
 
 onMounted(async () => {
   await store.load()
+
+  // Les CV publiés ne doivent pas retarder le premier rendu ni bloquer le
+  // portfolio si l'API CV est indisponible : échec silencieux, section absente.
+  void api
+    .get<CVPublicBrief[]>('/cv/public')
+    .then((cvs) => { publishedCVs.value = cvs })
+    .catch(() => {})
 
   // La vue n'est comptée qu'après un chargement réussi, pour ne pas gonfler
   // les statistiques avec des pages en erreur.
@@ -190,6 +204,9 @@ onMounted(async () => {
           :index="sectionIndex(entry.id)"
         />
       </template>
+
+      <!-- Vitrine des CV publiés : aperçu bref + consultation + téléchargement. -->
+      <CvSection :cvs="publishedCVs" :index="store.activeSections.length + 1" />
 
       <EngagementSection
         v-if="

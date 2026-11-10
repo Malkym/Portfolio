@@ -358,6 +358,64 @@ sans lui, le garde intercepte aussi les requêtes des routeurs montés après.
 
 ---
 
+## Générateur de CV
+
+Le portfolio intègre un **générateur de CV professionnel** accessible depuis l'administration.
+
+### Fonctionnalités
+
+- **30 thèmes** (Corporate, Tech, Creative, Classic) avec preview temps réel
+- **Éditeur structuré par sections** : header, summary, experience, education, skills, projects, certifications, languages, publications, custom
+- **Drag & drop** pour réordonner les sections
+- **Sync depuis le portfolio** : pré-remplit experience, education, skills, projects
+- **Export PDF** (Puppeteer serveur, qualité impression A4)
+- **Publication publique** : URL `/cv/mon-cv-slug` + bouton PDF public
+- **Vitrine sur l'accueil public** : une section « CV en ligne » liste les CV publiés avec aperçu bref, lien direct et téléchargement PDF
+- **Import/Export JSON** pour backup/portabilité
+
+### Utilisation
+
+1. Administration → onglet **CV Generator**
+2. **Nouveau CV** → donner un titre et choisir un thème (ex: `clean-white`, `executive-dark`, `dev-terminal`). Aucun contenu fictif n'est ajouté.
+3. Ajouter des sections ou utiliser **Importer depuis Portfolio**. Attention : cet import remplace les sections du CV après confirmation.
+4. Remplir les champs ; l'éditeur TipTap gère les textes enrichis. Les modifications sont enregistrées automatiquement et l'aperçu reste visible.
+5. **Choisir un thème** → filtrer les 30 thèmes, survoler pour essayer sans enregistrer, cliquer pour appliquer.
+6. **Télécharger PDF** ou **Publier**, puis **Voir le CV public** pour ouvrir `/cv/votre-slug`. Le CV publié apparaît aussi dans la section **CV en ligne** de la page d'accueil.
+
+Un CV publié est mis en avant sur le site public : carte avec le nom, le rôle et un bref
+résumé (180 caractères max, sans e-mail ni téléphone), un lien « Voir le CV » vers
+`/cv/votre-slug` et un bouton « Télécharger le CV en PDF ». La navigation ajoute
+automatiquement l'entrée « CV en ligne » tant qu'au moins un CV est publié, et elle
+disparaît après dépublication.
+
+Le PDF administrateur conserve les coordonnées. La page publique et son PDF masquent
+l'e-mail, le téléphone et les éléments désactivés. L'aperçu est continu ; l'export est paginé en A4.
+Les instantanés de CV sont conservés séparément en base (50 par CV) ; l'import JSON permet
+de restaurer un export. Ne partagez pas un export JSON contenant vos coordonnées privées.
+
+### Développement
+
+```bash
+npm run cv:themes    # Régénère les 30 thèmes JSON
+npm run test:cv      # Parcours Chromium, base et uploads temporaires, sans toucher aux données réelles
+npm run test:cv:visual # Captures des 30 thèmes et six PDF dans /tmp/opencode/cv-visuals
+```
+
+Utilisez une version récente de Node 22 (22.13+) ou Node 24. L'éditeur riche est chargé
+séparément du portfolio public. Les PDF nécessitent Chromium ; Docker l'installe et garde
+les thèmes CV hors du volume `/app/data` pour qu'un montage persistant ne les masque pas.
+Sans Docker, Puppeteer utilise son navigateur installé ou `PUPPETEER_EXECUTABLE_PATH`.
+`CV_DESIGNS_PATH` permet de choisir le dossier des thèmes ; `UPLOADS_PATH` celui des images.
+Les polices distantes nécessitent Internet ; des polices système prennent le relais sinon.
+
+Le contrôle visuel vérifie aussi le contenu, les débordements et les contrastes des titres
+et dates des 30 thèmes. Si Poppler est installé (`pdftotext`, `pdfinfo`, `pdftoppm`), il
+contrôle le texte des six PDF et génère leurs aperçus rasterisés.
+
+Voir [le rapport de validation CV](docs/CV_GENERATOR_VALIDATION.md).
+
+---
+
 ## Sauvegardes
 
 Trois niveaux, du plus léger au plus complet :

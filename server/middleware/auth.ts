@@ -6,8 +6,6 @@ import { getAuthEpoch } from '../models/Credentials.js'
 const JWT_SECRET =
   process.env.JWT_SECRET ||
   (() => {
-    // En dev on tolère un secret éphémère : les sessions sautent au redémarrage,
-    // ce qui est gênant mais pas dangereux. En production on refuse de démarrer.
     if (process.env.NODE_ENV === 'production') {
       throw new Error('JWT_SECRET manquant : refus de démarrer en production.')
     }
@@ -37,28 +35,34 @@ function extractToken(req: Request): string | null {
   return cookie || null
 }
 
+/** Wrapper pour middleware async : capture les erreurs et les passe à next(). */
+export function asyncMiddleware(
+  fn: (req: Request, res: Response, next: NextFunction) => Promise<void>,
+) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch(next)
+  }
+}
+
 /** Barrière d'accès à toute l'API d'administration. */
-export function requireAuth(req: Request, res: Response, next: NextFunction): void {
+export const requireAuth = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
   const token = extractToken(req)
   const payload = token ? verifyToken(token) : null
 
   if (!payload) {
-    // Message volontairement neutre : aucune information sur ce qui a échoué.
     res.status(401).json({ error: 'Non autorisé' })
     return
   }
 
-  // Un jeton signé mais émis avant le dernier changement de mot de passe est
-  // rejeté. C'est ce qui coupe réellement l'accès à une session déjà ouverte —
-  // la signature seule resterait valable pendant sept jours.
-  if (Number(payload.epoch ?? 0) !== getAuthEpoch()) {
+  const currentEpoch = await getAuthEpoch()
+  if (Number(payload.epoch ?? 0) !== currentEpoch) {
     res.status(401).json({ error: 'Session expirée' })
     return
   }
 
   ;(req as Request & { admin?: unknown }).admin = payload
   next()
-}
+})
 
 /**
  * Identifiant de visiteur stable et anonyme.

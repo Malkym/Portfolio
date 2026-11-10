@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { db, logAction } from '../database/db.js'
+import { run, get, logAction } from '../database/db.js'
 import { signToken, requireAuth, TOKEN_COOKIE, clientIp } from '../middleware/auth.js'
 import {
   getAdminHash,
@@ -16,37 +16,37 @@ const MAX_ATTEMPTS = 5
 const WINDOW_MINUTES = 15
 
 /** Combien de tentatives ratées sur la fenêtre glissante pour cette IP ? */
-function recentFailures(ip: string): number {
-  const row = db
-    .prepare(
-      `SELECT COUNT(*) AS n FROM login_attempts
-       WHERE ip = ? AND success = 0 AND created_at > datetime('now', ?)`,
-    )
-    .get(ip, `-${WINDOW_MINUTES} minutes`) as { n: number }
-  return row.n
+async function recentFailures(ip: string): Promise<number> {
+  const row = await get<{ n: number }>(
+    `SELECT COUNT(*) AS n FROM login_attempts
+     WHERE ip = ? AND success = 0 AND created_at > datetime('now', ?)`,
+    ip,
+    `-${WINDOW_MINUTES} minutes`,
+  )
+  return row?.n ?? 0
 }
 
-function recordAttempt(ip: string, success: boolean): void {
-  db.prepare('INSERT INTO login_attempts (ip, success) VALUES (?, ?)').run(ip, success ? 1 : 0)
-  db.prepare("DELETE FROM login_attempts WHERE created_at < datetime('now', '-1 day')").run()
+async function recordAttempt(ip: string, success: boolean): Promise<void> {
+  await run('INSERT INTO login_attempts (ip, success) VALUES (?, ?)', ip, success ? 1 : 0)
+  await run("DELETE FROM login_attempts WHERE created_at < datetime('now', '-1 day')")
 }
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const ip = clientIp(req)
   const { password, answer } = req.body ?? {}
 
-  if (recentFailures(ip) >= MAX_ATTEMPTS) {
+  if (await recentFailures(ip) >= MAX_ATTEMPTS) {
     res.status(429).json({ error: `Trop de tentatives. Réessayez dans ${WINDOW_MINUTES} minutes.` })
     return
   }
 
-  if (!getAdminHash()) {
+  if (!(await getAdminHash())) {
     console.error('[auth] Aucun mot de passe configuré (ADMIN_PASSWORD_HASH manquant).')
     res.status(500).json({ error: 'Authentification indisponible' })
     return
   }
 
-  const passwordOk = verifyPassword(password)
+  const passwordOk = await verifyPassword(password)
 
   // 2FA optionnel : question secrète. Activée seulement si la variable existe.
   const expectedAnswer = process.env.ADMIN_SECRET_ANSWER
@@ -56,7 +56,7 @@ router.post('/login', (req, res) => {
       answer.trim().toLowerCase() === expectedAnswer.trim().toLowerCase())
 
   if (!passwordOk || !answerOk) {
-    recordAttempt(ip, false)
+    await recordAttempt(ip, false)
     logAction('login_failed', '', ip)
     // Réponse identique quelle que soit la cause : ni le mot de passe ni la
     // question secrète ne doivent pouvoir être devinés séparément.
@@ -64,10 +64,10 @@ router.post('/login', (req, res) => {
     return
   }
 
-  recordAttempt(ip, true)
+  await recordAttempt(ip, true)
   logAction('login_success', '', ip)
 
-  const token = signToken({ role: 'admin', epoch: getAuthEpoch() })
+  const token = signToken({ role: 'admin', epoch: await getAuthEpoch() })
 
   res.cookie(TOKEN_COOKIE, token, {
     httpOnly: true,
@@ -91,8 +91,8 @@ router.get('/me', requireAuth, (_req, res) => {
 })
 
 /** Renouvellement glissant du token. */
-router.post('/refresh', requireAuth, (_req, res) => {
-  const token = signToken({ role: 'admin', epoch: getAuthEpoch() })
+router.post('/refresh', requireAuth, async (_req, res) => {
+  const token = signToken({ role: 'admin', epoch: await getAuthEpoch() })
   res.cookie(TOKEN_COOKIE, token, {
     httpOnly: true,
     sameSite: 'strict',
@@ -113,30 +113,30 @@ router.post('/refresh', requireAuth, (_req, res) => {
  * passe compromis. On réémet donc immédiatement un jeton à jour pour ne pas
  * éjecter la personne légitime.
  */
-router.post('/password', requireAuth, (req, res) => {
+router.post('/password', requireAuth, async (req, res) => {
   const { currentPassword, newPassword } = req.body ?? {}
   const ip = clientIp(req)
 
   // Le rate limiting s'applique aussi ici : cette route révèle si le mot de
   // passe actuel est correct, elle est donc devinable par répétition.
-  if (recentFailures(ip) >= MAX_ATTEMPTS) {
+  if (await recentFailures(ip) >= MAX_ATTEMPTS) {
     res.status(429).json({ error: `Trop de tentatives. Réessayez dans ${WINDOW_MINUTES} minutes.` })
     return
   }
 
-  const result = changePassword(String(currentPassword ?? ''), String(newPassword ?? ''))
+  const result = await changePassword(String(currentPassword ?? ''), String(newPassword ?? ''))
 
   if (!result.ok) {
-    recordAttempt(ip, false)
+    await recordAttempt(ip, false)
     logAction('password_change_failed', '', ip)
     res.status(400).json({ error: result.error })
     return
   }
 
-  recordAttempt(ip, true)
+  await recordAttempt(ip, true)
   logAction('password_changed', '', ip)
 
-  const token = signToken({ role: 'admin', epoch: getAuthEpoch() })
+  const token = signToken({ role: 'admin', epoch: await getAuthEpoch() })
 
   res.cookie(TOKEN_COOKIE, token, {
     httpOnly: true,
@@ -153,9 +153,9 @@ router.post('/password', requireAuth, (req, res) => {
 })
 
 /** État de la configuration d'authentification, affiché dans le panneau. */
-router.get('/security', requireAuth, (_req, res) => {
+router.get('/security', requireAuth, async (_req, res) => {
   res.json({
-    passwordSource: isPasswordOverridden() ? 'database' : 'environment',
+    passwordSource: (await isPasswordOverridden()) ? 'database' : 'environment',
     twoFactorEnabled: !!process.env.ADMIN_SECRET_QUESTION,
     minPasswordLength: MIN_PASSWORD_LENGTH,
   })

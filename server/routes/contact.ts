@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { randomUUID } from 'node:crypto'
 import { z } from 'zod'
-import { db, logAction } from '../database/db.js'
+import { run, get, all, logAction } from '../database/db.js'
 import { requireAuth, visitorId, clientIp } from '../middleware/auth.js'
 import { loadPortfolio } from '../models/PortfolioData.js'
 
@@ -16,8 +16,8 @@ const messageSchema = z.object({
   website: z.string().max(0).optional(),
 })
 
-router.post('/contact', (req, res) => {
-  if (!loadPortfolio().contact.formEnabled) {
+router.post('/contact', async (req, res) => {
+  if (!(await loadPortfolio()).contact.formEnabled) {
     res.status(403).json({ error: 'Le formulaire est désactivé' })
     return
   }
@@ -36,20 +36,18 @@ router.post('/contact', (req, res) => {
   }
 
   const visitor = visitorId(req)
-  const recent = db
-    .prepare(
-      "SELECT COUNT(*) AS n FROM messages WHERE ip = ? AND created_at > datetime('now','-1 hour')",
-    )
-    .get(clientIp(req)) as { n: number }
+  const recent = await get<{ n: number }>(
+    "SELECT COUNT(*) AS n FROM messages WHERE ip = ? AND created_at > datetime('now','-1 hour')",
+    clientIp(req),
+  )
 
-  if (recent.n >= 5) {
+  if ((recent?.n ?? 0) >= 5) {
     res.status(429).json({ error: 'Trop de messages envoyés. Réessayez plus tard.' })
     return
   }
 
-  db.prepare(
+  await run(
     'INSERT INTO messages (id, name, email, subject, body, ip) VALUES (?, ?, ?, ?, ?, ?)',
-  ).run(
     randomUUID(),
     parsed.data.name,
     parsed.data.email,
@@ -68,25 +66,22 @@ router.post('/contact', (req, res) => {
 
 router.use('/admin', requireAuth)
 
-router.get('/admin/messages', (_req, res) => {
-  res.json(db.prepare('SELECT * FROM messages ORDER BY created_at DESC').all())
+router.get('/admin/messages', async (_req, res) => {
+  res.json(await all('SELECT * FROM messages ORDER BY created_at DESC'))
 })
 
-router.get('/admin/messages/unread', (_req, res) => {
-  const row = db.prepare('SELECT COUNT(*) AS n FROM messages WHERE read = 0').get() as { n: number }
-  res.json({ unread: row.n })
+router.get('/admin/messages/unread', async (_req, res) => {
+  const row = await get<{ n: number }>('SELECT COUNT(*) AS n FROM messages WHERE read = 0')
+  res.json({ unread: row?.n ?? 0 })
 })
 
-router.patch('/admin/messages/:id', (req, res) => {
-  db.prepare('UPDATE messages SET read = ? WHERE id = ?').run(
-    req.body?.read === false ? 0 : 1,
-    req.params.id,
-  )
+router.patch('/admin/messages/:id', async (req, res) => {
+  await run('UPDATE messages SET read = ? WHERE id = ?', req.body?.read === false ? 0 : 1, req.params.id)
   res.json({ ok: true })
 })
 
-router.delete('/admin/messages/:id', (req, res) => {
-  db.prepare('DELETE FROM messages WHERE id = ?').run(req.params.id)
+router.delete('/admin/messages/:id', async (req, res) => {
+  await run('DELETE FROM messages WHERE id = ?', req.params.id)
   logAction('delete_message', req.params.id, clientIp(req))
   res.json({ ok: true })
 })

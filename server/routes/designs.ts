@@ -37,7 +37,7 @@ function allThemes(): Map<string, ThemeDefinition> {
   return map
 }
 
-export function invalidateThemeCache(): void {
+function invalidateThemeCache(): void {
   cache = null
 }
 
@@ -49,9 +49,14 @@ export function invalidateThemeCache(): void {
  * Le repli est important : dans 15 ans, si un fichier de thème a disparu,
  * le site doit continuer à s'afficher.
  */
-export function resolveActiveTheme(): ThemeDefinition {
+/** Charge un thème par son id, ou null s'il est introuvable. */
+export function loadThemeById(id: string): ThemeDefinition | null {
+  return allThemes().get(id) ?? null
+}
+
+export async function resolveActiveTheme(): Promise<ThemeDefinition> {
   const themes = allThemes()
-  const { design } = loadPortfolio()
+  const { design } = await loadPortfolio()
 
   if (design.autoRotate) {
     const month = String(new Date().getMonth() + 1)
@@ -83,9 +88,9 @@ router.get('/designs', (_req, res) => {
 })
 
 /** Thème actif résolu, personnalisations admin déjà fusionnées. */
-router.get('/designs/active', (_req, res) => {
-  const theme = resolveActiveTheme()
-  const { design } = loadPortfolio()
+router.get('/designs/active', async (_req, res) => {
+  const theme = await resolveActiveTheme()
+  const { design } = await loadPortfolio()
 
   res.json({
     ...theme,
@@ -113,7 +118,7 @@ router.get('/designs/:id', (req, res) => {
 
 router.use('/admin', requireAuth)
 
-router.post('/admin/designs/activate', (req, res) => {
+router.post('/admin/designs/activate', async (req, res) => {
   const id = String(req.body?.id ?? '')
   if (!allThemes().has(id)) {
     res.status(404).json({ error: 'Thème introuvable' })
@@ -122,12 +127,12 @@ router.post('/admin/designs/activate', (req, res) => {
 
   // Activer manuellement coupe la rotation : sinon le choix serait écrasé
   // au changement de mois, ce qui serait déroutant.
-  savePortfolio({ design: { ...loadPortfolio().design, active: id, autoRotate: false } })
+  await savePortfolio({ design: { ...(await loadPortfolio()).design, active: id, autoRotate: false } })
   logAction('activate_theme', id, clientIp(req))
   res.json({ ok: true, active: id })
 })
 
-router.put('/admin/designs/schedule', (req, res) => {
+router.put('/admin/designs/schedule', async (req, res) => {
   const schedule = (req.body?.schedule ?? {}) as Record<string, string>
   const themes = allThemes()
 
@@ -142,8 +147,8 @@ router.put('/admin/designs/schedule', (req, res) => {
     }
   }
 
-  const design = loadPortfolio().design
-  savePortfolio({
+  const design = (await loadPortfolio()).design
+  await savePortfolio({
     design: { ...design, schedule, autoRotate: req.body?.autoRotate ?? design.autoRotate },
   })
   logAction('update_schedule', Object.keys(schedule).join(','), clientIp(req))
@@ -151,7 +156,7 @@ router.put('/admin/designs/schedule', (req, res) => {
 })
 
 /** Import d'un thème personnalisé fourni en JSON. */
-router.post('/admin/designs/upload', (req, res) => {
+router.post('/admin/designs/upload', async (req, res) => {
   const theme = req.body as ThemeDefinition
 
   const missing = ['id', 'name', 'colors', 'typography'].filter(
@@ -179,9 +184,9 @@ router.post('/admin/designs/upload', (req, res) => {
 })
 
 /** Personnalisation du thème actif (couleurs, typo, CSS libre). */
-router.patch('/admin/designs/customize', (req, res) => {
-  const design = loadPortfolio().design
-  const updated = savePortfolio({
+router.patch('/admin/designs/customize', async (req, res) => {
+  const design = (await loadPortfolio()).design
+  const updated = await savePortfolio({
     design: {
       ...design,
       customColors: req.body?.customColors ?? design.customColors,
@@ -195,9 +200,9 @@ router.patch('/admin/designs/customize', (req, res) => {
   res.json(updated.design)
 })
 
-router.post('/admin/designs/reset-customization', (req, res) => {
-  const design = loadPortfolio().design
-  const updated = savePortfolio({
+router.post('/admin/designs/reset-customization', async (req, res) => {
+  const design = (await loadPortfolio()).design
+  const updated = await savePortfolio({
     design: { ...design, customColors: {}, customTypography: {}, customCss: '' },
   })
   logAction('reset_customization', '', clientIp(req))
