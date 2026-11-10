@@ -340,6 +340,16 @@ test.describe('Générateur CV — parcours réels', () => {
     ])
     expect((await readFile((await download.path())!, 'utf8')).slice(0, 5)).toBe('%PDF-')
 
+    // Régression : la navigation interne doit réellement afficher le CV.
+    // (Le clic SPA menait à un écran vide : Transition out-in d'App.vue bloquait
+    // le montage des routes asynchrones — /cv/:slug et l'admin compris.)
+    await card.getByRole('link', { name: 'Voir le CV', exact: true }).click()
+    const pubDoc = visitor.frameLocator('iframe[title="CV publié"]')
+    await expect(pubDoc.getByText('Studio Horizon', { exact: true })).toBeVisible()
+
+    // Retour à l'accueil pour mesurer la disparition de la carte à la dépublication.
+    await visitor.goto('/')
+
     await page.getByRole('button', { name: 'Dépublier le CV', exact: true }).click()
     await expect.poll(async () => {
       await visitor.reload()

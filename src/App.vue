@@ -17,9 +17,14 @@ const route = useRoute()
   </a>
 
   <RouterView v-slot="{ Component }">
-    <Transition name="page" mode="out-in">
-      <component :is="Component" />
-    </Transition>
+    <!--
+      RouterView sans Transition : avec `mode="out-in"`, le montage des routes
+      en import dynamique restait bloqué après le fondu de sortie — le clic
+      « Voir le CV » menait à un écran vide (composant jamais instancié),
+      idem pour l'ouverture admin. Les révéler au scroll (v-reveal) assurent
+      l'animation ; ici, la fiabilité prime sur un fondu de 220 ms.
+    -->
+    <component :is="Component" />
   </RouterView>
 </template>
 

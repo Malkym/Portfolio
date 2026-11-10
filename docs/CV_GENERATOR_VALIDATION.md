@@ -48,6 +48,10 @@ et un dossier d'uploads temporaires sous `/tmp/opencode`.
   les encres textuelles sont ajustées, les couleurs d'accent sont conservées.
 - L'image Docker ne livrait pas les thèmes CV ; ils sont désormais générés et copiés hors
   du volume de données. Le contexte Docker exclut aussi secrets, bases et uploads locaux.
+- La transition de route (`mode="out-in"` dans `App.vue`) bloquait le montage des routes
+  en import dynamique : « Voir le CV » et l'ouverture admin (raccourci « admin ») montraient
+  un écran vide jusqu'au rafraîchissement. Le routeur n'est plus enveloppé dans une
+  transition ; la comparaison avec/sans en a fait la preuve, couverte par E2E.
 
 ## Choix d'implémentation
 
