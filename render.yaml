@@ -1,40 +1,41 @@
 # Déploiement Render — https://render.com
 #
-# Render est adapté à ce projet parce qu'il propose un DISQUE PERSISTANT.
-# C'est la condition indispensable : toutes les données du portfolio vivent
-# dans des fichiers (base SQLite + images envoyées). Sur un hébergeur
-# serverless au système de fichiers éphémère (Vercel, Netlify Functions),
-# ces données seraient effacées à chaque déploiement.
+# Stratégie « base de données déportée » (Turso / libSQL, plan gratuit).
+# Les données (contenu, likes, messages, commentaires, thème actif) vivent
+# dans une base Turso hébergée dans le cloud : le système de fichiers
+# éphémère du plan gratuit de Render n'est plus un obstacle, ni au
+# déploiement ni à la mise en veille.
 #
-# ATTENTION AUX CHEMINS : ce service se construit à partir du Dockerfile,
-# où l'application vit dans /app. Le disque doit donc être monté sur
-# /app/data, et DATABASE_PATH pointer dedans. Un chemin hors du volume
-# donnerait un site fonctionnel… dont les données disparaîtraient au
-# déploiement suivant.
+# La base se règle par DEUX variables, à saisir dans le tableau de bord
+# Render (Environment) — jamais dans ce fichier versionné :
+#   TURSO_DATABASE_URL   ex. libsql://portfolio-votrecompte.turso.io
+#   TURSO_AUTH_TOKEN     jeton généré depuis le tableau de bord Turso
+#
+# Sans elles, l'application démarre quand même… sur une SQLite locale
+# éphémère : contenus réinitialisés à chaque déploiement. Vérifiez-les.
+#
+# Contrepartie acceptée : les IMAGES ENVOYÉES depuis l'administration ne
+# survivent pas (aucun disque persistant). Utilisez des URLs d'images
+# externes — le champ est prévu dans l'administration.
+#
+# La mise en veille subsiste (inactivité ≈ 15 min, réveil ≈ 1 min).
+# Un ping externe toutes les 10 minutes (UptimeRobot, cron-job.org —
+# gratuits) sur /api/health empêche le service de dormir.
 
 services:
   - type: web
     name: portfolio
     runtime: docker
     dockerfilePath: ./Dockerfile
-    plan: starter # le plan gratuit ne permet pas les disques persistants
+    plan: free
     region: frankfurt
     branch: main
 
     healthCheckPath: /api/health
 
-    disk:
-      name: portfolio-data
-      mountPath: /app/data
-      sizeGB: 1
-
     envVars:
       - key: NODE_ENV
         value: production
-
-      # Doit rester à l'intérieur de `mountPath` ci-dessus.
-      - key: DATABASE_PATH
-        value: /app/data/portfolio.db
 
       # Générés automatiquement par Render, jamais visibles dans le dépôt.
       - key: JWT_SECRET
@@ -42,13 +43,18 @@ services:
       - key: VISITOR_SALT
         generateValue: true
 
+      # Base distante — le factory de server/database/db.ts bascule sur le
+      # pilote Turso dès que TURSO_DATABASE_URL est défini.
+      - key: TURSO_DATABASE_URL
+        sync: false
+      - key: TURSO_AUTH_TOKEN
+        sync: false
+
       # À saisir à la main dans le tableau de bord Render (Environment).
       # `sync: false` empêche toute valeur d'atterrir dans ce fichier versionné.
       - key: ADMIN_PASSWORD_HASH
         sync: false
       - key: ADMIN_PATH
-        sync: false
-      - key: VITE_ADMIN_PATH
         sync: false
       - key: ADMIN_SECRET_QUESTION
         sync: false
